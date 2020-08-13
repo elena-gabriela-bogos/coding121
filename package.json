@@ -1,0 +1,16 @@
+{
+  "name": "coding121_init",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "backpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "backpack-core": "^0.8.4",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}
