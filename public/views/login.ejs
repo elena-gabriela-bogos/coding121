@@ -1,0 +1,45 @@
+<% var message; %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding121</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        #loginForm {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            width: 300px;
+        }
+
+        .formElement {
+            margin: 20px;
+        }
+
+        .formButton {
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+<form id="loginForm" action="/login" method="post">
+    <div class="formElement">
+        <label>Username
+            <input type="text" id="username" name="username">
+        </label>
+    </div>
+    <div class="formElement">
+        <label>Password
+            <input type="text" id="password" name="password">
+        </label>
+    </div>
+    <div class="formButton">
+        <button id="loginButton">Login</button>
+    </div>
+    <div id="loginMessage"><%= message %></div>
+</form>
+<script type="application/javascript" src="../scripts/login.js"></script>
+</body>
+</html>
