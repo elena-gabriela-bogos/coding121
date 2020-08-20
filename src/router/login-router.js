@@ -22,14 +22,15 @@ loginRouter.post('/', (req, res) => {
                     if (user.length === 1) {
                         req.session.loggedin = true;
                         req.session.username = username;
+                        req.session.userId = user[0].id;
                         res.redirect("/u/dashboard");
                     } else {
-                        res.render(path.resolve('public/views/login.ejs'), {"message": "Invalid username or password"});
+                        res.render(path.resolve('public/views/login.ejs'), {"message": "Invalid email or password"});
                     }
                 }
             }
         );
     } else {
-        res.render(path.resolve('public/views/login.ejs'), {"message": "Invalid username or password"});
+        res.render(path.resolve('public/views/login.ejs'), {"message": "Invalid email or password"});
     }
 });

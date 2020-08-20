@@ -6,6 +6,7 @@ import {dashboardRouter} from "./router/dashboard-router";
 import cors from 'cors';
 import session from 'express-session';
 import {userRouter} from "./router/user-router";
+import {welcomePageRouter} from "./router/welcome-router";
 
 const app = express();
 const port = 3000;
@@ -16,8 +17,6 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-app.use(express.static(path.join(__dirname, '../public')));
-
 app.use(session({
     secret: 'secret',
     resave: false,
@@ -26,9 +25,12 @@ app.use(session({
 
 app.set('view engine', 'ejs');
 
+app.use("/", welcomePageRouter);
 app.use('/login', loginRouter);
 app.use('/u/dashboard', dashboardRouter);
 app.use('/api/user', userRouter);
+
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

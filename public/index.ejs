@@ -1,4 +1,3 @@
-<% var message; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,28 +74,24 @@
     </ul>
 
 </nav>
-<section class="u-vpadding">
-    <div class="login-container">
-        <form id="login__form" action="/login" method="post">
-            <div class="login__input__container">
-                <label for="username" class="login__label">Email</label>
-                <div>
-                    <input type="text" id="username" name="username" class="login__input color-section--grey-light">
+
+<header class="header">
+    <div class="row">
+        <div class="grid">
+            <div class="grid__6">
+                <h1 class="heading-primary heading-primary--main">Find a developer for
+                    live mentorship</h1>
+                <div class="nav__log-in">
+                    <a href="/login" class="nav__log-in-btn">Get help now</a>
                 </div>
             </div>
-            <div class="login__input__container">
-                <label for="password" class="login__label">Password</label>
-                <div>
-                    <input type="text" id="password" name="password" class="login__input color-section--grey-light">
-                </div>
+            <div class="grid__6">
+                <img class="header__img" src="img/ilustr_crop.png" alt="">
             </div>
-            <div class="login__input__container">
-                <button id="loginButton" class="login__submit">Login</button>
-            </div>
-            <div id="loginMessage" class="login__input__container"><%= message %></div>
-        </form>
+        </div>
     </div>
-</section>
+</header>
+
 <footer class="footer">
     <div class="row">
 
@@ -235,9 +230,9 @@
         <div class="grid">
             <div class="grid__3 footer__filler"></div>
             <div class="grid__9 footer__legal">
-                Copyright IT Labs &copy; 2020 | Toate drepturile rezervate | <a href="gdpr.html" class="footer__link">Politica
-                    de confidentialitate</a> |
-                <a href="cookie-policy.html" class="footer__link">Politica de utilizare a cookie-urilor</a>
+                Copyright IT Labs &copy; 2020 | Toate drepturile rezervate | <a href="views/gdpr.html" class="footer__link">Politica
+                de confidentialitate</a> |
+                <a href="views/cookie-policy.html" class="footer__link">Politica de utilizare a cookie-urilor</a>
             </div>
         </div>
     </div>
