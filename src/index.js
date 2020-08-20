@@ -2,10 +2,16 @@ import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
 import {loginRouter} from "./router/login-router.js"
-import {dashboardRouter} from "./router/dashboard-router";
+import {menteeDashboardRouter} from "./router/mentee/mentee-dashboard-router";
 import cors from 'cors';
 import session from 'express-session';
 import {userRouter} from "./router/user-router";
+import {welcomePageRouter} from "./router/welcome-router";
+import {menteeRouter} from "./router/mentee/mentee_router";
+import {mentorRouter} from "./router/mentor/mentor_router";
+import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
+import {logoutRouter} from "./router/logout-router";
+import {requestRouter} from "./router/request-router";
 
 const app = express();
 const port = 3000;
@@ -16,8 +22,6 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-app.use(express.static(path.join(__dirname, '../public')));
-
 app.use(session({
     secret: 'secret',
     resave: false,
@@ -26,9 +30,17 @@ app.use(session({
 
 app.set('view engine', 'ejs');
 
+app.use("/", welcomePageRouter);
 app.use('/login', loginRouter);
-app.use('/u/dashboard', dashboardRouter);
+app.use('/logout', logoutRouter);
+app.use('/u/dashboard', menteeDashboardRouter);
+app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
+app.use('/api/mentee', menteeRouter);
+app.use('/api/mentor', mentorRouter);
+app.use('/api/request', requestRouter);
+
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
