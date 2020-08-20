@@ -2,11 +2,14 @@ import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
 import {loginRouter} from "./router/login-router.js"
-import {dashboardRouter} from "./router/dashboard-router";
+import {menteeDashboardRouter} from "./router/mentee/mentee-dashboard-router";
 import cors from 'cors';
 import session from 'express-session';
 import {userRouter} from "./router/user-router";
 import {welcomePageRouter} from "./router/welcome-router";
+import {menteeRouter} from "./router/mentee/mentee_router";
+import {mentorRouter} from "./router/mentor/mentor_router";
+import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 
 const app = express();
 const port = 3000;
@@ -27,8 +30,11 @@ app.set('view engine', 'ejs');
 
 app.use("/", welcomePageRouter);
 app.use('/login', loginRouter);
-app.use('/u/dashboard', dashboardRouter);
+app.use('/u/dashboard', menteeDashboardRouter);
+app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
+app.use('/api/mentee', menteeRouter);
+app.use('/api/mentor', mentorRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
