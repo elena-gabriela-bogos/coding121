@@ -193,7 +193,7 @@ img.responsive {
     text-transform: uppercase;
     letter-spacing: .2rem;
     line-height: 1.2;
-    padding-bottom: 2rem
+    padding-bottom: 4rem
 }
 
 .heading-secondary--grey-dark {
@@ -238,6 +238,11 @@ img.responsive {
     font-size: 1.8rem;
     font-weight: 300
 }
+
+.request__description {
+    /*font-weight: 500*/
+}
+
 
 .nav {
     position: fixed;
@@ -2026,4 +2031,36 @@ img.responsive {
 #loginMessage {
     color: red;
     padding-left: 6rem;
+}
+
+.profile__icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    fill: #fff;
+    border-radius: 50%;
+}
+
+#my__profile__link {
+    margin-left: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-rows:auto;
+    row-gap: 5rem;
+    -webkit-column-gap: 5rem;
+    -moz-column-gap: 5rem;
+    column-gap: 5rem
+}
+
+.request {
+    margin-top: 2rem;
+}
+
+.request__item__text {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    justify-content: space-between;
 }

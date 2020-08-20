@@ -7,7 +7,7 @@ export const loginRouter = express.Router()
 
 loginRouter.get('/', (req, res) => {
     if (req.session.loggedin) {
-        Mentor.findById(req.session.id, (err, mentor) => {
+        Mentor.findById(req.session.userId, (err, mentor) => {
             if (mentor.length === 1) {
                 res.redirect("/m/dashboard");
             } else {
@@ -31,6 +31,7 @@ loginRouter.post('/', (req, res) => {
                         req.session.loggedin = true;
                         req.session.username = username;
                         req.session.userId = userId;
+                        req.session.name = user[0].name;
                         Mentor.findById(userId, (err, mentor) => {
                             if (mentor.length === 1) {
                                 res.redirect("/m/dashboard");

@@ -7,7 +7,7 @@ export const welcomePageRouter = express.Router()
 
 welcomePageRouter.get('/', (req, res) => {
     if (req.session.loggedin) {
-        Mentor.findById(req.session.id, (err, mentor) => {
+        Mentor.findById(req.session.userId, (err, mentor) => {
             if (mentor.length === 1) {
                 res.redirect("/m/dashboard");
             } else {
