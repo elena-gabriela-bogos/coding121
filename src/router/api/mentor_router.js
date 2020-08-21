@@ -1,6 +1,7 @@
 import express from 'express';
 import Mentor from "../../domain/mentor";
 import {checkAuth} from "./authentification";
+import mentor from "../../domain/mentor";
 
 export const mentorRouter = express.Router()
 
@@ -20,8 +21,17 @@ mentorRouter.get('/', checkAuth, (req, res) => {
             skills = [skills];
         }
         Mentor.filterByLF(skills, (err, mentors) => {
-            console.log(mentors);
-        })
+            if (err) {
+                res.send(err);
+            } else {
+                mentors.sort((a, b) => (a.cmp > b.cmp) ? 1 : ((b.cmp < a.cmp) ? -1 : 0));
+                mentors = mentors.map(mentor => {
+                    delete mentor["cmp"];
+                    return mentor;
+                });
+                res.send(mentors);
+            }
+        });
     }
 });
 
