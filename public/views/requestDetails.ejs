@@ -1,4 +1,4 @@
-<% var name, picture; %>
+<% var picture, name, request %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,110 +8,145 @@
     <title>IT-Labs</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
-<nav class="nav">
-    <!-- LOGO -->
-    <a href="/" class="nav__logo">
-        <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
-    </a>
+<section>
+    <nav class="nav">
+        <!-- LOGO -->
+        <a href="/" class="nav__logo">
+            <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
+        </a>
 
-    <!-- MENU LINKS -->
-    <ul class="nav__menu">
-        <!-- ACCOUNT PREFERENCES -->
-        <li class="nav__item">
-            <div class="nav__account">
-                <div class="languages">
-                    <div class="languages__active">
-                        <svg class="languages__chevron">
-                            <use xlink:href="../img/sprite.svg#icon-chevron-down"></use>
-                        </svg>
-                        <svg class="languages__icon">
-                            <use xlink:href="../img/sprite.svg#icon-ro"></use>
+        <!-- MENU LINKS -->
+        <ul class="nav__menu">
+            <!-- ACCOUNT PREFERENCES -->
+            <li class="nav__item">
+                <div class="nav__account">
+                    <div class="languages">
+                        <div class="languages__active">
+                            <svg class="languages__chevron">
+                                <use xlink:href="../img/sprite.svg#icon-chevron-down"></use>
+                            </svg>
+                            <svg class="languages__icon">
+                                <use xlink:href="../img/sprite.svg#icon-ro"></use>
+                            </svg>
+                        </div>
+
+                        <div class="languages__dropdown">
+                            <a href="#" class="languages__link">
+                                <svg class="languages__icon">
+                                    <use xlink:href="../img/sprite.svg#icon-uk"></use>
+                                </svg>
+                            </a>
+
+                            <a href="#" class="languages__link">
+                                <svg class="languages__icon">
+                                    <use xlink:href="../img/sprite.svg#icon-ger"></use>
+                                </svg>
+                            </a>
+
+                            <a href="#" class="languages__link">
+                                <svg class="languages__icon">
+                                    <use xlink:href="../img/sprite.svg#icon-hu"></use>
+                                </svg>
+                            </a>
+
+                            <a href="#" class="languages__link">
+                                <svg class="languages__icon">
+                                    <use xlink:href="../img/sprite.svg#icon-srb"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav__item">
+                <a href="#" class="nav__link">Find mentors</a>
+            </li>
+            <li class="nav__item">
+                <% if (picture == null){ %>
+                    <div class="profile__icon grid-item__circle--1">
+                        <svg>
+                            <use xlink:href="img/sprite.svg#icon-embed2"></use>
                         </svg>
                     </div>
+                <% } %>
+                <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
+            </li>
+            <li class="nav__item">
+                <a href="#" class="nav__link"><img src="../img/icons8-menu-24.png" alt="#"></a>
+                <ul class="nav__sub-menu">
+                    <li class="nav__sub-item"><a href="#" class="nav__sub-link">Dashboard</a></li>
+                    <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
+                    <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
+                    <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
 
-                    <div class="languages__dropdown">
-                        <a href="#" class="languages__link">
-                            <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-uk"></use>
-                            </svg>
-                        </a>
-
-                        <a href="#" class="languages__link">
-                            <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-ger"></use>
-                            </svg>
-                        </a>
-
-                        <a href="#" class="languages__link">
-                            <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-hu"></use>
-                            </svg>
-                        </a>
-
-                        <a href="#" class="languages__link">
-                            <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-srb"></use>
-                            </svg>
-                        </a>
+    </nav>
+</section>
+<section class="features color-section--grey-light u-vpadding">
+    <div class="row row--respond">
+        <a href="/u/dashboard"><img style="margin-bottom: 2rem" src="../img/icons8-back-26.png"></a>
+        <div class="grid__4 request">
+            <div class="request-item__text">
+                <div class='u-flex request__item__text'>
+                    <div class='u-flex-column'>
+                        <h3 class="heading-tertiary heading-secondary--grey-dark"><%= request.description %></h3>
+                        <span class="request__date"><%=
+                            new Date(request.postedAt).toLocaleString(undefined, {
+                                year: 'numeric',
+                                month: 'long',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            }) %>
+                        </span>
+                        <div id="skillsList"></div>
+                    </div>
+                    <div class="u-flex">
+                        <span style="margin-right: 2rem">Status:</span><span
+                                style="margin-right: 2rem;font-weight: bolder"
+                                class="heading-tertiary--grey-dark" id="requestStatusText"><%= request.status %></span>
+                        <label class="switch">
+                            <% if (request.status === "open"){ %>
+                                <input id="requestStatus" type="checkbox" checked>
+                            <% }else{ %>
+                                <input id="requestStatus" type="checkbox">
+                            <% } %>
+                            <span class="slide round"> </span>
+                        </label>
                     </div>
                 </div>
             </div>
-        </li>
-        <li class="nav__item">
-            <a href="#" class="nav__link">Find mentors</a>
-        </li>
-        <li class="nav__item">
-            <% if (picture == null){ %>
-                <div class="profile__icon grid-item__circle--1">
-                    <svg>
-                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
-                    </svg>
-                </div>
-            <% } %>
-            <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
-        </li>
-        <li class="nav__item">
-            <a href="#" class="nav__link"><img src="../img/icons8-menu-24.png" alt="#"></a>
-            <ul class="nav__sub-menu">
-                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Dashboard</a></li>
-                <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
-                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
-                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
-<section class="features color-section--grey-light u-vpadding">
-    <div class="row row--respond">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Get started</h2>
-        <div class="request__button">
-            <a href="/request/" class="course no-decoration heading-secondary--grey-dark">
-                <img src="../img/course.jpg" alt="" class="course__img">
-                <div class="course__duration">
-                    <svg class="course__icon">
-                        <use xlink:href="../img/sprite.svg#icon-stopwatch"></use>
-                    </svg>
-                    <div class="course__time">1:1 mentorship session</div>
-                </div>
-                <div class="course__title">Get live help</div>
-            </a>
         </div>
-        <h2 class="heading-secondary heading-secondary--grey-dark">My requests</h2>
-        <ul class="nav__menu">
-            <li class="nav__item">
-                <a href="#" id="openRequests" class="nav__link">Open</a>
-            </li>
-            <li class="nav__item">
-                <a href="#" id="closedRequests" class="nav__link">Closed</a>
-            </li>
-        </ul>
-        <div id="requestList"></div>
+    </div>
+</section>
+<section class="features color-section--grey-light u-vpadding-bottom">
+    <div class="row row--respond">
+        <div class="h3-margin">
+            <h3 class="heading-tertiary heading-secondary--grey-dark h3-margin">Recommended mentors</h3>
+            <p>These mentors are recommended by us based on your request. View their profile and chat with them to get
+                started.</p>
+        </div>
+        <div class="grid">
+            <div class="grid__4 grid-item">
+                <div class="grid-item__circle grid-item__circle--1">
+                    <svg class="grid-item__icon">
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                </div>
+                <div class="grid-item__text">
+                    <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis cum
+                        deserunt placeat veritatis vero, odio, perferendis sed dignissimos exercitationem ratione
+                        eaque.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <footer class="footer">
@@ -197,7 +232,7 @@
                 </div>
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://www.software-skills4.me" class="footer__link">Software skills for me</a>
                 </div>
@@ -252,8 +287,7 @@
         <div class="grid">
             <div class="grid__3 footer__filler"></div>
             <div class="grid__9 footer__legal">
-                Copyright IT Labs &copy; 2020 | Toate drepturile rezervate | <a href="gdpr.html"
-                                                                                class="footer__link">Politica
+                Copyright IT Labs &copy; 2020 | Toate drepturile rezervate | <a href="gdpr.html" class="footer__link">Politica
                     de confidentialitate</a> |
                 <a href="cookie-policy.html" class="footer__link">Politica de utilizare a cookie-urilor</a>
             </div>
@@ -261,10 +295,10 @@
     </div>
     <!--END ROW-->
 </footer>
-
+<p id="requestId" style="display:none"><%= request.id %></p>
 <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
 <script src="../scripts/bundle.js"></script>
-<script src="../scripts/dashboardMentee.js"></script>
+<script src="../scripts/requestDetails.js"></script>
 </body>
 
 </html>

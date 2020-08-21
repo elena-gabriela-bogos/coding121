@@ -1,9 +1,10 @@
 import express from 'express';
 import Mentee from "../../domain/mentee";
+import {checkAuth} from "./authentification";
 
 export const menteeRouter = express.Router()
 
-menteeRouter.get('/', (req, res) => {
+menteeRouter.get('/', checkAuth, (req, res) => {
     Mentee.findAll((err, mentee) => {
         if (err) {
             res.send(err);
@@ -14,7 +15,7 @@ menteeRouter.get('/', (req, res) => {
     });
 });
 
-menteeRouter.post('/', (req, res) => {
+menteeRouter.post('/', checkAuth, (req, res) => {
     const newMentee = new Mentee(req.body);
 
     Mentee.create(newMentee, function (err, mentee) {
@@ -26,7 +27,7 @@ menteeRouter.post('/', (req, res) => {
     });
 });
 
-menteeRouter.get('/:id', (req, res) => {
+menteeRouter.get('/:id', checkAuth, (req, res) => {
     Mentee.findById(req.params.id, function (err, mentee) {
         if (err) {
             res.send(err);

@@ -1,9 +1,10 @@
 import express from 'express';
-import User from "../domain/user";
+import User from "../../domain/user";
+import {checkAuth} from "./authentification";
 
 export const userRouter = express.Router()
 
-userRouter.get('/', (req, res) => {
+userRouter.get('/', checkAuth, (req, res) => {
     User.findAll((err, user) => {
         if (err) {
             res.send(err);
@@ -14,7 +15,7 @@ userRouter.get('/', (req, res) => {
     });
 });
 
-userRouter.post('/', (req, res) => {
+userRouter.post('/', checkAuth, (req, res) => {
     const newUser = new User(req.body);
 
     User.create(newUser, function (err, user) {
@@ -26,7 +27,7 @@ userRouter.post('/', (req, res) => {
     });
 });
 
-userRouter.get('/:id', (req, res) => {
+userRouter.get('/:id', checkAuth, (req, res) => {
     User.findById(req.params.id, function (err, user) {
         if (err) {
             res.send(err);
