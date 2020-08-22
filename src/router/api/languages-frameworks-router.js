@@ -1,6 +1,6 @@
 import express from 'express';
 import User from "../../domain/user";
-import LanguagesFrameworks from "../../domain/LanguagesFrameworks";
+import LanguagesFrameworks from "../../domain/languages-frameworks";
 import {checkAuth} from "./authentification";
 
 export const languagesFrameworksRouter = express.Router()

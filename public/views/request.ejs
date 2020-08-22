@@ -10,14 +10,14 @@
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
 <nav class="nav">
     <!-- LOGO -->
     <a href="/" class="nav__logo">
-        <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
+        <img title="IT-Labs" src="../../img/logo.png" alt="IT-Labs Logo">
     </a>
 
     <!-- MENU LINKS -->
@@ -28,35 +28,35 @@
                 <div class="languages">
                     <div class="languages__active">
                         <svg class="languages__chevron">
-                            <use xlink:href="../img/sprite.svg#icon-chevron-down"></use>
+                            <use xlink:href="../../img/sprite.svg#icon-chevron-down"></use>
                         </svg>
                         <svg class="languages__icon">
-                            <use xlink:href="../img/sprite.svg#icon-ro"></use>
+                            <use xlink:href="../../img/sprite.svg#icon-ro"></use>
                         </svg>
                     </div>
 
                     <div class="languages__dropdown">
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-uk"></use>
+                                <use xlink:href="../../img/sprite.svg#icon-uk"></use>
                             </svg>
                         </a>
 
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-ger"></use>
+                                <use xlink:href="../../img/sprite.svg#icon-ger"></use>
                             </svg>
                         </a>
 
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-hu"></use>
+                                <use xlink:href="../../img/sprite.svg#icon-hu"></use>
                             </svg>
                         </a>
 
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="../img/sprite.svg#icon-srb"></use>
+                                <use xlink:href="../../img/sprite.svg#icon-srb"></use>
                             </svg>
                         </a>
                     </div>
@@ -70,14 +70,14 @@
             <% if (picture == null){ %>
                 <div class="profile__icon grid-item__circle--1">
                     <svg>
-                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-embed2"></use>
                     </svg>
                 </div>
             <% } %>
             <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
         </li>
         <li class="nav__item">
-            <a href="#" class="nav__link"><img src="../img/icons8-menu-24.png" alt="#"></a>
+            <a href="#" class="nav__link"><img src="../../img/icons8-menu-24.png" alt="#"></a>
             <ul class="nav__sub-menu">
                 <li class="nav__sub-item"><a href="#" class="nav__sub-link">Dashboard</a></li>
                 <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
@@ -90,14 +90,14 @@
 </nav>
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond center-align">
-        <a href="/u/dashboard"><img style="margin-bottom: 2rem" src="../img/icons8-back-26.png"></a>
+        <a href="/u/dashboard"><img style="margin-bottom: 2rem" src="../../img/icons8-back-26.png"></a>
         <h2 class="heading-secondary heading-secondary--grey-dark">Post a mentorship request</h2>
         <div style="margin-bottom: 3rem">Let our mentors know what you need help with. Once your request is posted, you
             can check out mentors'
             profiles and
             chat with them to determine a good fit.
         </div>
-        <form id="requestForm" class="u-flex-column" action="/request" method="post">
+        <form id="requestForm" class="u-flex-column" action="/u/dashboard/request" method="post">
             <h3 class="heading-secondary--grey-dark request__form__input">1. Tell us about what you need help
                 with</h3>
             <textarea id="requestDescription" name="description"
@@ -116,7 +116,7 @@
 
         <div class="grid">
             <div class="grid__3">
-                <img src="../img/logo_white.png" alt="IT-Labs white and black logo" class="footer__logo">
+                <img src="../../img/logo_white.png" alt="IT-Labs white and black logo" class="footer__logo">
             </div>
             <div class="grid__9 footer__heading">
                 IT LABS este o comunitate si un ansamblu de resurse pentru devenirea ta ca programator.
@@ -131,27 +131,27 @@
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-map2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-map2"></use>
                     </svg>
                     <div class="footer__text">Str. Budai Deleanu nr. 13, Timișoara, România</div>
                 </div>
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-phone"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-phone"></use>
                     </svg>
                     <div class="footer__text">+40 728 433 466</div>
                 </div>
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-phone"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-phone"></use>
                     </svg>
                     <div class="footer__text">+40 356 800 009</div>
                 </div>
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-mail-envelope-closed"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-mail-envelope-closed"></use>
                     </svg>
                     <div class="footer__text">contact@it-labs.ro</div>
                 </div>
@@ -162,39 +162,39 @@
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://www.it-labs.ro" class="footer__link">IT Labs</a>
                 </div>
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://www.javabootcamp.net" class="footer__link">Java bootcamp</a>
                 </div>
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://python-bootcamp.net" class="footer__link">Python bootcamp</a>
                 </div>
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://cplusplus4.me" class="footer__link">C/C++ for me</a>
                 </div>
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://www.web-bootcamp.net" class="footer__link">Web bootcamp ?</a>
                 </div>
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://www.software-skills4.me" class="footer__link">Software skills for me</a>
                 </div>
@@ -205,27 +205,27 @@
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-facebook"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-facebook"></use>
                     </svg>
                     <a href="#" class="footer__link">Facebook</a>
                 </div>
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-linkedin2"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-linkedin2"></use>
                     </svg>
                     <a href="#" class="footer__link">Linked in</a>
                 </div>
 
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-whatsapp"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-whatsapp"></use>
                     </svg>
                     <a href="#" class="footer__link">Whatsapp</a>
                 </div>
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="../img/sprite.svg#icon-twitter"></use>
+                        <use xlink:href="../../img/sprite.svg#icon-twitter"></use>
                     </svg>
                     <a href="#" class="footer__link">Twitter</a>
                 </div>
@@ -259,8 +259,8 @@
 </footer>
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
-<script src="../scripts/bundle.js"></script>
-<script src="../scripts/request.js"></script>
+<script src="../../scripts/bundle.js"></script>
+<script src="../../scripts/request.js"></script>
 </body>
 
 </html>

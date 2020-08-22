@@ -12,7 +12,6 @@ import {mentorRouter} from "./router/api/mentor_router";
 import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
 import {requestApiRouter} from "./router/api/request-api-router";
-import {requestRouter} from "./router/request-router";
 import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
 
 const app = express();
@@ -35,7 +34,6 @@ app.set('view engine', 'ejs');
 app.use("/", welcomePageRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/request', requestRouter);
 app.use('/u/dashboard', menteeDashboardRouter);
 app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
