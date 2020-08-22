@@ -12,6 +12,9 @@ import {mentorRouter} from "./router/mentor/mentor_router";
 import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
 import {requestRouter} from "./router/request-router";
+import {signupMenteeRouter} from "./auth/signupMentee-router";
+import {signupMentorRouter} from "./auth/signupMentor-router";
+import {mailSentRouter} from "./auth/mailSent";
 
 const app = express();
 const port = 3000;
@@ -39,6 +42,9 @@ app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
 app.use('/api/request', requestRouter);
+app.use('/signupMentee',signupMenteeRouter);
+app.use('/signupMentor',signupMentorRouter);
+app.use('/mailSent',mailSentRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
