@@ -35,7 +35,9 @@ export default class MentorSkills {
     static findAllMentorSkills(result) {
         const sql = "SELECT u.id,u.name,lf.id as idLF FROM user u " +
             "INNER JOIN mentorsskills ms ON ms.idMentor=u.id " +
-            "INNER JOIN languages_frameworks lf ON ms.idLF=lf.id;"
+            "INNER JOIN languages_frameworks lf ON ms.idLF=lf.id " +
+            "INNER JOIN mentor m ON m.id=u.id " +
+            "WHERE m.valid=1;"
         dbConn.query(sql, function (err, res) {
             if (err) {
                 console.log("error: ", err);

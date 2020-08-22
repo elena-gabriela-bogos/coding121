@@ -8,87 +8,84 @@
     <title>IT-Labs</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="../../../css/style.css">
 </head>
+<body>
+<nav class="nav">
+    <!-- LOGO -->
+    <a href="/" class="nav__logo">
+        <img title="IT-Labs" src="../../../img/logo.png" alt="IT-Labs Logo">
+    </a>
 
-<section>
-    <nav class="nav">
-        <!-- LOGO -->
-        <a href="/" class="nav__logo">
-            <img title="IT-Labs" src="../../../img/logo.png" alt="IT-Labs Logo">
-        </a>
-
-        <!-- MENU LINKS -->
-        <ul class="nav__menu">
-            <!-- ACCOUNT PREFERENCES -->
-            <li class="nav__item">
-                <div class="nav__account">
-                    <div class="languages">
-                        <div class="languages__active">
-                            <svg class="languages__chevron">
-                                <use xlink:href="../../../img/sprite.svg#icon-chevron-down"></use>
-                            </svg>
-                            <svg class="languages__icon">
-                                <use xlink:href="../../../img/sprite.svg#icon-ro"></use>
-                            </svg>
-                        </div>
-
-                        <div class="languages__dropdown">
-                            <a href="#" class="languages__link">
-                                <svg class="languages__icon">
-                                    <use xlink:href="../../../img/sprite.svg#icon-uk"></use>
-                                </svg>
-                            </a>
-
-                            <a href="#" class="languages__link">
-                                <svg class="languages__icon">
-                                    <use xlink:href="../../../img/sprite.svg#icon-ger"></use>
-                                </svg>
-                            </a>
-
-                            <a href="#" class="languages__link">
-                                <svg class="languages__icon">
-                                    <use xlink:href="../../../img/sprite.svg#icon-hu"></use>
-                                </svg>
-                            </a>
-
-                            <a href="#" class="languages__link">
-                                <svg class="languages__icon">
-                                    <use xlink:href="../../../img/sprite.svg#icon-srb"></use>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="nav__item">
-                <a href="#" class="nav__link">Find mentors</a>
-            </li>
-            <li class="nav__item">
-                <% if (picture == null){ %>
-                    <div class="profile__icon grid-item__circle--1">
-                        <svg>
-                            <use xlink:href="../../../img/sprite.svg#icon-embed2"></use>
+    <!-- MENU LINKS -->
+    <ul class="nav__menu">
+        <!-- ACCOUNT PREFERENCES -->
+        <li class="nav__item">
+            <div class="nav__account">
+                <div class="languages">
+                    <div class="languages__active">
+                        <svg class="languages__chevron">
+                            <use xlink:href="../../../img/sprite.svg#icon-chevron-down"></use>
+                        </svg>
+                        <svg class="languages__icon">
+                            <use xlink:href="../../../img/sprite.svg#icon-ro"></use>
                         </svg>
                     </div>
-                <% } %>
-                <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
-            </li>
-            <li class="nav__item">
-                <a href="#" class="nav__link"><img src="../../../img/icons8-menu-24.png" alt="#"></a>
-                <ul class="nav__sub-menu">
-                    <li class="nav__sub-item"><a href="#" class="nav__sub-link">Dashboard</a></li>
-                    <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
-                    <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
-                    <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
-                </ul>
-            </li>
-        </ul>
 
-    </nav>
-</section>
+                    <div class="languages__dropdown">
+                        <a href="#" class="languages__link">
+                            <svg class="languages__icon">
+                                <use xlink:href="../../../img/sprite.svg#icon-uk"></use>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="languages__link">
+                            <svg class="languages__icon">
+                                <use xlink:href="../../../img/sprite.svg#icon-ger"></use>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="languages__link">
+                            <svg class="languages__icon">
+                                <use xlink:href="../../../img/sprite.svg#icon-hu"></use>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="languages__link">
+                            <svg class="languages__icon">
+                                <use xlink:href="../../../img/sprite.svg#icon-srb"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="nav__item">
+            <a href="#" class="nav__link">Find mentors</a>
+        </li>
+        <li class="nav__item">
+            <% if (picture == null){ %>
+                <div class="profile__icon grid-item__circle--1">
+                    <svg>
+                        <use xlink:href="../../../img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                </div>
+            <% } %>
+            <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
+        </li>
+        <li class="nav__item">
+            <a href="#" class="nav__link"><img src="../../../img/icons8-menu-24.png" alt="#"></a>
+            <ul class="nav__sub-menu">
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Dashboard</a></li>
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
+                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
+            </ul>
+        </li>
+    </ul>
+
+</nav>
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond">
         <a href="/u/dashboard"><img style="margin-bottom: 2rem" src="../../../img/icons8-back-26.png"></a>
@@ -283,7 +280,6 @@
     <!--END ROW-->
 </footer>
 <p id="requestId" style="display:none"><%= request.id %></p>
-<!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
 <script src="../../../scripts/bundle.js"></script>
 <script src="../../../scripts/requestDetails.js"></script>
 </body>
