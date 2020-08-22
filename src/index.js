@@ -12,6 +12,7 @@ import {mentorRouter} from "./router/mentor/mentor_router";
 import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
 import {requestRouter} from "./router/request-router";
+import {searchRouter} from "./router/search-router";
 
 const app = express();
 const port = 3000;
@@ -39,6 +40,8 @@ app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
 app.use('/api/request', requestRouter);
+app.use('/search', searchRouter);
+
 
 app.use(express.static(path.join(__dirname, '../public')));
 

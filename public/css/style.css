@@ -90,7 +90,7 @@ img.responsive {
 }
 
 .color-section--primary {
-    background-color: #455aa4
+    background-color: #455aa4;
 }
 
 .color-section--secondary {
@@ -121,6 +121,11 @@ img.responsive {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center
+}
+
+.h_howitworks
+{
+    color:#fff;
 }
 
 .heading-primary {
@@ -779,8 +784,9 @@ img.responsive {
 }
 
 .timeline {
-    width: 100rem;
-    margin: 0 auto;
+    width: 90%;
+    margin-left: 20px;
+    margin-right: 20px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -810,6 +816,7 @@ img.responsive {
 }
 
 .timeline__item {
+    
     display: grid;
     grid-template-columns:6fr 3rem 6fr;
     -webkit-column-gap: 3rem;
@@ -939,16 +946,19 @@ img.responsive {
 
 .profiles {
     display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(-webkit-min-content, 35rem));
-    grid-template-columns:repeat(auto-fit, minmax(min-content, 35rem));
-    -webkit-column-gap: 5rem;
-    -moz-column-gap: 5rem;
+    grid-template-columns: repeat(4,1fr) ;
+    -webkit-column-gap: 20rem;
+    -moz-column-gap: 20rem;
     column-gap: 5rem;
     row-gap: 5rem;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-    justify-content: center
+    justify-content: center;
+ 
+  
 }
+
+
 
 .profiles__profile {
     border-radius: .4rem;
@@ -962,7 +972,8 @@ img.responsive {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-    flex-direction: column
+    flex-direction: column;
+    
 }
 
 .profiles__image {
@@ -977,16 +988,19 @@ img.responsive {
     border-bottom: 0.5rem solid #455aa4
 }
 
-.profiles__image--ovidiu {
-    background-image: url(../img/ovidiu.jpg)
+.profiles__image--elena {
+    background-image: url(../img/elena.jpg)
 }
 
-.profiles__image--sorin {
-    background-image: url(../img/sorin.jpg)
+.profiles__image--gabi {
+    background-image: url(../img/gabi.jpg)
 }
 
-.profiles__image--alice {
-    background-image: url(../img/alice.jpg)
+.profiles__image--silvia {
+    background-image: url(../img/silvia.jpg)
+}
+.profiles__image--maria {
+    background-image: url(../img/maria.jpg)
 }
 
 .profiles__overlay {
@@ -1077,6 +1091,9 @@ img.responsive {
     height: 1.5rem;
     fill: #fff
 }
+
+
+
 
 .course {
     -webkit-box-shadow: 0px 0.5rem 0.5rem 0px rgba(0, 0, 0, 0.1);
@@ -2063,4 +2080,11 @@ img.responsive {
     -ms-flex-direction: row;
     flex-direction: row;
     justify-content: space-between;
+}
+.timeline {
+    width: 100rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
 }
