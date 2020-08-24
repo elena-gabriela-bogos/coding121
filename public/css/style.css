@@ -19,7 +19,11 @@
         transform: rotate(360deg)
     }
 }
-
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 :root {
     --color-primary: rgb(69, 90, 164);
     --color-secondary: rgb(123, 188, 232);

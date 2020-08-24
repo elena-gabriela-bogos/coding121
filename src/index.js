@@ -12,6 +12,8 @@ import {mentorRouter} from "./router/mentor/mentor_router";
 import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
 import {requestRouter} from "./router/request-router";
+import {menteeHistoryRouter} from "./router/sessions/menteeHistoryRouter";
+
 
 const app = express();
 const port = 3000;
@@ -33,12 +35,14 @@ app.set('view engine', 'ejs');
 app.use("/", welcomePageRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+
 app.use('/u/dashboard', menteeDashboardRouter);
 app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
 app.use('/api/request', requestRouter);
+app.use('/m/history', menteeHistoryRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
