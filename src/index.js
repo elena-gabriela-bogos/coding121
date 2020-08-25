@@ -13,6 +13,8 @@ import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
 import {requestApiRouter} from "./router/api/request-api-router";
 import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
+import {sessionRouter} from "./router/api/session-router";
+
 
 const app = express();
 const port = 3000;
@@ -41,6 +43,8 @@ app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
 app.use('/api/request', requestApiRouter);
 app.use('/api/skills', languagesFrameworksRouter);
+app.use('/m/history', sessionRouter);
+
 
 app.use(express.static(path.join(__dirname, '../public')));
 

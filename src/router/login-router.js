@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import User from "../domain/user";
 import Mentor from "../domain/mentor";
+import {sessionRouter} from "./api/session-router";
 
 export const loginRouter = express.Router()
 

@@ -71,6 +71,8 @@ requestApiRouter.get('/:id', checkAuth, (req, res) => {
             }
         });
     }
+
+
 });
 
 requestApiRouter.get('/:id/skills', checkAuth, (req, res) => {

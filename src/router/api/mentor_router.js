@@ -7,6 +7,7 @@ export const mentorRouter = express.Router()
 
 mentorRouter.get('/', checkAuth, (req, res) => {
     if (!req.query.skill) {
+
         Mentor.findAll((err, mentor) => {
             if (err) {
                 res.send(err);

@@ -8,7 +8,17 @@
         transform: rotate(360deg)
     }
 }
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
 @keyframes loadingRotate {
     0% {
         -webkit-transform: rotate(0deg);
@@ -1301,7 +1311,6 @@ img.responsive {
 .accordion {
     display: grid;
     grid-template-columns:3fr 9fr;
-    grid-template-rows:-webkit-min-content;
     grid-template-rows:min-content;
     row-gap: 5rem;
     -webkit-column-gap: 5rem;
