@@ -10,7 +10,10 @@ mentorDashboardRouter.get('/', checkAuth, (req, res) => {
         res.render(path.resolve('public/views/dashboardMentee.ejs'), {
             name: user[0].name,
             picture: user[0].picture,
-            id: user[0].id
+            id: user[0].id,
+            chatOpen: req.session.chatOpen,
+            chatPartner: req.session.chattingWith,
+            chatHistoryOpen: req.session.chatHistoryOpen
         });
     });
 });
