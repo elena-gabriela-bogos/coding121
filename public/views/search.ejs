@@ -93,47 +93,46 @@
 
         <div class="grid">
             <% if(dataByName.length!=0){ %>
-               <div class="grid__4 grid-item">
-                <div class="grid-item__circle grid-item__circle--1">
-                    <svg class="grid-item__icon">
-                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
-                    </svg>
-                </div>
-                <div class="grid-item__text">
-                    <p class="paragraph"><% var dataByName; %>
-                       
-                        <% for(var i=0; i<dataByName.length;i++){ %>
+               <% var dataByName; %>
+                       <% for(var i=0; i<dataByName.length;i++){ %>
+                            <div class="grid__4 grid-item">
+                                <div class="grid-item__circle grid-item__circle--1">
+                                    <svg class="grid-item__icon">
+                                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                                    </svg>
+                                </div>
+                                <div class="grid-item__text">
+                                    <p class="paragraph">
                            
                            Id:   <%= dataByName[i].userId %><br/>  
                             Name:   <%= dataByName[i].userName %><br/>
                             Programming language:  <%= dataByName[i].lfName %><br/>
                               Experience: <%= dataByName[i].yearsOfExperience %> years
                                
-                        <% } %>
+                       
                         </p>
                 </div>
-            </div><% } %>
-        
-            <% if(dataById.length!=0){ %>
-            <div class="grid__4 grid-item">
-                <div class="grid-item__circle grid-item__circle--2">
-                    <svg class="grid-item__icon">
-                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
-                    </svg>
-                </div>
-                <div class="grid-item__text">
-                    <p class="paragraph"><% var dataById; %>
-                        
-                        <% for(var i=0; i<dataById.length;i++){ %>
-                           
-                           Id:   <%= dataById[i].userId %><br/>  
-                            Name:   <%= dataById[i].userName %><br/>
-                            Programming language:  <%= dataById[i].lfName %><br/>
-                              Experience: <%= dataById[i].yearsOfExperience %> years
-                               
-                        <% } %></p>
-                </div>
-            </div><% } %>
+            </div><% } %>  <% } %>
+            
+                <% if(dataByLf.length!=0){ %>
+                    <% for(var i=0; i<dataByLf.length;i++){ %>
+                    <div class="grid__4 grid-item">
+                      <div class="grid-item__circle grid-item__circle--2">
+                        <svg class="grid-item__icon">
+                          <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                         </svg>
+                     </div>
+                     <div class="grid-item__text">
+                            <p class="paragraph">
+                                <% var dataByLf; %>   
+                                Id:   <%= dataByLf[i].userId %><br/>  
+                                Name:   <%= dataByLf[i].userName %><br/>
+                                Programming language:  <%= dataByLf[i].lfName %><br/>
+                                Experience: <%= dataByLf[i].yearsOfExperience %> years
+                                
+                            </p>
+                    </div>
+                </div><% } %> <% } %>
         </div>
     </div>
     </section>

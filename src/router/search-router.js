@@ -22,7 +22,7 @@ searchRouter.post('/', (req, res) => {
 		if (err) throw err;
         console.log(result);
        
-            res.render(path.resolve('public/views/search.ejs'), {dataByName:result[0], dataById:result[1]});
+            res.render(path.resolve('public/views/search.ejs'), {dataByName:result[0], dataByLf:result[1]});
         
     });
 });
