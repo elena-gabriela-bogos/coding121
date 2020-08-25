@@ -2229,9 +2229,17 @@ input:checked + .slide:before {
     display: none;
     position: fixed;
     bottom: 0;
-    right: 10rem;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
+    right: 33rem;
+    /*border: 3px solid #f1f1f1;*/
+    z-index: 100;
+}
+
+.chat-popup-history {
+    width: 30rem;
+    position: fixed;
+    bottom: 0;
+    right: 1rem;
+    z-index: 100;
 }
 
 /* Add styles to the form container */
@@ -2267,6 +2275,7 @@ input:checked + .slide:before {
 
 .form-container .cancel {
     border: 0;
+    outline: 0;
     height: 2rem;
     width: 2rem;
 }
@@ -2338,6 +2347,14 @@ input:checked + .slide:before {
     border-radius: 50%;
 }
 
+.profile_icon_chat {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
 .background_color_icon {
     background: rgb(69, 90, 164);
 }
@@ -2354,9 +2371,40 @@ input:checked + .slide:before {
 
 .profile_name {
     margin-left: 1rem;
+    margin-top: 0.3rem;
 }
 
 #sendMessageBtn {
     outline-color: #3c3c3c;
 }
+
+#chatHistoryVisible {
+    cursor: pointer;
+    height: 3rem;
+    text-align: center;
+    color: white;
+    padding-top: 0.5rem;
+    font-weight: bolder;
+    box-shadow: 0 0 0.5rem #3c3c3c;
+}
+
+#chatHistoryContainer {
+    overflow-y: scroll;
+    height: 40rem;
+}
+
+.chat_header {
+    height: 2rem;
+}
+
+.profile_chat_container {
+    height: 5rem;
+    padding: 1rem;
+    display: flex;
+    cursor: pointer;
+}
+.profile_chat_container:hover {
+    background-color: #f0f0f0;
+}
+
 

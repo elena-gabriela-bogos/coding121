@@ -25,4 +25,11 @@ export const bindSocketChatEvents = (socket, io) => {
         socket.handshake.session.chatOpen = false;
         socket.handshake.session.chattingWith = null;
     });
+    socket.on('chat-history-opened', (data) => {
+        socket.handshake.session.chatHistoryOpen = true;
+    });
+
+    socket.on('chat-history-closed', () => {
+        socket.handshake.session.chatHistoryOpen = false;
+    });
 }
