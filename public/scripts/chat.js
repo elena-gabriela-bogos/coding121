@@ -1,3 +1,54 @@
+document.getElementById("chatHistoryContainer").style.display = "none";
+// MANAGE CHAT WINDOW
+
+const formatMessageDate = (time) => {
+    const date = new Date(time);
+    if (date.getFullYear() === new Date(Date.now()).getFullYear()) {
+        return date.toLocaleString("en-GB", {
+            month: 'short',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+    return date.toLocaleString("en-GB", {
+        year: '2-digit',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+const updateScroll = () => {
+    let messageList = document.getElementById("messagesContainer");
+    messageList.scrollTop = messageList.scrollHeight;
+}
+
+const addOtherUsersMessage = (message) => {
+    const date = formatMessageDate(message.deliveredTime);
+    let result = `<div class='other_user_message_container'>
+                <img class="profile_icon_message background_color_icon"/>
+                <span class="other_user_message color-section--secondary">${message.content}
+                    <div class="message_date">${date}</div>
+                </span>
+                </div>`;
+    document.getElementById("messagesContainer").innerHTML += result;
+    updateScroll();
+}
+
+const addMyMessage = (message) => {
+    const date = formatMessageDate(message.deliveredTime);
+    let result = `<div class='my_message_container'>        
+                <span class="my_message">${message.content}
+                    <div class="message_date">${date}</div>
+                </span>
+                <img class="profile_icon_message background_color_icon2"/>
+                </div>`;
+    document.getElementById("messagesContainer").innerHTML += result;
+    updateScroll();
+}
+
 const displayPreviousMessages = (messages) => {
     const myId = document.getElementById("myId").innerHTML;
     messages.forEach(message => {
@@ -31,7 +82,7 @@ const openChatWindow = (id) => {
 
                     axios.post(`/api/message?user=${id}&user=${myId}`)
                         .then((response) => {
-                            openChatHistory();
+                            updateHistoryWindow();
                         })
                 })
                 .catch((error) => {
@@ -52,87 +103,7 @@ function closeChatWindow() {
 }
 
 
-const formatMessageDate = (time) => {
-    const date = new Date(time);
-    if (date.getFullYear() === new Date(Date.now()).getFullYear()) {
-        return date.toLocaleString("en-GB", {
-            month: 'short',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
-    return date.toLocaleString("en-GB", {
-        year: '2-digit',
-        month: 'short',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-}
-
-const addOtherUsersMessage = (message) => {
-    const date = formatMessageDate(message.deliveredTime);
-    let result = `<div class='other_user_message_container'>
-                <img class="profile_icon_message background_color_icon"/>
-                <span class="other_user_message color-section--secondary">${message.content}
-                    <div class="message_date">${date}</div>
-                </span>
-                </div>`;
-    document.getElementById("messagesContainer").innerHTML += result;
-    updateScroll();
-}
-
-
-const addMyMessage = (message) => {
-    const date = formatMessageDate(message.deliveredTime);
-    let result = `<div class='my_message_container'>        
-                <span class="my_message">${message.content}
-                    <div class="message_date">${date}</div>
-                </span>
-                <img class="profile_icon_message background_color_icon2"/>
-                </div>`;
-    document.getElementById("messagesContainer").innerHTML += result;
-    updateScroll();
-}
-
-const updateScroll = () => {
-    let messageList = document.getElementById("messagesContainer");
-    messageList.scrollTop = messageList.scrollHeight;
-}
-
-const socket = io.connect("localhost:3000");
-
-socket.on("new_message", (data) => {
-    if (document.getElementById("userChatId").innerHTML !== data.from) {
-        closeChatWindow();
-        openChatWindow(data.from);
-        if (document.getElementById("chatHistoryContainer").style.display !== "none") {
-            openChatHistory();
-        }
-    } else {
-        addOtherUsersMessage(data);
-        const myId = document.getElementById("myId");
-        axios.post(`/api/message?user=${id}&user=${myId}`)
-            .then((response) => {
-                openChatHistory();
-            });
-    }
-});
-
-document.getElementById("sendMessageBtn").onclick = () => {
-    event.preventDefault();
-    socket.emit('new_message', {
-        content: document.getElementById("messageText").value,
-        from: document.getElementById("myId").innerHTML,
-        to: document.getElementById("userChatId").innerHTML
-    });
-    addMyMessage({content: document.getElementById("messageText").value, deliveredTime: Date.now()});
-    document.getElementById("messageText").value = "";
-    if (document.getElementById("chatHistoryContainer").style.display !== "none") {
-        openChatHistory();
-    }
-};
+// MANAGE CHAT HISTORY WINDOW
 
 const formatProfile = (profile) => {
     const date = Math.round(moment.duration(Date.now() - profile[1]["date"]).asDays());
@@ -176,6 +147,43 @@ const closeChatHistory = () => {
     chatHistoryProfiles.innerHTML = "";
 }
 
+const getConversationsWithUnreadMessages = (result) => {
+    axios.get(`/api/message?status=unread`)
+        .then(function (response) {
+            result(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
+
+const updateHistoryWindow = () => {
+    if (document.getElementById("chatHistoryContainer").style.display !== "none") {
+        openChatHistory();
+    } else {
+        getConversationsWithUnreadMessages((data) => {
+            document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
+        });
+    }
+}
+
+
+// SET EVENT HANDLERS
+
+document.getElementById("sendMessageBtn").onclick = () => {
+    event.preventDefault();
+    socket.emit('new_message', {
+        content: document.getElementById("messageText").value,
+        from: document.getElementById("myId").innerHTML,
+        to: document.getElementById("userChatId").innerHTML
+    });
+    addMyMessage({content: document.getElementById("messageText").value, deliveredTime: Date.now()});
+    document.getElementById("messageText").value = "";
+    if (document.getElementById("chatHistoryContainer").style.display !== "none") {
+        openChatHistory();
+    }
+};
+
 document.getElementById("chatHistoryVisible").onclick = () => {
     const chatHistoryProfiles = document.getElementById("chatHistoryContainer");
     if (chatHistoryProfiles.style.display === "none") {
@@ -187,20 +195,25 @@ document.getElementById("chatHistoryVisible").onclick = () => {
     }
 }
 
-document.getElementById("chatHistoryContainer").style.display = "none";
 
-const getConversationsWithUnreadMessages = (result) => {
-    axios.get(`/api/message?status=unread`)
-        .then(function (response) {
-            result(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
+// CREATE SOCKET
+
+const socket = io.connect("localhost:3000");
+
+socket.on("new_message", (data) => {
+    const myId = document.getElementById("myId").innerHTML;
+    axios.post(`/api/message?user=${data.from}&user=${myId}`)
+        .then((response) => {
+            if (document.getElementById("userChatId").innerHTML !== data.from) {
+                closeChatWindow();
+                openChatWindow(data.from);
+            } else {
+                addOtherUsersMessage(data);
+            }
+            updateHistoryWindow();
         });
-};
+});
 
 getConversationsWithUnreadMessages((data) => {
     document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
 });
-
-
