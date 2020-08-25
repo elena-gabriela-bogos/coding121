@@ -1,15 +1,16 @@
 import {dbConn} from "../../config/db.config";
 
-export default class User {
-    constructor({name, mail, phone, password}) {
-        this.name = name;
-        this.mail = mail;
-        this.phone = phone;
-        this.password = password;
+export default class Message {
+    constructor({content, to, from}) {
+        this.user_id1 = from;
+        this.user_id2 = to;
+        this.status = "unread";
+        this.deliveredTime = Date.now();
+        this.content = content;
     }
 
-    static create(newUser, result) {
-        dbConn.query("INSERT INTO user set ?", newUser, function (err, res) {
+    static create(newMessage, result) {
+        dbConn.query("INSERT INTO chat_message set ?", newMessage, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -21,7 +22,7 @@ export default class User {
     };
 
     static findAll(result) {
-        dbConn.query("SELECT * from user", function (err, res) {
+        dbConn.query("SELECT * from chat_message", function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(null, err);
@@ -33,7 +34,7 @@ export default class User {
     };
 
     static findById(id, result) {
-        dbConn.query("SELECT * from user where id = ? ", id, function (err, res) {
+        dbConn.query("SELECT * from chat_message where id = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -43,8 +44,11 @@ export default class User {
         });
     };
 
-    static findByUsernameAndPassword(username, password, result) {
-        dbConn.query("SELECT * FROM user WHERE mail=? AND password=?", [username, password], function (err, res) {
+    static getMessagesBetweenUsers(users, result) {
+        users.push(users[0]);
+        users.push(users[1]);
+        dbConn.query("SELECT * from chat_message where (user_id1 = ? AND user_id2 = ?) " +
+            "OR  (user_id2 = ? AND user_id1 = ?) ORDER BY deliveredTime", users, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -52,5 +56,5 @@ export default class User {
                 result(null, res);
             }
         });
-    };
+    }
 }

@@ -53,3 +53,4 @@ document.getElementById("closedRequests").onclick = () => {
 
 getOpenRequests();
 
+

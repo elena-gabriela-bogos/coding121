@@ -14,7 +14,7 @@ export default class Mentor {
                 console.log("error: ", err);
                 result(err, null);
             } else {
-                console.log(res.insertId);
+                // console.log(res.insertId);
                 result(null, res.insertId);
             }
         });
@@ -26,7 +26,7 @@ export default class Mentor {
                 console.log("error: ", err);
                 result(null, err);
             } else {
-                console.log('mentors : ', res);
+                // console.log('mentors : ', res);
                 result(null, res);
             }
         });

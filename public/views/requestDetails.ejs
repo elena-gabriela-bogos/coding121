@@ -1,4 +1,4 @@
-<% var picture, name, request %>
+<% var id, picture, name, request, chatOpen, chatPartner %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <link rel="stylesheet" href="../../../css/style.css">
 </head>
 <body>
@@ -277,11 +278,31 @@
             </div>
         </div>
     </div>
+
     <!--END ROW-->
 </footer>
+<div class="chat-popup" id="chat">
+    <form action="#" class="form-container u-flex-column">
+        <button type="button" class="cancel__btn" onclick="closeChatWindow()"><img class="cancel"
+                                                                                   src="../../../img/icons8-close-window-26.png"/>
+        </button>
+        <div id="chatProfile" class="u-flex"></div>
+        <p id="userChatId" style="display:none"></p>
+        <p id="myId" style="display:none"><%= id %></p>
+        <div id="messagesContainer"></div>
+        <div class="send_message_container">
+            <textarea id="messageText" placeholder="Type message.." name="msg" required></textarea>
+
+            <button id="sendMessageBtn" class="btn">Send</button>
+        </div>
+    </form>
+</div>
 <p id="requestId" style="display:none"><%= request.id %></p>
 <script src="../../../scripts/bundle.js"></script>
 <script src="../../../scripts/requestDetails.js"></script>
+<script src="../../../scripts/chat.js"></script>
+<% if (chatOpen) { %>
+    <script>openChatWindow(<%= chatPartner %>);</script>
+<% } %>
 </body>
-
 </html>

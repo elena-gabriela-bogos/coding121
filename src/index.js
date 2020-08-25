@@ -13,9 +13,24 @@ import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
 import {requestApiRouter} from "./router/api/request-api-router";
 import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
+import http from "http";
+import socketIO from "socket.io";
+import sharedsession from "express-socket.io-session";
+import {bindSocketChatEvents} from "./router/chat";
+import {messageRouter} from "./router/api/message_router";
 
 const app = express();
+const server = http.createServer(app);
 const port = 3000;
+
+const io = socketIO(server);
+io.on('connection', function (socket) {
+    const s = socket.handshake.session;
+    socket.join(s.userId);
+
+    bindSocketChatEvents(socket, io);
+});
+
 
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -23,10 +38,15 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-app.use(session({
+const sessionRef = session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false
+});
+app.use(sessionRef);
+
+io.use(sharedsession(sessionRef, {
+    autoSave: true
 }));
 
 app.set('view engine', 'ejs');
@@ -41,9 +61,10 @@ app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
 app.use('/api/request', requestApiRouter);
 app.use('/api/skills', languagesFrameworksRouter);
+app.use('/api/message', messageRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 });
