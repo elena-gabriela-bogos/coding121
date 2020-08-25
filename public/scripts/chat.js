@@ -28,6 +28,11 @@ const openChatWindow = (id) => {
             axios.get(`/api/message?user=${id}&user=${myId}`)
                 .then((response) => {
                     displayPreviousMessages(response.data);
+
+                    axios.post(`/api/message?user=${id}&user=${myId}`)
+                        .then((response) => {
+                            openChatHistory();
+                        })
                 })
                 .catch((error) => {
                     console.log(error);
@@ -107,6 +112,11 @@ socket.on("new_message", (data) => {
         }
     } else {
         addOtherUsersMessage(data);
+        const myId = document.getElementById("myId");
+        axios.post(`/api/message?user=${id}&user=${myId}`)
+            .then((response) => {
+                openChatHistory();
+            });
     }
 });
 
@@ -128,7 +138,7 @@ const formatProfile = (profile) => {
     const date = Math.round(moment.duration(Date.now() - profile[1]["date"]).asDays());
     return `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">
                     <img class="profile_icon_chat background_color_icon"/>
-                    <span class="profile_name">${profile[1]["name"]}
+                    <span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
                     <div class="message_date" style="font-size: 1rem">${date} days ago</div></span>                  
                   </div>`;
 }
@@ -143,11 +153,17 @@ const displayProfiles = (profiles) => {
 const openChatHistory = () => {
     const chatHistoryProfiles = document.getElementById("chatHistoryContainer");
     chatHistoryProfiles.innerHTML = "";
-    const myId = document.getElementById("myId").innerHTML;
-    axios.get(`/api/message?user=${myId}`)
+    axios.get(`/api/message/history`)
         .then(function (response) {
             chatHistoryProfiles.style.display = "block";
             displayProfiles(response.data);
+
+            getConversationsWithUnreadMessages((data) => {
+                document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
+                data.forEach(c => {
+                    document.getElementById(`profile${c[0]}`).style.fontWeight = "bold";
+                });
+            })
         })
         .catch(function (error) {
             console.log(error);
@@ -173,5 +189,18 @@ document.getElementById("chatHistoryVisible").onclick = () => {
 
 document.getElementById("chatHistoryContainer").style.display = "none";
 
+const getConversationsWithUnreadMessages = (result) => {
+    axios.get(`/api/message?status=unread`)
+        .then(function (response) {
+            result(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
+
+getConversationsWithUnreadMessages((data) => {
+    document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
+});
 
 

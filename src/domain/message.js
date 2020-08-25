@@ -60,7 +60,7 @@ export default class Message {
 
     static getMessagesInfoOfUser(user, result) {
         dbConn.query(
-            "SELECT user_id1, user_id2, deliveredTime, u.name from chat_message " +
+            "SELECT user_id1, user_id2, deliveredTime, status, u.name from chat_message " +
             "INNER JOIN user u ON ((u.id=user_id1 and u.id!=?) or (u.id=user_id2 and u.id!=?)) where user_id1 = ? OR user_id2 = ? ORDER BY deliveredTime DESC",
             [user, user, user, user], function (err, res) {
                 if (err) {
@@ -70,5 +70,19 @@ export default class Message {
                     result(null, res);
                 }
             });
+    }
+
+    static setMessagesBetweenUsersRead(users, result) {
+        users.push(users[0]);
+        users.push(users[1]);
+        dbConn.query('UPDATE chat_message SET status="read" where (user_id1 = ? AND user_id2 = ?) ' +
+            "OR  (user_id2 = ? AND user_id1 = ?)", users, function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
     }
 }
