@@ -4,7 +4,7 @@ import mysql from 'mysql';
 export const dbConn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Pisicut@1999',
+    password: '',
     database: 'codingne_meditations',
     multipleStatements: true
 });

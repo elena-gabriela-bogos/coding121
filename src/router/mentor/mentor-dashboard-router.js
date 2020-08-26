@@ -1,3 +1,4 @@
+
 import express from 'express';
 import path from 'path';
 import User from "../../domain/user";
@@ -13,3 +14,4 @@ mentorDashboardRouter.get('/', (req, res) => {
         res.redirect('/login');
     }
 });
+

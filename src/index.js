@@ -6,22 +6,41 @@ import {menteeDashboardRouter} from "./router/mentee/mentee-dashboard-router";
 import cors from 'cors';
 import session from 'express-session';
 import {config} from 'dotenv';
-import {userRouter} from "./router/user-router";
+import {userRouter} from "./router/api/user-router";
 import {welcomePageRouter} from "./router/welcome-router";
-import {menteeRouter} from "./router/mentee/mentee_router";
-import {mentorRouter} from "./router/mentor/mentor_router";
+import {menteeRouter} from "./router/api/mentee_router";
+import {mentorRouter} from "./router/api/mentor_router";
 import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
-import {requestRouter} from "./router/request-router";
+import {requestApiRouter} from "./router/api/request-api-router";
 import {signupMenteeRouter} from "./auth/signupMentee-router";
 import {signupMentorRouter} from "./auth/signupMentor-router";
 import {mailSentRouter} from "./auth/mailSent";
 import {searchRouter} from "./router/search-router";
+
 import {sessionRouter} from "./router/session-router";
 
+import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
+import http from "http";
+import socketIO from "socket.io";
+import sharedsession from "express-socket.io-session";
+import {bindSocketChatEvents} from "./router/chat";
+import {messageRouter} from "./router/api/message_router";
+
+
 const app = express();
+const server = http.createServer(app);
 const port = 3000;
 config();
+
+const io = socketIO(server);
+io.on('connection', function (socket) {
+    const s = socket.handshake.session;
+    socket.join(s.userId);
+
+    bindSocketChatEvents(socket, io);
+});
+
 
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -29,10 +48,15 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-app.use(session({
+const sessionRef = session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false
+});
+app.use(sessionRef);
+
+io.use(sharedsession(sessionRef, {
+    autoSave: true
 }));
 
 app.set('view engine', 'ejs');
@@ -45,16 +69,20 @@ app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
-app.use('/api/request', requestRouter);
 app.use('/signupMentee',signupMenteeRouter);
 app.use('/signupMentor',signupMentorRouter);
 app.use('/mailSent',mailSentRouter);
 app.use('/search', searchRouter);
+
 app.use('/m/history', sessionRouter);
+app.use('/api/request', requestApiRouter);
+app.use('/api/skills', languagesFrameworksRouter);
+app.use('/api/message', messageRouter);
+
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 });
 

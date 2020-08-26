@@ -1,10 +1,20 @@
+const formatTechnologies = (technologies) => {
+    let result = "<div class='request__item__skills'>"
+    technologies.forEach(t => {
+        result += `<span class="request__skill"> ${t} </span>`
+    });
+    return result + "</div>";
+}
+
 const createRequestElement = (request) => {
-    return "<div class=\"grid__4 request\">\n" +
-        "            <div class=\"grid-item__text\">\n" +
-        `                <div class='u-flex request__item__text'><h3 class='heading-secondary--grey-dark' >${request.description}</h3>
-                            <span>${Date.now() - request.postedAt}</span></div>\n` +
-        "            </div>\n" +
-        "        </div>"
+    let result = "<a href = " + `/u/dashboard/request/${request.id}` + " class='request__link'><div class=\"grid__4 request\">\n" +
+        "            <div class=\"request-item__text\">\n" +
+        "               <div class='u-flex request__item__text'>" +
+        `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'>${request.description}</div>`
+    result += formatTechnologies(request.technologies);
+    result += `</div><span>${Math.round(moment.duration(Date.now() - request.postedAt).asDays())} days ago</span></div>` +
+        "            </div></div></a>";
+    return result;
 }
 
 const displayRequests = (requests) => {
@@ -19,10 +29,8 @@ const getMyRequests = (status) => {
     axios.get(`/api/request?status=${status}`)
         .then(function (response) {
             displayRequests(response.data);
-            console.log(response);
         })
         .catch(function (error) {
-            // handle error
             console.log(error);
         })
 };
@@ -44,4 +52,3 @@ document.getElementById("closedRequests").onclick = () => {
 }
 
 getOpenRequests();
-

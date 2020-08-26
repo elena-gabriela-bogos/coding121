@@ -1,0 +1,52 @@
+<% var id, picture, name, message, chatOpen, chatPartner, chatHistory; %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-Labs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
+          rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+<%- include("partials/header.ejs", {relativePath:"../../", picture:picture, name:name}) %>
+
+<section class="features color-section--grey-light u-vpadding">
+    <div class="row row--respond center-align">
+        <a href="/u/dashboard"><img style="margin-bottom: 2rem" src="../../img/icons8-back-26.png"></a>
+        <h2 class="heading-secondary heading-secondary--grey-dark">Post a mentorship request</h2>
+        <div style="margin-bottom: 3rem">Let our mentors know what you need help with. Once your request is posted, you
+            can check out mentors'
+            profiles and
+            chat with them to determine a good fit.
+        </div>
+        <form id="requestForm" class="u-flex-column" action="/u/dashboard/request" method="post">
+            <h3 class="heading-secondary--grey-dark request__form__input">1. Tell us about what you need help
+                with</h3>
+            <textarea id="requestDescription" name="description"
+                      class="color-section--grey-light request__form__input"></textarea>
+            <h3 class="heading-secondary--grey-dark request__form__input">2. Technologies you need help with</h3>
+            <select size="5" multiple id="requestSkills" name="skills[]"
+                    class="color-section--grey-light request__form__input">
+            </select>
+            <button id="requestButton" class="login__submit">Submit request</button>
+            <div style="color: red"><%= message %></div>
+        </form>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs", {relativePath:"../../"}) %>
+
+<script src="../../scripts/bundle.js"></script>
+<script src="../../scripts/request.js"></script>
+
+<%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen}) %>
+</body>
+</html>
