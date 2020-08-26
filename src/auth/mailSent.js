@@ -1,11 +1,10 @@
 import express from 'express';
 import path from 'path';
-import User from "../domain/user";
 import Mentor from "../domain/mentor";
 
-export const welcomePageRouter = express.Router()
+export const mailSentRouter = express.Router()
 
-welcomePageRouter.get('/', (req, res) => {
+mailSentRouter.get('/', (req, res) => {
     if (req.session.loggedin) {
         Mentor.findById(req.session.userId, (err, mentor) => {
             if (mentor.length === 1) {
@@ -15,6 +14,7 @@ welcomePageRouter.get('/', (req, res) => {
             }
         });
     } else {
-        res.render(path.resolve('public/index.ejs'));
+        res.render(path.resolve('public/views/mailSent.ejs'));
     }
 });
+
