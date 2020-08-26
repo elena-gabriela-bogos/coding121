@@ -1,4 +1,4 @@
-<% var name, picture; %>
+<% var id, name, picture, chatOpen, chatPartner; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +10,7 @@
           rel="stylesheet">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -261,9 +262,27 @@
     </div>
     <!--END ROW-->
 </footer>
+<div class="chat-popup" id="chat">
+    <form action="#" class="form-container u-flex-column">
+        <button type="button" class="cancel__btn" onclick="closeChatWindow()"><img class="cancel"
+                                                                                   src="../../../img/icons8-close-window-26.png"/>
+        </button>
+        <div id="chatProfile" class="u-flex"></div>
+        <p id="userChatId" style="display:none"></p>
+        <p id="myId" style="display:none"><%= id %></p>
+        <div id="messagesContainer" class="u-flex-column"></div>
+        <div class="send_message_container">
+            <textarea id="messageText" placeholder="Type message.." name="msg" required></textarea>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
+            <button id="sendMessageBtn" class="btn">Send</button>
+        </div>
+    </form>
+</div>
 <script src="../scripts/bundle.js"></script>
 <script src="../scripts/dashboardMentee.js"></script>
+<script src="../scripts/chat.js"></script>
+<% if (chatOpen) { %>
+    <script>openChatWindow(<%=chatPartner%>);</script>
+<% } %>
 </body>
 </html>

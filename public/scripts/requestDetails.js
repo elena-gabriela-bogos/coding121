@@ -1,4 +1,3 @@
-
 const displaySkills = (skills) => {
     let result = "<div class='request__item__skills'>";
     skills.forEach(skill => {
@@ -21,12 +20,11 @@ const displayMentors = (mentors) => {
             "<svg class='grid-item__icon'>" +
             "<use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>" +
             "<div class='grid-item__text'>" +
-            `<p class='paragraph'>${mentor.name}</p></div></div>`
+            `<p class='paragraph'>${mentor.name}</p><button id=${mentor.id} class='login__submit' onclick='openChatWindow(${mentor.id})'>Message</button></div></div>`
     });
     if (newRow) {
         result += "</div>";
     }
-    console.log(result);
     document.getElementById("mentorList").innerHTML = result;
 }
 
@@ -67,10 +65,13 @@ document.getElementById("requestStatus").onclick = () => {
     const id = document.getElementById("requestId").innerHTML;
     axios.get(`/api/request/${id}?status=${status}`)
         .then(function (response) {
-            console.log("da");
             document.getElementById("requestStatusText").innerHTML = status;
         })
         .catch(function (error) {
             console.log(error);
         })
 }
+
+
+
+

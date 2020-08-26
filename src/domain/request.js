@@ -26,7 +26,7 @@ export default class Request {
                 console.log("error: ", err);
                 result(null, err);
             } else {
-                console.log('users : ', res);
+                // console.log('users : ', res);
                 result(null, res);
             }
         });

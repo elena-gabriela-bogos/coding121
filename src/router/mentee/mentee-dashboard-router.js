@@ -9,13 +9,25 @@ export const menteeDashboardRouter = express.Router()
 
 menteeDashboardRouter.get('/', checkAuth, (req, res) => {
     User.findById(req.session.userId, (err, user) => {
-        res.render(path.resolve('public/views/dashboardMentee.ejs'), {name: user[0].name, picture: user[0].picture});
+        res.render(path.resolve('public/views/dashboardMentee.ejs'), {
+            name: user[0].name,
+            picture: user[0].picture,
+            id: user[0].id,
+            chatOpen: req.session.chatOpen,
+            chatPartner: req.session.chattingWith
+        });
     });
 });
 
 menteeDashboardRouter.get('/request', checkAuth, (req, res) => {
     User.findById(req.session.userId, (err, user) => {
-        res.render(path.resolve('public/views/request.ejs'), {name: user[0].name, picture: user[0].picture});
+        res.render(path.resolve('public/views/request.ejs'), {
+            name: user[0].name,
+            picture: user[0].picture,
+            id: user[0].id,
+            chatOpen: req.session.chatOpen,
+            chatPartner: req.session.chattingWith
+        });
     });
 });
 
@@ -34,9 +46,12 @@ menteeDashboardRouter.post('/request', checkAuth, (req, res) => {
     } else {
         User.findById(req.session.userId, (err, user) => {
             res.render(path.resolve('public/views/request.ejs'), {
+                id: user[0].id,
                 name: user[0].name,
                 picture: user[0].picture,
-                message: "Fill in all fields"
+                message: "Fill in all fields",
+                chatOpen: req.session.chatOpen,
+                chatPartner: req.session.chattingWith
             });
         });
     }
@@ -52,7 +67,10 @@ menteeDashboardRouter.get("/request/:id", checkAuth, (req, res) => {
                         res.render(path.resolve('public/views/requestDetails.ejs'), {
                             name: user[0].name,
                             picture: user[0].picture,
-                            request: request[0]
+                            id: user[0].id,
+                            request: request[0],
+                            chatOpen: req.session.chatOpen,
+                            chatPartner: req.session.chattingWith
                         });
                     });
                 } else {
