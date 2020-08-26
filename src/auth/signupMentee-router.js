@@ -2,13 +2,19 @@ import express from 'express';
 import path from 'path';
 import User from "../domain/user";
 import Mentee from "../domain/mentee";
-//import jwt from 'jsonwebtoken'
+import {config} from 'dotenv'
+import jwt from 'jsonwebtoken'
+
+config();
+
 //import passport from 'passport';
 
+const speakeasy = require("speakeasy");
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const { promisify } = require("util");
 const readFile = promisify(fs.readFile);
+var ejs = require("ejs");
 
 export const signupMenteeRouter = express.Router()
 // // get required data from .env file
@@ -87,23 +93,42 @@ signupMenteeRouter.post("/", async (req, res) => {
 
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
-            host: "mail.it-labs.ro",
+            host: "smtp.coding121.net",
             port: 465,
-            service: "SMTP",
-            secure: false, // use SSL
+            //server: "mail.coding121.net"
+            //service: "SMTP",
+            secure: true, // use SSL
             auth: {
-                user: "",
-                pass: "",
+                user: "contact@coding121.net",
+                pass: "7lbq2YO2i7",
             },
+            tls: {
+                secure: false,
+                ignoreTLS: true,
+                rejectUnauthorized: false
+            }
         });
+
+        //token
+        const secret = speakeasy.generateSecret({ length: 20 });
+        const emailToken = speakeasy.hotp({ secret: secret.base32, encoding: "base32" });
+        const url = `http://localhost:3000/phoneConfirmation/${emailToken}`;
+
+
+        //ejs
+        //res.render(path.resolve("public/views/emailTExt.ejs"), {"message": url })
+        const html = await ejs
+            .renderFile(path.resolve("public/views/emailTExt.ejs"), {"message": url })
+            .then(output => output)
+            .catch(err=>{console.log(err)});
 
         // send mail with defined transport object
         let info = await transporter
             .sendMail({
-                from: "internship@it-labs.ro", // sender address
+                from: "contact@coding121.net", // sender address
                 to: username, // list of receivers
                 subject: "Confirmation", // Subject line
-                html: await readFile("./src/auth/emailTExt.html"),
+                html: html,
             })
             .then(
                 res.send({
@@ -113,12 +138,10 @@ signupMenteeRouter.post("/", async (req, res) => {
                 )
             )
             .catch(
-                res.send({
-                    status: "error",
-                },
-                res.render(path.resolve('public/views/signupMentee.ejs'), {"message": "Something went wrong"}))
+                err=>{console.log(err)}
+                //res.render(path.resolve('public/views/signupMentee.ejs'), {"message": "Something went wrong"})
             );
-        res.redirect("/mailSent");
+        //res.redirect("/mailSent");
     }
     else{
         res.render(path.resolve('public/views/signupMentee.ejs'), {"message": "Invalid datas"});

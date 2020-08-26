@@ -1,9 +1,16 @@
 const express = require("express");
 const speakeasy = require("speakeasy");
 const fetch = require("node-fetch");
-const router = express.Router();
+import path from 'path';
+import User from "../domain/user";
+import Mentee from "../domain/mentee";
+export const phoneRouter = express.Router();
 
-router.post("/generate-secret", (req, res) => {
+// phoneRouter.get("/phoneConfirmation/:token",(req,res)=>{
+//
+// });
+
+phoneRouter.post("/generate-secret", (req, res) => {
   const secret = speakeasy.generateSecret({ length: 20 });
   const token = speakeasy.hotp({ secret: secret.base32, encoding: "base32" });
   const phone = req.body.phone;
@@ -23,7 +30,7 @@ router.post("/generate-secret", (req, res) => {
   });
 });
 
-router.post("/validate-secret", (req, res) => {
+phoneRouter.post("/validate-secret", (req, res) => {
   console.log(req.body.secret + " " + req.body.token);
   res.send({
     valid: speakeasy.hotp.verify({
@@ -34,4 +41,3 @@ router.post("/validate-secret", (req, res) => {
   });
 });
 
-module.exports = router;

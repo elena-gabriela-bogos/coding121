@@ -44,7 +44,7 @@ signupMentorRouter.post("/", async (req, res) => {
                 from: "internship@it-labs.ro", // sender address
                 to: username, // list of receivers
                 subject: "Confirmation", // Subject line
-                html: await readFile("./src/auth/emailTExt.html"),
+                html: await readFile("./src/auth/emailTExt.ejs"),
             })
             .then(
                 res.send({

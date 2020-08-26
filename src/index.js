@@ -5,6 +5,7 @@ import {loginRouter} from "./router/login-router.js"
 import {menteeDashboardRouter} from "./router/mentee/mentee-dashboard-router";
 import cors from 'cors';
 import session from 'express-session';
+import {config} from 'dotenv';
 import {userRouter} from "./router/user-router";
 import {welcomePageRouter} from "./router/welcome-router";
 import {menteeRouter} from "./router/mentee/mentee_router";
@@ -18,6 +19,7 @@ import {mailSentRouter} from "./auth/mailSent";
 
 const app = express();
 const port = 3000;
+config();
 
 app.use(bodyParser.urlencoded({extended: true}))
 
