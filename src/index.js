@@ -39,6 +39,7 @@ io.on('connection', function (socket) {
     socket.join(s.userId);
 
     bindSocketChatEvents(socket, io);
+
 });
 
 
