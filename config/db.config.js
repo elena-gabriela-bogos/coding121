@@ -1,3 +1,4 @@
+
 import mysql from 'mysql';
 
 export const dbConn = mysql.createConnection({
@@ -11,4 +12,5 @@ export const dbConn = mysql.createConnection({
 dbConn.connect(function (err) {
     if (err) throw err;
     console.log("Database Connected!");
+
 });

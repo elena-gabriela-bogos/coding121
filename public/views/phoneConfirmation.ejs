@@ -26,7 +26,7 @@
         </li>
 
         <li class="nav__item">
-            <a href="signupMentor" class="nav__link">Become a mentor</a>
+            <a href="/signupMentor" class="nav__link">Become a mentor</a>
         </li>
 
         <!-- ACCOUNT PREFERENCES -->
@@ -77,21 +77,15 @@
 </nav>
 <section class="u-vpadding">
     <div class="login-container">
-        <form id="login__form" action="/login" method="post">
+        <form id="login__form" action="/2fa" method="post">
             <div class="login__input__container">
-                <label for="username" class="login__label">Email</label>
+                <label for="phone" class="login__label">Phone  number</label>
                 <div>
-                    <input type="text" id="username" name="username" class="login__input color-section--grey-light">
+                    <input type="text" id="phone" name="phone" class="login__input color-section--grey-light">
                 </div>
             </div>
             <div class="login__input__container">
-                <label for="password" class="login__label">Password</label>
-                <div>
-                    <input type="text" id="password" name="password" class="login__input color-section--grey-light">
-                </div>
-            </div>
-            <div class="login__input__container">
-                <button id="loginButton" class="login__submit">Login</button>
+                <button id="signupButton" class="login__submit">Verify phone number</button>
             </div>
             <div id="loginMessage" class="login__input__container"><%= message %></div>
         </form>
