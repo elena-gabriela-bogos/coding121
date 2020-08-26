@@ -17,6 +17,9 @@ import {signupMenteeRouter} from "./auth/signupMentee-router";
 import {signupMentorRouter} from "./auth/signupMentor-router";
 import {mailSentRouter} from "./auth/mailSent";
 import {searchRouter} from "./router/search-router";
+
+import {sessionRouter} from "./router/session-router";
+
 import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
 import http from "http";
 import socketIO from "socket.io";
@@ -70,9 +73,12 @@ app.use('/signupMentee',signupMenteeRouter);
 app.use('/signupMentor',signupMentorRouter);
 app.use('/mailSent',mailSentRouter);
 app.use('/search', searchRouter);
+
+app.use('/m/history', sessionRouter);
 app.use('/api/request', requestApiRouter);
 app.use('/api/skills', languagesFrameworksRouter);
 app.use('/api/message', messageRouter);
+
 
 app.use(express.static(path.join(__dirname, '../public')));
 

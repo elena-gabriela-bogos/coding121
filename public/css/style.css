@@ -9,6 +9,33 @@
     }
 }
 
+div.scrollmenu {
+    background-color: rgb(69, 90, 164);
+    overflow: auto;
+    white-space: nowrap;
+}
+a span {
+    display: block;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 90px;
+    text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+    background-color: #777;}
+
 @keyframes loadingRotate {
     0% {
         -webkit-transform: rotate(0deg);
