@@ -18,3 +18,20 @@ welcomePageRouter.get('/', (req, res) => {
         res.render(path.resolve('public/index.ejs'));
     }
 });
+
+welcomePageRouter.get('/gdpr', (req, res) => {
+    let loggedIn = false;
+    if (req.session.loggedin) {
+        loggedIn = true;
+    }
+    res.render(path.resolve('public/views/gdpr.ejs'), {loggedIn});
+});
+
+
+welcomePageRouter.get('/cookie-policy', (req, res) => {
+    let loggedIn = false;
+    if (req.session.loggedin) {
+        loggedIn = true;
+    }
+    res.render(path.resolve('public/views/cookie-policy.ejs'), {loggedIn});
+});
