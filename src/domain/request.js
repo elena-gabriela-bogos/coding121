@@ -14,7 +14,7 @@ export default class Request {
                 console.log("error: ", err);
                 result(err, null);
             } else {
-                console.log(res.insertId);
+                // console.log(res);
                 result(null, res.insertId);
             }
         });
@@ -26,7 +26,7 @@ export default class Request {
                 console.log("error: ", err);
                 result(null, err);
             } else {
-                console.log('users : ', res);
+                // console.log('users : ', res);
                 result(null, res);
             }
         });
@@ -54,4 +54,16 @@ export default class Request {
             }
         });
     }
+
+    static updateStatus(id, status, result) {
+        dbConn.query("UPDATE request SET status=? WHERE id=?", [status, id], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                // console.log(res);
+                result(null, res.insertId);
+            }
+        });
+    };
 }

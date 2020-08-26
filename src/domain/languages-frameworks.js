@@ -1,12 +1,13 @@
 import {dbConn} from "../../config/db.config";
 
-export default class Mentee {
-    constructor({id}) {
-        this.id = id;
+export default class LanguagesFrameworks {
+    constructor({name, type}) {
+        this.name = name;
+        this.type = type;
     }
 
-    static create(newMentee, result) {
-        dbConn.query("INSERT INTO mentee set ?", newMentee, function (err, res) {
+    static create(newLF, result) {
+        dbConn.query("INSERT INTO languages_frameworks set ?", newLF, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -18,7 +19,7 @@ export default class Mentee {
     };
 
     static findAll(result) {
-        dbConn.query("SELECT * from mentee", function (err, res) {
+        dbConn.query("SELECT * from languages_frameworks", function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(null, err);
@@ -30,7 +31,7 @@ export default class Mentee {
     };
 
     static findById(id, result) {
-        dbConn.query("SELECT * from mentee where id = ? ", id, function (err, res) {
+        dbConn.query("SELECT * from languages_frameworks where id = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
