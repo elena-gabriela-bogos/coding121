@@ -17,6 +17,7 @@ import {signupMenteeRouter} from "./auth/signupMentee-router";
 import {signupMentorRouter} from "./auth/signupMentor-router";
 import {mailSentRouter} from "./auth/mailSent";
 import {searchRouter} from "./router/search-router";
+import {sessionRouter} from "./router/session-router";
 
 const app = express();
 const port = 3000;
@@ -49,6 +50,7 @@ app.use('/signupMentee',signupMenteeRouter);
 app.use('/signupMentor',signupMentorRouter);
 app.use('/mailSent',mailSentRouter);
 app.use('/search', searchRouter);
+app.use('/m/history', sessionRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
