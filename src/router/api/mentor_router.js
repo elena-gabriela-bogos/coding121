@@ -1,7 +1,6 @@
 import express from 'express';
 import Mentor from "../../domain/mentor";
 import {checkAuth} from "./authentification";
-import mentor from "../../domain/mentor";
 
 export const mentorRouter = express.Router()
 

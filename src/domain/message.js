@@ -57,4 +57,18 @@ export default class Message {
             }
         });
     }
+
+    static getMessagesInfoOfUser(user, result) {
+        dbConn.query(
+            "SELECT user_id1, user_id2, deliveredTime, u.name from chat_message " +
+            "INNER JOIN user u ON ((u.id=user_id1 and u.id!=?) or (u.id=user_id2 and u.id!=?)) where user_id1 = ? OR user_id2 = ? ORDER BY deliveredTime DESC",
+            [user, user, user, user], function (err, res) {
+                if (err) {
+                    console.log("error: ", err);
+                    result(err, null);
+                } else {
+                    result(null, res);
+                }
+            });
+    }
 }

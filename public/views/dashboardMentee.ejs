@@ -1,4 +1,4 @@
-<% var id, name, picture, chatOpen, chatPartner; %>
+<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,7 +71,7 @@
             <% if (picture == null){ %>
                 <div class="profile__icon grid-item__circle--1">
                     <svg>
-                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
                     </svg>
                 </div>
             <% } %>
@@ -267,6 +267,7 @@
         <button type="button" class="cancel__btn" onclick="closeChatWindow()"><img class="cancel"
                                                                                    src="../../../img/icons8-close-window-26.png"/>
         </button>
+        <div class="chat_header color-section--primary"></div>
         <div id="chatProfile" class="u-flex"></div>
         <p id="userChatId" style="display:none"></p>
         <p id="myId" style="display:none"><%= id %></p>
@@ -278,11 +279,19 @@
         </div>
     </form>
 </div>
+<div class="chat-popup-history u-flex-column" id="chatHistory">
+    <div id="chatHistoryVisible" class="color-section--primary">Chat</div>
+    <div id="chatHistoryContainer" class="color-section--grey-light"></div>
+</div>
+
 <script src="../scripts/bundle.js"></script>
 <script src="../scripts/dashboardMentee.js"></script>
 <script src="../scripts/chat.js"></script>
 <% if (chatOpen) { %>
-    <script>openChatWindow(<%=chatPartner%>);</script>
+<script>openChatWindow(<%= chatPartner %>);</script>
+<% } %>
+<% if (chatHistoryOpen) { %>
+    <script>openChatHistory();</script>
 <% } %>
 </body>
 </html>

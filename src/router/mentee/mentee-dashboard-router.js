@@ -14,7 +14,8 @@ menteeDashboardRouter.get('/', checkAuth, (req, res) => {
             picture: user[0].picture,
             id: user[0].id,
             chatOpen: req.session.chatOpen,
-            chatPartner: req.session.chattingWith
+            chatPartner: req.session.chattingWith,
+            chatHistoryOpen: req.session.chatHistoryOpen
         });
     });
 });
@@ -26,7 +27,8 @@ menteeDashboardRouter.get('/request', checkAuth, (req, res) => {
             picture: user[0].picture,
             id: user[0].id,
             chatOpen: req.session.chatOpen,
-            chatPartner: req.session.chattingWith
+            chatPartner: req.session.chattingWith,
+            chatHistoryOpen: req.session.chatHistoryOpen
         });
     });
 });
@@ -51,7 +53,8 @@ menteeDashboardRouter.post('/request', checkAuth, (req, res) => {
                 picture: user[0].picture,
                 message: "Fill in all fields",
                 chatOpen: req.session.chatOpen,
-                chatPartner: req.session.chattingWith
+                chatPartner: req.session.chattingWith,
+                chatHistoryOpen: req.session.chatHistoryOpen
             });
         });
     }
@@ -70,7 +73,8 @@ menteeDashboardRouter.get("/request/:id", checkAuth, (req, res) => {
                             id: user[0].id,
                             request: request[0],
                             chatOpen: req.session.chatOpen,
-                            chatPartner: req.session.chattingWith
+                            chatPartner: req.session.chattingWith,
+                            chatHistoryOpen: req.session.chatHistoryOpen
                         });
                     });
                 } else {
