@@ -48,7 +48,7 @@ requestApiRouter.post('/', checkAuth, (req, res) => {
         if (err) {
             res.send(err);
         } else {
-            res.json({error: false, message: "User added successfully!", data: request});
+            res.json({error: false, message: "Request added successfully!", data: request});
         }
     });
 });

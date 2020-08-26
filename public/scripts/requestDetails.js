@@ -19,7 +19,7 @@ const displayMentors = (mentors) => {
         result += "<div class='grid__4 grid-item mentor'>" +
             "<div class='grid-item__circle grid-item__circle--1'>" +
             "<svg class='grid-item__icon'>" +
-            "<use xlink:href='../img/sprite.svg#icon-embed2'></use></svg></div>" +
+            "<use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>" +
             "<div class='grid-item__text'>" +
             `<p class='paragraph'>${mentor.name}</p></div></div>`
     });

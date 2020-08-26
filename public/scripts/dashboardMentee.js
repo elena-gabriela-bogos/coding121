@@ -7,7 +7,7 @@ const formatTechnologies = (technologies) => {
 }
 
 const createRequestElement = (request) => {
-    let result = "<a href = " + `/request/${request.id}` + " class='request__link'><div class=\"grid__4 request\">\n" +
+    let result = "<a href = " + `/u/dashboard/request/${request.id}` + " class='request__link'><div class=\"grid__4 request\">\n" +
         "            <div class=\"request-item__text\">\n" +
         "               <div class='u-flex request__item__text'>" +
         `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'>${request.description}</div>`
