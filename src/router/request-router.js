@@ -1,48 +1,58 @@
 import express from 'express';
+import path from 'path';
+import User from "../domain/user";
 import Request from "../domain/request";
+import RequestSkills from "../domain/request-skills";
+import {checkAuth} from "./api/authentification";
 
 export const requestRouter = express.Router()
 
-requestRouter.get('/', (req, res) => {
-    if (!req.query.status) {
-        Request.findAll((err, request) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log('res', request);
-                res.send(request);
+requestRouter.get('/', checkAuth, (req, res) => {
+    User.findById(req.session.userId, (err, user) => {
+        res.render(path.resolve('public/views/request.ejs'), {name: user[0].name, picture: user[0].picture});
+    });
+});
+
+requestRouter.post('/', checkAuth, (req, res) => {
+    const {description, skills} = req.body;
+    if (description && skills && skills.length > 0) {
+        Request.create(new Request({description, "idMentee": req.session.userId}), (err, request) => {
+                skills.forEach(skill => {
+                    RequestSkills.create({"idrequest": request, "idLF": parseInt(skill)}, () => {
+
+                    });
+                });
             }
-        });
+        );
+        res.redirect("/u/dashboard");
     } else {
-        Request.findByStatus(req.session.userId, req.query.status, (err, request) => {
-            if (err) {
-                res.send(err);
-            } else {
-                console.log('res', request);
-                res.send(request);
-            }
+        User.findById(req.session.userId, (err, user) => {
+            res.render(path.resolve('public/views/request.ejs'), {
+                name: user[0].name,
+                picture: user[0].picture,
+                message: "Fill in all fields"
+            });
         });
     }
 });
 
-requestRouter.post('/', (req, res) => {
-    const request = new Request(req.body);
-
-    Request.create(request, function (err, request) {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json({error: false, message: "User added successfully!", data: request});
-        }
-    });
-});
-
-requestRouter.get('/:id', (req, res) => {
+requestRouter.get("/:id", checkAuth, (req, res) => {
     Request.findById(req.params.id, function (err, request) {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json(request);
+            if (err) {
+                res.send(err);
+            } else {
+                if (request.length !== 0 && request[0].idMentee === req.session.userId) {
+                    User.findById(req.session.userId, (err, user) => {
+                        res.render(path.resolve('public/views/requestDetails.ejs'), {
+                            name: user[0].name,
+                            picture: user[0].picture,
+                            request: request[0]
+                        });
+                    });
+                } else {
+                    res.redirect("/u/dashboard");
+                }
+            }
         }
-    });
+    );
 });

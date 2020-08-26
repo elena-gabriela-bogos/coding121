@@ -1,4 +1,5 @@
 import {dbConn} from "../../config/db.config";
+import MentorSkills from "./mentor-skills";
 
 export default class Mentor {
     constructor({id}) {
@@ -40,4 +41,24 @@ export default class Mentor {
             }
         });
     };
+
+    static filterByLF(skills, result) {
+        MentorSkills.findAllMentorSkills((err, mentorSkills) => {
+            if (err) {
+                result(err, null);
+            } else {
+                let map = {}
+                mentorSkills.forEach(skill => {
+                    if (!(skill.id in map)) {
+                        map[skill.id] = 0;
+                    }
+                    if (skills.includes(skill.idLF.toString())) {
+                        map[skill.id]++;
+                    }
+                });
+                console.log(map);
+                // result(null, skills);
+            }
+        });
+    }
 }

@@ -6,17 +6,20 @@ import {menteeDashboardRouter} from "./router/mentee/mentee-dashboard-router";
 import cors from 'cors';
 import session from 'express-session';
 import {config} from 'dotenv';
-import {userRouter} from "./router/user-router";
+import {userRouter} from "./router/api/user-router";
 import {welcomePageRouter} from "./router/welcome-router";
-import {menteeRouter} from "./router/mentee/mentee_router";
-import {mentorRouter} from "./router/mentor/mentor_router";
+import {menteeRouter} from "./router/api/mentee_router";
+import {mentorRouter} from "./router/api/mentor_router";
 import {mentorDashboardRouter} from "./router/mentor/mentor-dashboard-router";
 import {logoutRouter} from "./router/logout-router";
+import {requestApiRouter} from "./router/api/request-api-router";
 import {requestRouter} from "./router/request-router";
 import {signupMenteeRouter} from "./auth/signupMentee-router";
 import {signupMentorRouter} from "./auth/signupMentor-router";
 import {mailSentRouter} from "./auth/mailSent";
 import {searchRouter} from "./router/search-router";
+import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
+
 
 const app = express();
 const port = 3000;
@@ -44,11 +47,12 @@ app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
-app.use('/api/request', requestRouter);
 app.use('/signupMentee',signupMenteeRouter);
 app.use('/signupMentor',signupMentorRouter);
 app.use('/mailSent',mailSentRouter);
 app.use('/search', searchRouter);
+app.use('/api/request', requestApiRouter);
+app.use('/api/skills', languagesFrameworksRouter);
 
 app.use(express.static(path.join(__dirname, '../public')));
 

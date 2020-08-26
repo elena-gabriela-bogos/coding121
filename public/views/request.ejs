@@ -1,4 +1,4 @@
-<% var name, picture; %>
+<% var picture, name, message; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,8 +8,8 @@
     <title>IT-Labs</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -86,32 +86,29 @@
             </ul>
         </li>
     </ul>
+
 </nav>
 <section class="features color-section--grey-light u-vpadding">
-    <div class="row row--respond">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Get started</h2>
-        <div class="request__button">
-            <a href="/request/" class="course no-decoration heading-secondary--grey-dark">
-                <img src="../img/course.jpg" alt="" class="course__img">
-                <div class="course__duration">
-                    <svg class="course__icon">
-                        <use xlink:href="../img/sprite.svg#icon-stopwatch"></use>
-                    </svg>
-                    <div class="course__time">1:1 mentorship session</div>
-                </div>
-                <div class="course__title">Get live help</div>
-            </a>
+    <div class="row row--respond center-align">
+        <a href="/u/dashboard"><img style="margin-bottom: 2rem" src="../img/icons8-back-26.png"></a>
+        <h2 class="heading-secondary heading-secondary--grey-dark">Post a mentorship request</h2>
+        <div style="margin-bottom: 3rem">Let our mentors know what you need help with. Once your request is posted, you
+            can check out mentors'
+            profiles and
+            chat with them to determine a good fit.
         </div>
-        <h2 class="heading-secondary heading-secondary--grey-dark">My requests</h2>
-        <ul class="nav__menu">
-            <li class="nav__item">
-                <a href="#" id="openRequests" class="nav__link">Open</a>
-            </li>
-            <li class="nav__item">
-                <a href="#" id="closedRequests" class="nav__link">Closed</a>
-            </li>
-        </ul>
-        <div id="requestList"></div>
+        <form id="requestForm" class="u-flex-column" action="/request" method="post">
+            <h3 class="heading-secondary--grey-dark request__form__input">1. Tell us about what you need help
+                with</h3>
+            <textarea id="requestDescription" name="description"
+                      class="color-section--grey-light request__form__input"></textarea>
+            <h3 class="heading-secondary--grey-dark request__form__input">2. Technologies you need help with</h3>
+            <select size="5" multiple id="requestSkills" name="skills[]"
+                    class="color-section--grey-light request__form__input">
+            </select>
+            <button id="requestButton" class="login__submit">Submit request</button>
+            <div style="color: red"><%= message %></div>
+        </form>
     </div>
 </section>
 <footer class="footer">
@@ -197,7 +194,7 @@
                 </div>
                 <div class="footer__icon-box">
                     <svg class="footer__icon">
-                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
                     </svg>
                     <a href="https://www.software-skills4.me" class="footer__link">Software skills for me</a>
                 </div>
@@ -252,8 +249,7 @@
         <div class="grid">
             <div class="grid__3 footer__filler"></div>
             <div class="grid__9 footer__legal">
-                Copyright IT Labs &copy; 2020 | Toate drepturile rezervate | <a href="gdpr.html"
-                                                                                class="footer__link">Politica
+                Copyright IT Labs &copy; 2020 | Toate drepturile rezervate | <a href="gdpr.html" class="footer__link">Politica
                     de confidentialitate</a> |
                 <a href="cookie-policy.html" class="footer__link">Politica de utilizare a cookie-urilor</a>
             </div>
@@ -264,6 +260,7 @@
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
 <script src="../scripts/bundle.js"></script>
-<script src="../scripts/dashboardMentee.js"></script>
+<script src="../scripts/request.js"></script>
 </body>
+
 </html>
