@@ -1,4 +1,4 @@
-
+<% var name, picture; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,134 +8,86 @@
     <title>IT-Labs</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
+<nav class="nav">
+    <!-- LOGO -->
+    <a href="/" class="nav__logo">
+        <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
+    </a>
 
-    <nav class="nav">
-        <!-- LOGO -->
-        <a href="/" class="nav__logo">
-            <img title="IT-Labs" src="img/logo.png" alt="IT-Labs Logo">
-        </a>
-
-        <form class="search" action="/search" method="post">
-            <div class="search__before"><span>Search</span>{</div>
-            <input class="search__input" placeholder="..." type="text"  name="q" id="" autocomplete="off">
-            <div class="search__after">}</div>
-
-        </form>
-
-        <!-- MENU LINKS -->
-        <ul class="nav__menu">
-            <li class="nav__item">
-                <a href="#" class="nav__link">Sign up</a>
-            </li>
-
-            <li class="nav__item">
-                <a href="#" class="nav__link">Become a mentor</a>
-            </li>
-
-            <!-- ACCOUNT PREFERENCES -->
+    <!-- MENU LINKS -->
+    <ul class="nav__menu">
+        <!-- ACCOUNT PREFERENCES -->
+        <li class="nav__item">
             <div class="nav__account">
                 <div class="languages">
                     <div class="languages__active">
                         <svg class="languages__chevron">
-                            <use xlink:href="img/sprite.svg#icon-chevron-down"></use>
+                            <use xlink:href="../img/sprite.svg#icon-chevron-down"></use>
                         </svg>
                         <svg class="languages__icon">
-                            <use xlink:href="img/sprite.svg#icon-ro"></use>
+                            <use xlink:href="../img/sprite.svg#icon-ro"></use>
                         </svg>
                     </div>
 
                     <div class="languages__dropdown">
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="img/sprite.svg#icon-uk"></use>
+                                <use xlink:href="../img/sprite.svg#icon-uk"></use>
                             </svg>
                         </a>
 
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="img/sprite.svg#icon-ger"></use>
+                                <use xlink:href="../img/sprite.svg#icon-ger"></use>
                             </svg>
                         </a>
 
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="img/sprite.svg#icon-hu"></use>
+                                <use xlink:href="../img/sprite.svg#icon-hu"></use>
                             </svg>
                         </a>
 
                         <a href="#" class="languages__link">
                             <svg class="languages__icon">
-                                <use xlink:href="img/sprite.svg#icon-srb"></use>
+                                <use xlink:href="../img/sprite.svg#icon-srb"></use>
                             </svg>
                         </a>
                     </div>
-                </div>
-
-                <div class="nav__log-in">
-                    <a href="/login" class="nav__log-in-btn">Log in</a>
                 </div>
             </div>
-        </ul>
-
-    </nav>
-    <br/>
-    <br/>
-
-    <a href="#" class="nav__link">Find mentors</a>
-</li>
-<section class="features color-section--grey-light u-vpadding">
-    <div class="row row--respond">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Find a mentor</h2>
-
-        <div class="grid">
-            <% if(dataByName.length!=0){ %>
-               <% var dataByName; %>
-                       <% for(var i=0; i<dataByName.length;i++){ %>
-                            <div class="grid__4 grid-item">
-                                <div class="grid-item__circle grid-item__circle--1">
-                                    <svg class="grid-item__icon">
-                                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
-                                    </svg>
-                                </div>
-                                <div class="grid-item__text">
-                                    <p class="paragraph">
-
-                           Id:   <%= dataByName[i].userId %><br/>
-                            Name:   <%= dataByName[i].userName %><br/>
-                            Programming language:  <%= dataByName[i].lfName %><br/>
-                              Experience: <%= dataByName[i].yearsOfExperience %> years
-
-
-                        </p>
+        </li>
+        <li class="nav__item">
+            <a href="#" class="nav__link">Find mentors</a>
+        </li>
+        <li class="nav__item">
+            <% if (picture == null){ %>
+                <div class="profile__icon grid-item__circle--1">
+                    <svg>
+                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                    </svg>
                 </div>
-            </div><% } %>  <% } %>
-
-                <% if(dataByLf.length!=0){ %>
-                    <% for(var i=0; i<dataByLf.length;i++){ %>
-                    <div class="grid__4 grid-item">
-                      <div class="grid-item__circle grid-item__circle--2">
-                        <svg class="grid-item__icon">
-                          <use xlink:href="img/sprite.svg#icon-embed2"></use>
-                         </svg>
-                     </div>
-                     <div class="grid-item__text">
-                            <p class="paragraph">
-                                <% var dataByLf; %>
-                                Id:   <%= dataByLf[i].userId %><br/>
-                                Name:   <%= dataByLf[i].userName %><br/>
-                                Programming language:  <%= dataByLf[i].lfName %><br/>
-                                Experience: <%= dataByLf[i].yearsOfExperience %> years
-
-                            </p>
-                    </div>
-                </div><% } %> <% } %>
-        </div>
-    </div>
-    </section>
+            <% } %>
+            <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
+        </li>
+        <li class="nav__item">
+            <a href="#" class="nav__link"><img src="../img/icons8-menu-24.png" alt="#"></a>
+            <ul class="nav__sub-menu">
+                <li class="nav__sub-item"><a href="/u/dashboard" class="nav__sub-link">Dashboard</a></li>
+                <li class="nav__sub-item"><a href="/m/history" class="nav__sub-link">Session history</a></li>
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
+                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
 
 
 <table id="sessions">
@@ -147,8 +99,6 @@
     </tr>
 </table>
 
-<br/><br/>
-</body>
 <footer class="footer">
     <div class="row">
 
@@ -160,5 +110,146 @@
                 IT LABS este o comunitate si un ansamblu de resurse pentru devenirea ta ca programator.
             </div>
         </div>
+
+        <div class="grid">
+            <div class="grid__3 footer__filler"></div>
+
+            <div class="grid__3 footer__list">
+                <div class="footer__title">Contact</div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-map2"></use>
+                    </svg>
+                    <div class="footer__text">Str. Budai Deleanu nr. 13, Timișoara, România</div>
+                </div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-phone"></use>
+                    </svg>
+                    <div class="footer__text">+40 728 433 466</div>
+                </div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-phone"></use>
+                    </svg>
+                    <div class="footer__text">+40 356 800 009</div>
+                </div>
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-mail-envelope-closed"></use>
+                    </svg>
+                    <div class="footer__text">contact@it-labs.ro</div>
+                </div>
+            </div>
+
+            <div class="grid__3 footer__list">
+                <div class="footer__title">Links</div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                    <a href="https://www.it-labs.ro" class="footer__link">IT Labs</a>
+                </div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                    <a href="https://www.javabootcamp.net" class="footer__link">Java bootcamp</a>
+                </div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                    <a href="https://python-bootcamp.net" class="footer__link">Python bootcamp</a>
+                </div>
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                    <a href="https://cplusplus4.me" class="footer__link">C/C++ for me</a>
+                </div>
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                    <a href="https://www.web-bootcamp.net" class="footer__link">Web bootcamp ?</a>
+                </div>
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                    </svg>
+                    <a href="https://www.software-skills4.me" class="footer__link">Software skills for me</a>
+                </div>
+            </div>
+
+            <div class="grid__3 footer__list">
+                <div class="footer__title">Media</div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-facebook"></use>
+                    </svg>
+                    <a href="#" class="footer__link">Facebook</a>
+                </div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-linkedin2"></use>
+                    </svg>
+                    <a href="#" class="footer__link">Linked in</a>
+                </div>
+
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-whatsapp"></use>
+                    </svg>
+                    <a href="#" class="footer__link">Whatsapp</a>
+                </div>
+                <div class="footer__icon-box">
+                    <svg class="footer__icon">
+                        <use xlink:href="../img/sprite.svg#icon-twitter"></use>
+                    </svg>
+                    <a href="#" class="footer__link">Twitter</a>
+                </div>
+            </div>
+
+        </div>
+        <!--END GRID-->
+
+        <div class="grid">
+            <div class="grid__3 footer__filler"></div>
+            <div class="grid__6 footer__list">
+                <div class="footer__title">Newsletter</div>
+                <from class="footer__newsletter">
+                    <input type="email" class="footer__input">
+                    <input type="submit" value="Subscribe" class="footer__submit">
+                </from>
+                <div class="footer__text">Veti primi mailuri legate de activitatile noi ...</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="grid__3 footer__filler"></div>
+            <div class="grid__9 footer__legal">
+                Copyright IT Labs &copy; 2020 | Toate drepturile rezervate | <a href="gdpr.html"
+                                                                                class="footer__link">Politica
+                    de confidentialitate</a> |
+                <a href="cookie-policy.html" class="footer__link">Politica de utilizare a cookie-urilor</a>
+            </div>
+        </div>
     </div>
+    <!--END ROW-->
 </footer>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
+<script src="../scripts/bundle.js"></script>
+<script src="../scripts/dashboardMentee.js"></script>
+</body>
+
+</html>
