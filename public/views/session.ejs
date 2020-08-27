@@ -11,29 +11,43 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    
-    <nav class="nav">
-    
+
+<nav class="nav">
+
     <a href="/" class="nav__logo">
         <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
     </a>
-    </nav>
-    <div class="container_sess">
-    
+</nav>
+<div class="container_sess">
+
     <div class="div_session_nav">
-    <nav class="session_nav">
-        <button class="sess_button"> CODE EDITOR</button>
-        <button class="sess_button"> AUDIO/VIDEO</button>
-        <button class="sess_button"> WHITEBOARD</button>
-    </nav>
-    -- insert features here -- 
-</div>
+        <nav class="session_nav">
+            <button class="sess_button"> CODE EDITOR</button>
+            <button class="sess_button"> AUDIO/VIDEO</button>
+            <button class="sess_button"> WHITEBOARD</button>
+        </nav>
+        -- insert features here --
+    </div>
 
 
-<div class="div_session_chat">
-    --insert chat here--
-   
-</div>
+    <div class="div_session_chat">
+        <form action="#" class="form-container u-flex-column" style="width: 100%">
+            <div class="chat_header color-section--primary"></div>
+            <div id="chatProfile" class="u-flex">
+                <div><img class="profile_icon_message background_color_icon"/><span id="profileName"
+                                                                                    class="profile_name"></span></div>
+            </div>
+            <p id="userChatId" style="display:none"></p>
+<!--            <p id="myId" style="display:none"></p>-->
+            <div id="messagesContainer" class="u-flex-column"></div>
+            <div class="send_message_container">
+                <textarea id="messageText" placeholder="Type message.." name="msg"></textarea>
+
+                <button id="sendMessageBtn" class="btn">Send</button>
+            </div>
+        </form>
+
+    </div>
 
 </div>
 <footer class="footer">

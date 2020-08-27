@@ -2483,6 +2483,7 @@ input:checked + .slide:before {
     font-size: 1rem;
     margin-left: 1rem;
     margin-top: 0;
+}
 
 .session_nav{
     text-align: center;
@@ -2492,12 +2493,12 @@ input:checked + .slide:before {
     background-color:#7bbce8;
     color:white;
     border: none;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px ;
-  cursor: pointer;
-  padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px ;
+    cursor: pointer;
+    padding: 15px 32px;
 }
 .session_nav .sess_button:hover{
     color:#ed7d26;
@@ -2505,17 +2506,17 @@ input:checked + .slide:before {
 
 .div_session_nav{
     margin: 20px;
-    border: 3px solid lightgray;   
+    border: 3px solid lightgray;
     float: left;
     width: 70%;
-    
-    
+
+
 }
 
 .div_session_chat{
     margin: 20px;
-    border: 3px solid lightgray;   
-    width: 25%;  
+    border: 3px solid lightgray;
+    width: 25%;
 }
 
 
