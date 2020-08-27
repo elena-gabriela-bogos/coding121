@@ -32,4 +32,19 @@ export const bindSocketChatEvents = (socket, io) => {
     socket.on('chat-history-closed', () => {
         socket.handshake.session.chatHistoryOpen = false;
     });
+
+    socket.on('start-session-request', (data) => {
+        if (data.to in io.sockets.adapter.rooms) {
+            io.to(data.to).emit("start-session-request", {from: data.from, fromName: data.fromName});
+        } else {
+            io.to(data.from).emit("offline-user");
+        }
+    });
+    socket.on('start-session-confirm', (data) => {
+        io.to(data.to).emit("start-session-confirm");
+    });
+
+    socket.on('start-session-refused', (data) => {
+        io.to(data.to).emit("start-session-refused");
+    });
 }
