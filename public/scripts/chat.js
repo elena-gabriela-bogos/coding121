@@ -1,4 +1,4 @@
-var otherUser, myInfo, waitingAlert;
+var otherUser, myInfo, waitingAlert, confirmStartSession;
 
 document.getElementById("chatHistoryContainer").style.display = "none";
 
@@ -200,16 +200,17 @@ document.getElementById("chatHistoryVisible").onclick = () => {
 
 const startSessionHandler = () => {
     event.preventDefault();
-    socket.emit("start-session-request", {
+    const data = {
         to: document.getElementById("userChatId").innerHTML,
         from: document.getElementById("myId").innerHTML,
         fromName: myInfo.name
-    });
+    };
+    socket.emit("start-session-request", data);
     waitingAlert = $.alert({
         content: `Waiting for ${otherUser.name} to reply...`,
         buttons: {
             Cancel: function () {
-
+                socket.emit("session-request-cancelled", data);
             }
         }
     });
@@ -236,6 +237,7 @@ socket.on("new_message", (data) => {
 
 socket.on("offline-user", (data) => {
     $.alert({
+        title: "Info",
         content: "User is offline at the moment",
         buttons: {
             Cancel: function () {
@@ -245,31 +247,66 @@ socket.on("offline-user", (data) => {
     });
 });
 
-socket.on("start-session-request", (data) => {
-    $.confirm({
-        title: 'Confirm!',
-        content: `Start session with ${data.fromName}?`,
+socket.on("user-busy", (data) => {
+    $.alert({
+        title: "Info",
+        content: "User is busy at the moment",
         buttons: {
-            confirm: function () {
-                socket.emit("start-session-confirm", {to: data.from});
-                // redirect
-            },
-            cancel: function () {
-                socket.emit("start-session-refused", {to: data.from});
+            Cancel: function () {
+                waitingAlert.close();
             }
         }
     });
 });
 
+socket.on("start-session-request", (data) => {
+    axios.get(`/api/user/status`)
+        .then((response) => {
+            if (response.data.userStatus === "busy") {
+                socket.emit("user-busy", {to: data.from});
+            } else {
+                confirmStartSession = $.confirm({
+                    title: 'Confirm!',
+                    content: `Start session with ${data.fromName}?`,
+                    buttons: {
+                        confirm: function () {
+                            socket.emit("start-session-confirm", {to: data.from, room: data.room});
+                            console.log(data.room);
+                            // window.location = "/session/session";
+                        },
+                        cancel: function () {
+                            socket.emit("start-session-refused", {to: data.from});
+                        }
+                    }
+                });
+            }
+        });
+});
+
 socket.on("start-session-confirm", (data) => {
     waitingAlert.close();
-    console.log("redirect to session");
+    console.log(data.room);
+    // window.location = "/session/session";
 });
 
 socket.on("start-session-refused", (data) => {
     waitingAlert.close();
     $.alert({
+        title: "Info",
         content: "User refused",
+        buttons: {
+            Ok: function () {
+
+            }
+        }
+    });
+});
+
+socket.on("cancel-session-request", (data) => {
+    confirmStartSession.close();
+    $.alert({
+        title: "Info",
+        content: "User cancelled",
         buttons: {
             Ok: function () {
 
