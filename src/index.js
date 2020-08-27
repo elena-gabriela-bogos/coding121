@@ -78,6 +78,7 @@ app.use('/m/history', sessionRouter);
 app.use('/api/request', requestApiRouter);
 app.use('/api/skills', languagesFrameworksRouter);
 app.use('/api/message', messageRouter);
+app.use('/session', sessionRouter);
 
 
 app.use(express.static(path.join(__dirname, '../public')));

@@ -21,3 +21,10 @@ sessionRouter.post('/', checkAuth, (req, res) => {
     res.render(path.resolve('public/views/menteeSessionHistory.ejs'));
 });
 
+sessionRouter.get('/session', (req, res) => {
+   
+    res.render(path.resolve('public/views/session.ejs'));
+
+
+});
+
