@@ -259,6 +259,13 @@ socket.on("user-busy", (data) => {
     });
 });
 
+const redirectToSession = (partner) => {
+    axios.post(`/session/session`, {partner})
+        .then((response) => {
+            window.location = "/session/session";
+        })
+}
+
 socket.on("start-session-request", (data) => {
     axios.get(`/api/user/status`)
         .then((response) => {
@@ -270,9 +277,8 @@ socket.on("start-session-request", (data) => {
                     content: `Start session with ${data.fromName}?`,
                     buttons: {
                         confirm: function () {
-                            socket.emit("start-session-confirm", {to: data.from, room: data.room});
-                            console.log(data.room);
-                            // window.location = "/session/session";
+                            socket.emit("start-session-confirm", {to: data.from, from: data.to});
+                            redirectToSession(data.from);
                         },
                         cancel: function () {
                             socket.emit("start-session-refused", {to: data.from});
@@ -285,8 +291,7 @@ socket.on("start-session-request", (data) => {
 
 socket.on("start-session-confirm", (data) => {
     waitingAlert.close();
-    console.log(data.room);
-    // window.location = "/session/session";
+    redirectToSession(data.from);
 });
 
 socket.on("start-session-refused", (data) => {
