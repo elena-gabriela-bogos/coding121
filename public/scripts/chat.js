@@ -1,4 +1,7 @@
+var otherUser, myInfo, waitingAlert;
+
 document.getElementById("chatHistoryContainer").style.display = "none";
+
 // MANAGE CHAT WINDOW
 
 const formatMessageDate = (time) => {
@@ -62,9 +65,9 @@ const displayPreviousMessages = (messages) => {
 
 const setChatPartnerProfile = (data) => {
     const chatProfile = document.getElementById("chatProfile");
-    chatProfile.innerHTML = '<img class="profile_icon_message background_color_icon"/>';
-    chatProfile.innerHTML += `<span class="profile_name">${data.name}</span>`;
+    document.getElementById("profileName").innerHTML = data.name;
     document.getElementById("userChatId").innerHTML = data.id;
+    otherUser = {id: data.id, name: data.name};
 }
 
 const openChatWindow = (id) => {
@@ -195,6 +198,23 @@ document.getElementById("chatHistoryVisible").onclick = () => {
     }
 }
 
+const startSessionHandler = () => {
+    event.preventDefault();
+    socket.emit("start-session-request", {
+        to: document.getElementById("userChatId").innerHTML,
+        from: document.getElementById("myId").innerHTML,
+        fromName: myInfo.name
+    });
+    waitingAlert = $.alert({
+        content: `Waiting for ${otherUser.name} to reply...`,
+        buttons: {
+            Cancel: function () {
+
+            }
+        }
+    });
+}
+
 
 // CREATE SOCKET
 
@@ -214,6 +234,60 @@ socket.on("new_message", (data) => {
         });
 });
 
+socket.on("offline-user", (data) => {
+    $.alert({
+        content: "User is offline at the moment",
+        buttons: {
+            Cancel: function () {
+                waitingAlert.close();
+            }
+        }
+    });
+});
+
+socket.on("start-session-request", (data) => {
+    $.confirm({
+        title: 'Confirm!',
+        content: `Start session with ${data.fromName}?`,
+        buttons: {
+            confirm: function () {
+                socket.emit("start-session-confirm", {to: data.from});
+                // redirect
+            },
+            cancel: function () {
+                socket.emit("start-session-refused", {to: data.from});
+            }
+        }
+    });
+});
+
+socket.on("start-session-confirm", (data) => {
+    waitingAlert.close();
+    console.log("redirect to session");
+});
+
+socket.on("start-session-refused", (data) => {
+    waitingAlert.close();
+    $.alert({
+        content: "User refused",
+        buttons: {
+            Ok: function () {
+
+            }
+        }
+    });
+});
+
+
 getConversationsWithUnreadMessages((data) => {
     document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
 });
+
+const id = document.getElementById("myId").innerHTML;
+axios.get(`/api/user/${id}`)
+    .then(function (response) {
+        myInfo = response.data[0];
+    })
+    .catch(function (error) {
+        console.log(error);
+    });

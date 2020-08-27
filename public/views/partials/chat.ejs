@@ -1,16 +1,24 @@
 <% var id, chatOpen, chatPartner, chatHistoryOpen, relativePath; %>
+
+
 <div class="chat-popup" id="chat">
     <form action="#" class="form-container u-flex-column">
         <button type="button" class="cancel__btn" onclick="closeChatWindow()"><img class="cancel"
-                                                                                   src="../../../img/icons8-close-window-26.png"/>
+                                                                                   src="<%= relativePath %>img/icons8-close-window-26.png"/>
         </button>
         <div class="chat_header color-section--primary"></div>
-        <div id="chatProfile" class="u-flex"></div>
+        <div id="chatProfile" class="u-flex">
+            <div><img class="profile_icon_message background_color_icon"/><span id="profileName"
+                                                                                class="profile_name"></span></div>
+            <button id="startSessionBtn" onclick="startSessionHandler()" type="button" class="call_button"><img
+                        src="<%= relativePath %>img/icons8-video-message-24.png" class="start_session_image"/><span
+                        class="start_session_text">Start session</span></button>
+        </div>
         <p id="userChatId" style="display:none"></p>
         <p id="myId" style="display:none"><%= id %></p>
         <div id="messagesContainer" class="u-flex-column"></div>
         <div class="send_message_container">
-            <textarea id="messageText" placeholder="Type message.." name="msg" required></textarea>
+            <textarea id="messageText" placeholder="Type message.." name="msg"></textarea>
 
             <button id="sendMessageBtn" class="btn">Send</button>
         </div>
