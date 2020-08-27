@@ -38,8 +38,8 @@
                                 Id: <%= dataByName[i].userId %><br/>
                                 Name: <%= dataByName[i].userName %><br/>
                                 Programming language: <%= dataByName[i].lfName %><br/>
-                                Experience: <%= dataByName[i].yearsOfExperience %> years
-
+                                Experience: <%= dataByName[i].yearsOfExperience %> years <br/>
+                                <button id=${mentor.id} class='login__submit' onclick='openChatWindow(dataByLf[i].userId)'>Message</button></div></div>
 
                             </p>
                         </div>
@@ -60,8 +60,8 @@
                                 Id: <%= dataByLf[i].userId %><br/>
                                 Name: <%= dataByLf[i].userName %><br/>
                                 Programming language: <%= dataByLf[i].lfName %><br/>
-                                Experience: <%= dataByLf[i].yearsOfExperience %> years
-
+                                Experience: <%= dataByLf[i].yearsOfExperience %> years<br/>
+                                <button id=${mentor.id} class='login__submit' onclick='openChatWindow(dataByLf[i].userId)'>Message</button></div></div>
                             </p>
                         </div>
                     </div><% } %>

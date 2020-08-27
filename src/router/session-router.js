@@ -22,3 +22,10 @@ sessionRouter.post('/', (req, res) => {
 
 });
 
+sessionRouter.get('/session', (req, res) => {
+   
+    res.render(path.resolve('public/views/session.ejs'));
+
+
+});
+
