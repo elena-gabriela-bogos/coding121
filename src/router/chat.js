@@ -37,18 +37,14 @@ export const bindSocketChatEvents = (socket, io) => {
 
     socket.on('start-session-request', (data) => {
         if (data.to in io.sockets.adapter.rooms) {
-            const roomId = uuidv4();
-            socket.join(roomId);
-            io.to(data.to).emit("start-session-request", {from: data.from, fromName: data.fromName, room: roomId});
+            io.to(data.to).emit("start-session-request", {from: data.from, fromName: data.fromName, to: data.to});
         } else {
             io.to(data.from).emit("offline-user");
         }
     });
     socket.on('start-session-confirm', (data) => {
         socket.handshake.session.busy = true;
-        socket.join(data.room);
-        // console.log(io.sockets.adapter.rooms[data.room].sockets);
-        io.to(data.to).emit("start-session-confirm", {room: data.room});
+        io.to(data.to).emit("start-session-confirm", {from: data.from});
     });
 
     socket.on('start-session-refused', (data) => {

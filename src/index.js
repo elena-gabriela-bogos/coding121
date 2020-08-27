@@ -37,6 +37,7 @@ const io = socketIO(server);
 io.on('connection', function (socket) {
     const s = socket.handshake.session;
     socket.join(s.userId);
+    socket.userId = s.userId;
 
     bindSocketChatEvents(socket, io);
 });

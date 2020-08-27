@@ -1,3 +1,5 @@
+<% var myId, partnerId, partnerName; %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,10 +37,9 @@
             <div class="chat_header color-section--primary"></div>
             <div id="chatProfile" class="u-flex">
                 <div><img class="profile_icon_message background_color_icon"/><span id="profileName"
-                                                                                    class="profile_name"></span></div>
+                                                                                    class="profile_name"><%= partnerName %></span>
+                </div>
             </div>
-            <p id="userChatId" style="display:none"></p>
-<!--            <p id="myId" style="display:none"></p>-->
             <div id="messagesContainer" class="u-flex-column"></div>
             <div class="send_message_container">
                 <textarea id="messageText" placeholder="Type message.." name="msg"></textarea>
@@ -48,7 +49,8 @@
         </form>
 
     </div>
-
+    <p id="myId" style="display: none"><%= myId %></p>
+    <p id="partnerId" style="display: none"><%= partnerId %></p>
 </div>
 <footer class="footer">
     <div class="row">
