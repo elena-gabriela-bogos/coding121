@@ -5,7 +5,8 @@ import {dbConn} from "../../config/db.config";
 import {checkAuth} from "./api/authentification";
 
 
-export const searchRouter = express.Router()
+export const searchRouter = express.Router();
+
 searchRouter.get('/', checkAuth, (req, res) => {
     res.render(path.resolve('public/views/search.ejs'));
 });

@@ -1,3 +1,4 @@
+const socket = io.connect("localhost:3000");
 
 $(document).ready( function() {
      $('#click_whiteboard').click(function(){

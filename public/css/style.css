@@ -14,6 +14,7 @@ div.scrollmenu {
     overflow: auto;
     white-space: nowrap;
 }
+
 a span {
     display: block;
 }
@@ -34,7 +35,8 @@ div.scrollmenu a {
 }
 
 div.scrollmenu a:hover {
-    background-color: #777;}
+    background-color: #777;
+}
 
 @keyframes loadingRotate {
     0% {
@@ -149,9 +151,8 @@ img.responsive {
     justify-content: center
 }
 
-.h_howitworks
-{
-    color:#fff;
+.h_howitworks {
+    color: #fff;
 }
 
 .heading-primary {
@@ -967,7 +968,7 @@ img.responsive {
 
 .profiles {
     display: grid;
-    grid-template-columns: repeat(4,1fr) ;
+    grid-template-columns: repeat(4, 1fr);
     -webkit-column-gap: 20rem;
     -moz-column-gap: 20rem;
     column-gap: 5rem;
@@ -978,7 +979,6 @@ img.responsive {
 
 
 }
-
 
 
 .profiles__profile {
@@ -1020,6 +1020,7 @@ img.responsive {
 .profiles__image--silvia {
     background-image: url(../img/silvia.jpg)
 }
+
 .profiles__image--maria {
     background-image: url(../img/maria.jpg)
 }
@@ -1112,8 +1113,6 @@ img.responsive {
     height: 1.5rem;
     fill: #fff
 }
-
-
 
 
 .course {
@@ -2170,6 +2169,7 @@ input:checked + .slide:before {
     flex-direction: row;
     justify-content: space-between;
 }
+
 .timeline {
     width: 100rem;
     margin: 0 auto;
@@ -2337,7 +2337,8 @@ input:checked + .slide:before {
 #chatProfile {
     padding: 0.5rem;
     background-color: white;
-    height: 3rem;
+    height: 3.5rem;
+    justify-content: space-between;
 }
 
 #messagesContainer {
@@ -2458,6 +2459,32 @@ input:checked + .slide:before {
     font-weight: bolder;
     font-size: 1.8rem;
 }
+
+.call_button {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin: 0;
+    color: #fff;
+    outline-color: currentColor;
+    background-color: #ed7d26;
+    height: 2.5rem;
+    border: 0;
+    width: 13rem;
+}
+
+.start_session_image {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.start_session_text {
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-top: 0;
+}
+
 .session_nav{
     text-align: center;
 }
@@ -2466,12 +2493,12 @@ input:checked + .slide:before {
     background-color:#7bbce8;
     color:white;
     border: none;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px ;
-  cursor: pointer;
-  padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px ;
+    cursor: pointer;
+    padding: 15px 32px;
 }
 .session_nav .sess_button:hover{
     color:#ed7d26;
@@ -2479,20 +2506,21 @@ input:checked + .slide:before {
 
 .div_session_nav{
     margin: 20px;
-    border: 3px solid lightgray;   
+    border: 3px solid lightgray;
     float: left;
     width: 70%;
-    
-    
+
+
 }
 
 .div_session_chat{
     margin: 20px;
-    border: 3px solid lightgray;   
-    width: 25%;  
+    border: 3px solid lightgray;
+    width: 25%;
 }
 
 
 .container_sess{
     display: flex;
+
 }

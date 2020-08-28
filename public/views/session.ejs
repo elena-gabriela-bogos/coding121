@@ -1,3 +1,5 @@
+<% var myId, partnerId, partnerName; %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,36 +10,55 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <link rel="stylesheet" href="../css/style.css">
 
    
 
 </head>
 <body>
-    
-    <nav class="nav">
-    
-    <a href="/" class="nav__logo">
+
+<nav class="nav">
+
+    <a href="#" class="nav__logo">
         <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
     </a>
-    </nav>
-    <div class="container_sess">
-    
+</nav>
+<div class="container_sess">
+
     <div class="div_session_nav">
+
     <nav class="session_nav">
         <button class="sess_button"> CODE EDITOR</button>
         <button class="sess_button"> AUDIO/VIDEO</button>
         <button class="sess_button" id="click_whiteboard" > WHITEBOARD</button>
     </nav>
-    <div  id="option">salut</div>
+    <div  id="option"></div>
+
     </div>
 
 
-<div class="div_session_chat">
-    --insert chat here--
-   
-</div>
+    <div class="div_session_chat">
+        <form action="#" class="form-container u-flex-column" style="width: 100%">
+            <div class="chat_header color-section--primary"></div>
+            <div id="chatProfile" class="u-flex">
+                <div><img class="profile_icon_message background_color_icon"/><span id="profileName"
+                                                                                    class="profile_name"><%= partnerName %></span>
+                </div>
+            </div>
+            <div id="messagesContainer" class="u-flex-column"></div>
+            <div class="send_message_container">
+                <textarea id="messageText" placeholder="Type message.." name="msg"></textarea>
 
+                <button id="sendMessageBtn" class="btn">Send</button>
+            </div>
+        </form>
+
+    </div>
+    <p id="myId" style="display: none"><%= myId %></p>
+    <p id="partnerId" style="display: none"><%= partnerId %></p>
 </div>
 <footer class="footer">
     <div class="row">
@@ -55,5 +76,6 @@
 <script src="../scripts/bundle.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../scripts/session.js" type="text/javascript"></script>
-
+<script src="../scripts/chatCommon.js"></script>
+<script src="../scripts/chatSession.js"></script>
 </body>
