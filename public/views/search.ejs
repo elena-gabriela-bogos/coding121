@@ -9,15 +9,14 @@
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 </head>
 <body>
 
 <%- include("partials/header.ejs", {relativePath:""}) %>
-
-<br/>
-<br/>
-
-<!--</li>-->
+<% var chatOpen, chatPartner, chatHistoryOpen, id; %>
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond">
         <h2 class="heading-secondary heading-secondary--grey-dark">Find a mentor</h2>
@@ -39,7 +38,7 @@
                                 Name: <%= dataByName[i].userName %><br/>
                                 Programming language: <%= dataByName[i].lfName %><br/>
                                 Experience: <%= dataByName[i].yearsOfExperience %> years <br/>
-                                <button id=${mentor.id} class='login__submit' onclick='openChatWindow(dataByLf[i].userId)'>Message</button></div></div>
+                                <button id=dataByName[i].userId class='login__submit' onclick='openChatWindow("<%= dataByName[i].userId %>");'>Message</button>
 
                             </p>
                         </div>
@@ -60,11 +59,13 @@
                                 Id: <%= dataByLf[i].userId %><br/>
                                 Name: <%= dataByLf[i].userName %><br/>
                                 Programming language: <%= dataByLf[i].lfName %><br/>
-                                Experience: <%= dataByLf[i].yearsOfExperience %> years<br/>
-                                <button id=${mentor.id} class='login__submit' onclick='openChatWindow(dataByLf[i].userId)'>Message</button></div></div>
-                            </p>
+                                Experience: <%= dataByLf[i].yearsOfExperience %> years
+                           
+                                <button id=dataByLf[i].userId class='login__submit' onclick='openChatWindow("<%= dataByLf[i].userId %>");'>Message</button> </p>
                         </div>
-                    </div><% } %>
+                    </div>
+                           
+                    <% } %>
             <% } %>
         </div>
     </div>
@@ -72,6 +73,8 @@
 
 <%- include("partials/footer.ejs", {relativePath:"../"}) %>
 <script src="../scripts/bundle.js"></script>
+<%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen}) %>
+
 </body>
 
 </html>
