@@ -20,7 +20,11 @@ searchRouter.post('/', checkAuth, (req, res) => {
         if (err) throw err;
         // console.log(result);
 
-        res.render(path.resolve('public/views/search.ejs'), {dataByName: result[0], dataByLf: result[1]});
+        res.render(path.resolve('public/views/search.ejs'), {dataByName: result[0], dataByLf: result[1], 
+            chatOpen: req.session.chatOpen,
+            id: req.session.userId,
+            chatPartner: req.session.chattingWith,
+            chatHistoryOpen: req.session.chatHistoryOpen});
 
     });
 });
