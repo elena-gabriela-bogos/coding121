@@ -2191,7 +2191,8 @@ input:checked + .slide:before {
     padding-top: 3.5rem;
     display: grid;
     grid-template-rows:auto auto;
-    grid-template-columns:auto auto auto auto
+    grid-template-columns:auto auto auto auto;
+    grid-column-gap: 2rem;
 }
 
 .request__skill {
@@ -2264,7 +2265,6 @@ input:checked + .slide:before {
     position: fixed;
     bottom: 0;
     right: 33rem;
-    /*border: 3px solid #f1f1f1;*/
     z-index: 100;
 }
 
@@ -2276,13 +2276,11 @@ input:checked + .slide:before {
     z-index: 100;
 }
 
-/* Add styles to the form container */
 .form-container {
     width: 30rem;
     height: 35rem;
 }
 
-/* Full-width textarea */
 .form-container textarea {
     padding: 1rem;
     border: none;
@@ -2292,12 +2290,10 @@ input:checked + .slide:before {
     flex: 1;
 }
 
-/* When the textarea gets focus, do something */
 .form-container textarea:focus {
     outline: none;
 }
 
-/* Set a style for the submit/login button */
 .form-container .btn {
     background-color: #7bbce8;
     color: white;
@@ -2314,7 +2310,6 @@ input:checked + .slide:before {
     width: 2rem;
 }
 
-/* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
     opacity: 1;
 }
@@ -2485,26 +2480,27 @@ input:checked + .slide:before {
     margin-top: 0;
 }
 
-.session_nav{
+.session_nav {
     text-align: center;
 }
 
 .session_nav .sess_button {
-    background-color:#7bbce8;
-    color:white;
+    background-color: #7bbce8;
+    color: white;
     border: none;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px ;
+    margin: 4px;
     cursor: pointer;
     padding: 15px 32px;
 }
-.session_nav .sess_button:hover{
-    color:#ed7d26;
+
+.session_nav .sess_button:hover {
+    color: #ed7d26;
 }
 
-.div_session_nav{
+.div_session_nav {
     margin: 20px;
     border: 3px solid lightgray;
     float: left;
@@ -2513,14 +2509,14 @@ input:checked + .slide:before {
 
 }
 
-.div_session_chat{
+.div_session_chat {
     margin: 20px;
     border: 3px solid lightgray;
     width: 25%;
 }
 
 
-.container_sess{
+.container_sess {
     display: flex;
 
 }
