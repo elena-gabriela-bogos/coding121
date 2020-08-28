@@ -5,7 +5,7 @@ import {dbConn} from "../../config/db.config";
 export const suggestedRequestRouter = express.Router()
 
 suggestedRequestRouter.get('/', (req, res) => {
-    console.log('here1');
+    // console.log('here1');
     if (!req.query.status) {
         Request.findAll((err, request) => {
             if (err) {
