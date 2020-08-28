@@ -2518,5 +2518,32 @@ input:checked + .slide:before {
 
 .container_sess {
     display: flex;
+}
 
+#option {
+    position: relative;
+    flex: 1;
+}
+
+#local-video {
+    position: absolute;
+    border: 1px solid #cddfe7;
+    bottom: 1rem;
+    right: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 25rem;
+}
+
+#remote-video {
+    border: 1px solid #cddfe7;
+    width: 90%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    height: 55rem;
+    margin: 0 auto;
+    display: block;
+}
+
+video {
+    object-fit: fill;
 }

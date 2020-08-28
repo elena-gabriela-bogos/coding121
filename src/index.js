@@ -27,6 +27,8 @@ import socketIO from "socket.io";
 import sharedsession from "express-socket.io-session";
 import {bindSocketChatEvents} from "./router/chat";
 import {messageRouter} from "./router/api/message_router";
+import {bindSocketAudioVideoEvents} from "./router/audio-video";
+import {bindSocketButtonEvents} from "./router/buttons";
 
 
 const app = express();
@@ -41,6 +43,8 @@ io.on('connection', function (socket) {
     socket.userId = s.userId;
 
     bindSocketChatEvents(socket, io);
+    bindSocketAudioVideoEvents(socket, io);
+    bindSocketButtonEvents(socket, io);
 });
 
 
@@ -71,9 +75,9 @@ app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
-app.use('/signupMentee',signupMenteeRouter);
-app.use('/signupMentor',signupMentorRouter);
-app.use('/mailSent',mailSentRouter);
+app.use('/signupMentee', signupMenteeRouter);
+app.use('/signupMentor', signupMentorRouter);
+app.use('/mailSent', mailSentRouter);
 app.use('/search', searchRouter);
 app.use('/api/suggested_request', suggestedRequestRouter);
 
