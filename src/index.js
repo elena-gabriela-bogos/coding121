@@ -17,6 +17,7 @@ import {signupMenteeRouter} from "./auth/signupMentee-router";
 import {signupMentorRouter} from "./auth/signupMentor-router";
 import {mailSentRouter} from "./auth/mailSent";
 import {searchRouter} from "./router/search-router";
+import {suggestedRequestRouter} from "./router/suggested-request-router";
 
 import {sessionRouter} from "./router/session-router";
 
@@ -26,6 +27,8 @@ import socketIO from "socket.io";
 import sharedsession from "express-socket.io-session";
 import {bindSocketChatEvents} from "./router/chat";
 import {messageRouter} from "./router/api/message_router";
+import {bindSocketAudioVideoEvents} from "./router/audio-video";
+import {bindSocketButtonEvents} from "./router/buttons";
 
 
 const app = express();
@@ -41,7 +44,12 @@ io.on('connection', function (socket) {
     socket.userId = s.userId;
 
     bindSocketChatEvents(socket, io);
+  
     socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+
+
+    bindSocketAudioVideoEvents(socket, io);
+    bindSocketButtonEvents(socket, io);
 
 });
 
@@ -73,10 +81,11 @@ app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
-app.use('/signupMentee',signupMenteeRouter);
-app.use('/signupMentor',signupMentorRouter);
-app.use('/mailSent',mailSentRouter);
+app.use('/signupMentee', signupMenteeRouter);
+app.use('/signupMentor', signupMentorRouter);
+app.use('/mailSent', mailSentRouter);
 app.use('/search', searchRouter);
+app.use('/api/suggested_request', suggestedRequestRouter);
 
 app.use('/m/history', sessionRouter);
 app.use('/api/request', requestApiRouter);
