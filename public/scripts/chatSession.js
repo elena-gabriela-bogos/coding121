@@ -11,7 +11,6 @@ document.getElementById("sendMessageBtn").onclick = () => {
     addMyMessage({content: document.getElementById("messageText").value, deliveredTime: Date.now()});
     document.getElementById("messageText").value = "";
 };
-
 getPreviousMessages(myId, partnerId, () => {
 
 });

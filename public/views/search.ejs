@@ -36,8 +36,13 @@
 
                                 Id: <%= dataByName[i].userId %><br/>
                                 Name: <%= dataByName[i].userName %><br/>
-                                Programming language: <%= dataByName[i].lfName %><br/>
+                                Programming languages:
+                                <% for(var j=0; j<lfByName.length-1;j++){ %>
+                                 <%= lfByName[j].lfName %>,
+                                 <% } %>
+                                 <%= lfByName[lfByName.length-1].lfName %>
                                 Experience: <%= dataByName[i].yearsOfExperience %> years <br/>
+                                <br/>
                                 <button id=dataByName[i].userId class='login__submit' onclick='openChatWindow("<%= dataByName[i].userId %>");'>Message</button>
 
                             </p>
@@ -60,7 +65,7 @@
                                 Name: <%= dataByLf[i].userName %><br/>
                                 Programming language: <%= dataByLf[i].lfName %><br/>
                                 Experience: <%= dataByLf[i].yearsOfExperience %> years
-                           
+                                <br/> <br/>
                                 <button id=dataByLf[i].userId class='login__submit' onclick='openChatWindow("<%= dataByLf[i].userId %>");'>Message</button> </p>
                         </div>
                     </div>

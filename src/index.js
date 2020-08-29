@@ -37,14 +37,20 @@ const port = 3000;
 config();
 
 const io = socketIO(server);
+
 io.on('connection', function (socket) {
     const s = socket.handshake.session;
     socket.join(s.userId);
     socket.userId = s.userId;
 
     bindSocketChatEvents(socket, io);
+  
+    socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+
+
     bindSocketAudioVideoEvents(socket, io);
     bindSocketButtonEvents(socket, io);
+
 });
 
 
