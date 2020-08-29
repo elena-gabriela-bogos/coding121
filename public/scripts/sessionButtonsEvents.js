@@ -7,21 +7,22 @@ document.getElementById("audioVideoButton").onclick = () => {
 
 document.getElementById("codeButton").onclick = () => {
     socket.emit("code-button-pressed");
-
     clearVideoAudioWindow();
 }
 
 document.getElementById("whiteboardButton").onclick = () => {
     socket.emit("whiteboard-button-pressed");
-    clearVideoAudioWindow();
+    clearVideoAudioWindow(); 
+    showWhiteboard();
 }
 
 socket.on("code-button-pressed", (data) => {
     clearVideoAudioWindow();
+    clearWhiteboardWindow();
 });
 
 socket.on("whiteboard-button-pressed", (data) => {
-    clearVideoAudioWindow();
+    //clearVideoAudioWindow();
     showWhiteboard();
 });
 

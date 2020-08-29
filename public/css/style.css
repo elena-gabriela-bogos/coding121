@@ -2562,7 +2562,7 @@ input:checked + .slide:before {
   }
   
   .colors {
-    position: fixed;
+    position: relative;
   }
   
   .color {
