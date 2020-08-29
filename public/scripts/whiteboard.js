@@ -1,8 +1,12 @@
 'use strict';
+$(document).ready( function() {
+    $('#click_whiteboard').click(function(){
+       document.getElementById('option').innerHTML='<canvas class="whiteboard" ></canvas><div class="colors"><div class="color black"></div><div class="color red"></div><div class="color green"></div><div class="color blue"></div><div class="color yellow"></div> </div>';
+    f();
+   });
+});
 
-(function() {
-
-  var socket = io();
+function f(){
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
@@ -100,4 +104,5 @@
     canvas.height = window.innerHeight;
   }
 
-})();
+  
+}
