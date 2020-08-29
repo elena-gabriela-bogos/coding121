@@ -11,9 +11,8 @@ document.getElementById("codeButton").onclick = () => {
     clearVideoAudioWindow();
 }
 
-document.getElementById("click_whiteboard").onclick = () => {
+document.getElementById("whiteboardButton").onclick = () => {
     socket.emit("whiteboard-button-pressed");
-
     clearVideoAudioWindow();
 }
 
@@ -23,6 +22,7 @@ socket.on("code-button-pressed", (data) => {
 
 socket.on("whiteboard-button-pressed", (data) => {
     clearVideoAudioWindow();
+    showWhiteboard();
 });
 
 socket.on("audio-video-button-pressed", (data) => {
