@@ -2,8 +2,15 @@
 
 
 const showWhiteboard = () => {
+  //document.getElementById("whiteboardButton").disabled = true;
   document.getElementById("option").innerHTML ='<canvas class="whiteboard" ></canvas><div class="colors"><div class="color black"></div> <div class="color red"></div> <div class="color green"></div> <div class="color blue"></div> <div class="color yellow"></div> <div class="color white"> </div>';
   draw();
+}
+
+const clearWhiteboardWindow=() =>
+{
+  document.getElementById("option").innerHTML = "";
+   // document.getElementById("whiteBoard").disabled = false;
 }
 
 function draw(){
@@ -64,6 +71,7 @@ function draw(){
 
   function onMouseDown(e){
     drawing = true;
+    var rect = canvas.getBoundingClientRect();
     current.x = e.clientX||e.touches[0].clientX;
     current.y = e.clientY||e.touches[0].clientY;
   }
