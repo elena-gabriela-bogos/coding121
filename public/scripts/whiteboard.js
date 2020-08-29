@@ -1,12 +1,12 @@
 'use strict';
-$(document).ready( function() {
-    $('#click_whiteboard').click(function(){
-       document.getElementById('option').innerHTML='<canvas class="whiteboard" ></canvas><div class="colors"><div class="color black"></div><div class="color red"></div><div class="color green"></div><div class="color blue"></div><div class="color yellow"></div> </div>';
-    f();
-   });
-});
 
-function f(){
+
+const showWhiteboard = () => {
+  document.getElementById("option").innerHTML ='<canvas class="whiteboard" ></canvas><div class="colors"><div class="color black"></div> <div class="color red"></div> <div class="color green"></div> <div class="color blue"></div> <div class="color yellow"></div> <div class="color white"> </div>';
+  draw();
+}
+
+function draw(){
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
@@ -41,7 +41,11 @@ function f(){
     context.moveTo(x0, y0);
     context.lineTo(x1, y1);
     context.strokeStyle = color;
-    context.lineWidth = 2;
+    context.lineWidth = 5;
+    if(color=="white")
+    {
+      context.lineWidth = 15;
+    }
     context.stroke();
     context.closePath();
 
