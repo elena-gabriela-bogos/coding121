@@ -17,7 +17,7 @@ passport.use(
     {
       clientID: "1033882064931-3sta80g9gt0gtt6hi6k3c3hrf3bdbng1.apps.googleusercontent.com",
       clientSecret: "8z-0uKtMa4MiilKRTjSM9cf-",
-      callbackURL: "http://localhost:3000/socialAuth/callback",
+      callbackURL: "http://localhost:3000/socialAuth/callback/u",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -99,7 +99,7 @@ passport.use(
         {
             clientID: "1033882064931-3sta80g9gt0gtt6hi6k3c3hrf3bdbng1.apps.googleusercontent.com",
             clientSecret: "8z-0uKtMa4MiilKRTjSM9cf-",
-            callbackURL: "http://localhost:3000/socialAuth/callback",
+            callbackURL: "http://localhost:3000/socialAuth/callback/m",
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -122,7 +122,7 @@ passport.use(
                                 "fid": null
                             }), (err, user) => {
                                 //console.log("ce pula mea user",user)
-                                Mentor.create(new Mentee({"id":user}),(err,mentee)=>{
+                                Mentor.create(new Mentor({"id":user}),(err,mentor)=>{
 
                                 })
                                 Auth.create(new Auth({"id":user,"emailToken":null,"emailStatus":true}),(err,auth)=>{
@@ -133,8 +133,9 @@ passport.use(
                         }
                         else
                         {
+                            const { givenName: firstName, familyName: lastName } = profile?.name || {}
                             User.update(new User({
-                                'name': user[0].name,
+                                "name": firstName + " " + lastName,
                                 "mail": user[0].mail,
                                 "phone": user[0].phone,
                                 "password": user[0].password,
@@ -158,6 +159,74 @@ passport.use(
         },
     )
 )
+
+passport.use(
+    "googleLogin",new GoogleStrategy(
+        {
+            clientID: "1033882064931-3sta80g9gt0gtt6hi6k3c3hrf3bdbng1.apps.googleusercontent.com",
+            clientSecret: "8z-0uKtMa4MiilKRTjSM9cf-",
+            callbackURL: "http://localhost:3000/login/callback",
+        },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                const name = profile?.name || {};
+                // check if user exists and get data about him
+                await User.findByUsername(profile.emails[0].value,(err,user)=>{
+                    if(err){
+                        done(null, false)
+                    }
+                    else{
+                        if(user.length === 0)
+                        {
+                            done(null, false)
+                            // const { givenName: firstName, familyName: lastName } = profile?.name || {}
+                            // User.create(new User({
+                            //     "name": firstName + " " + lastName,
+                            //     "mail": profile.emails[0].value,
+                            //     "password": null,
+                            //     "gid": profile.id,
+                            //     "picture": profile?.photos[0]?.value,
+                            //     "fid": null
+                            // }), (err, user) => {
+                            //     //console.log("ce pula mea user",user)
+                            //     Mentor.create(new Mentee({"id":user}),(err,mentee)=>{
+                            //
+                            //     })
+                            //     Auth.create(new Auth({"id":user,"emailToken":null,"emailStatus":true}),(err,auth)=>{
+                            //
+                            //     })
+                            //     return done(null, user)
+                            // });
+                        }
+                        else
+                        {
+                            const { givenName: firstName, familyName: lastName } = profile?.name || {}
+                            User.update(new User({
+                                "name": firstName + " " + lastName,
+                                "mail": user[0].mail,
+                                "phone": user[0].phone,
+                                "password": user[0].password,
+                                "picture": profile?.photos[0]?.value,
+                                "gid": profile.id,
+                                "fid": user[0].fid
+                            }), (err, res) => {
+                                return done(null, user)
+
+                            });
+                            //console.log("user",user);
+
+                            //res.render(path.resolve('public/views/login.ejs'), {"message": "Email already used"});
+                        }
+                    }
+
+                });
+            } catch (err) {
+                done(err, false)
+            }
+        },
+    )
+)
+
 
 // load Passport JWT Verify Strategy into the app
 passport.use(
