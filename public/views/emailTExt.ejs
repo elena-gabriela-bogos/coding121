@@ -1,4 +1,4 @@
-<% var message; %>
+<% var emailToken,path; %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -182,7 +182,7 @@
                   line-height: 48px;
                 "
               >
-                <h1 style="font-size: 48px; font-weight: 400; margin: 2;">
+                <h1 style="font-size: 48px; font-weight: 400;">
                   Welcome!
                 </h1>
                 <img
@@ -245,9 +245,12 @@
                             bgcolor="#FFA73B"
                           >
                             <p style="margin: 0;">
-                            <form action="../../src/auth/2fa.js" method="post">
-                              <a href="<%= message %>" target="_blank" style="color: #ffffff;">click aici</a>
-                            </form>
+<!--                            <form id="login__form" action="http:://localhost:3000/emailVerified" method="post">-->
+                              <a href="http://localhost:3000/verifyEmail/<%= emailToken%>"> Verify email</a>
+<!--                              <div class="login__input__container">-->
+<!--                                <button type="submit" name="token" id="token" value="<%= emailToken%>" class="login__submit" >Verify email</button>-->
+<!--                              </div>-->
+<!--                            </form>-->
                             </p>
                           </td>
                         </tr>

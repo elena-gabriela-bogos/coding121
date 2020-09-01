@@ -18,29 +18,43 @@
 
 <section class="u-vpadding">
     <div class="login-container">
+        <div class="social-signup">
+            <form method="get" action="/socialAuth/facebookSignup/u" class="RightPanel__StyledForm">
+                <input type="image" name="facebook" class="RightPanel__StyledInput--facebook">
+            </form>
+            <form method="get" action="/socialAuth/googleSignup/u" class="RightPanel__StyledForm">
+                <input type="image" name="google" class="RightPanel__StyledInput--google">
+            </form>
+        </div>
             <form id="login__form" action="/signupMentee" method="post">
                 <div class="login__input__container">
                             <label for="name" class="login__label">Name</label>
                             <div>
-                                <input type="text" id="name" name="name" class="login__input color-section--grey-light">
+                                <input type="text" id="name" name="name" class="login__input color-section--grey-light" required>
                             </div>
                         </div>
             <div class="signup__input__container">
                 <label for="username" class="login__label">Email</label>
                 <div>
-                    <input type="text" id="username" name="username" class="login__input color-section--grey-light">
+                    <input type="email" id="username" name="username" class="login__input color-section--grey-light" required>
                 </div>
             </div>
             <div class="login__input__container">
                 <label for="password" class="login__label">Password</label>
                 <div>
-                    <input type="text" id="password" name="password" class="login__input color-section--grey-light">
+                    <input type="password" id="password" name="password" class="login__input color-section--grey-light" required>
                 </div>
             </div>
                 <div class="login__input__container">
                     <label for="repassword" class="login__label">Repeat password</label>
                     <div>
-                        <input type="text" id="repassword" name="repassword" class="login__input color-section--grey-light">
+                        <input type="password" id="repassword" name="repassword" class="login__input color-section--grey-light" required>
+                    </div>
+                </div>
+                <div class="login__input__container">
+                    <label for="phone" class="login__label">Phone</label>
+                    <div>
+                        <input type="tel" id="phone" name="phone" class="login__input color-section--grey-light" required>
                     </div>
                 </div>
             <div class="login__input__container">

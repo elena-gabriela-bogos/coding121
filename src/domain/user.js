@@ -1,11 +1,14 @@
 import {dbConn} from "../../config/db.config";
 
 export default class User {
-    constructor({name, mail, phone, password}) {
+    constructor({name, mail, phone, password=null,picture = null,gid=null, fid=null}) {
         this.name = name;
         this.mail = mail;
         this.phone = phone;
         this.password = password;
+        this.picture = picture;
+        this.gid = gid;
+        this.fid = fid;
     }
 
     static create(newUser, result) {
@@ -19,6 +22,42 @@ export default class User {
             }
         });
     };
+
+    static findByGid(gid,result){
+        dbConn.query("SELECT * from user where gid=?", gid, function (err,res){
+            if(err){
+                console.log("error: ",err);
+                result(err,null);
+            }
+            else {
+                result(null,res);
+            }
+        });
+    }
+
+    static update(newUser, result){
+        dbConn.query("UPDATE user set ? where mail = ?", [newUser,newUser.mail], function (err,res){
+            if(err){
+                console.log("error: ",err);
+                result(err,null);
+            }
+            else {
+                result(null,res);
+            }
+        });
+    }
+
+    static setPhone(id,phone,result){
+        dbConn.query("UPDATE user set phone=? where id=?",[phone,id], function (err,res){
+            if(err){
+                console.log("error: ",err);
+                result(err,null);
+            }
+            else {
+                result(null,res);
+            }
+        });
+    }
 
     static findAll(result) {
         dbConn.query("SELECT * from user", function (err, res) {
@@ -39,6 +78,17 @@ export default class User {
                 result(err, null);
             } else {
                 result(null, res);
+            }
+        });
+    };
+
+    static findByUsername(username, result){
+        dbConn.query("SELECT * from user where mail = ?", username, function (err,res){
+            if(err){
+                console.log("error: ",err);
+                result(err,null);
+            }else {
+                result(null,res);
             }
         });
     };

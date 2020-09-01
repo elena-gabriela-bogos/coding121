@@ -34,7 +34,7 @@ loginRouter.post('/', (req, res) => {
                         req.session.name = user[0].name;
                         Mentor.findById(userId, (err, mentor) => {
                             if (mentor.length === 1) {
-                                res.redirect("/m/dashboard");
+                                `res.redirect("/m/dashboard");`
                             } else {
                                 res.redirect("/u/dashboard");
                             }

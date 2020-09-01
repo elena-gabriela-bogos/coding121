@@ -6,6 +6,7 @@ export default class Mentor {
     constructor({id}) {
         this.id = id;
         this.valid = false;
+        this.details = null;
     }
 
     static create(newMentor, result) {

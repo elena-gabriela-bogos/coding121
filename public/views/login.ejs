@@ -18,6 +18,14 @@
 
 <section class="u-vpadding">
     <div class="login-container">
+        <div class="social-signup">
+            <form method="get" action="/socialLogin/facebookLogin" class="RightPanel__StyledForm">
+                <input type="image" name="facebook" class="RightPanel__StyledInput--facebook">
+            </form>
+            <form method="get" action="/socialLogin/googleLogin" class="RightPanel__StyledForm">
+                <input type="image" name="google" class="RightPanel__StyledInput--google">
+            </form>
+        </div>
         <form id="login__form" action="/login" method="post">
             <div class="login__input__container">
                 <label for="username" class="login__label">Email</label>
