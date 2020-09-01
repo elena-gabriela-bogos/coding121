@@ -1,0 +1,94 @@
+<% var id, name, picture; %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-Labs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
+          rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<nav class="nav">
+    <!-- LOGO -->
+    <a href="#" class="nav__logo">
+        <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
+    </a>
+    <!-- MENU LINKS -->
+    <ul class="nav__menu">
+        <!-- ACCOUNT PREFERENCES -->
+        <li class="nav__item">
+            <div class="nav__account">
+                <div class="languages">
+                    <div class="languages__active">
+                        <svg class="languages__chevron">
+                            <use xlink:href="../img/sprite.svg#icon-chevron-down"></use>
+                        </svg>
+                        <svg class="languages__icon">
+                            <use xlink:href="../img/sprite.svg#icon-ro"></use>
+                        </svg>
+                    </div>
+
+                    <div class="languages__dropdown">
+                        <a href="#" class="languages__link">
+                            <svg class="languages__icon">
+                                <use xlink:href="../img/sprite.svg#icon-uk"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="nav__item">
+            <% if (picture == null){ %>
+                <div class="profile__icon grid-item__circle--1">
+                    <svg>
+                        <!--                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>-->
+                    </svg>
+                </div>
+            <% } %>
+            <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
+        </li>
+        <li class="nav__item">
+            <a href="#" class="nav__link"><img src="../img/icons8-menu-24.png" alt="#"></a>
+            <ul class="nav__sub-menu">
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
+                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<section class="features color-section--grey-light u-vpadding">
+    <div class="row row--respond">
+        <h2 class="heading-secondary heading-secondary--grey-dark">Mentors</h2>
+        <ul class="nav__menu">
+            <li class="nav__item">
+                <a href="#" id="pendingMentors" class="nav__link">Pending</a>
+            </li>
+            <li class="nav__item">
+                <a href="#" id="acceptedMentors" class="nav__link">Accepted</a>
+            </li>
+        </ul>
+        <div id="mentorList"></div>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs", {relativePath:"../"}) %>
+
+<script src="../scripts/bundle.js"></script>
+<script src="../scripts/dashboardAdmin.js"></script>
+
+</body>
+
+</html>

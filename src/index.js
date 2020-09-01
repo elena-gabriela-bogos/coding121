@@ -30,6 +30,7 @@ import {messageRouter} from "./router/api/message_router";
 import {bindSocketAudioVideoEvents} from "./router/audio-video";
 import {bindSocketButtonEvents} from "./router/buttons";
 import {sessionApiRouter} from "./router/api/session-api-router";
+import {adminDashboardRouter} from "./router/admin-dashboard-router";
 
 
 const app = express();
@@ -94,6 +95,7 @@ app.use('/api/request', requestApiRouter);
 app.use('/api/skills', languagesFrameworksRouter);
 app.use('/api/message', messageRouter);
 app.use('/session', sessionRouter);
+app.use('/admin', adminDashboardRouter);
 
 
 app.use(express.static(path.join(__dirname, '../public')));
