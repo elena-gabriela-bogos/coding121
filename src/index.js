@@ -29,6 +29,7 @@ import {bindSocketChatEvents} from "./router/chat";
 import {messageRouter} from "./router/api/message_router";
 import {bindSocketAudioVideoEvents} from "./router/audio-video";
 import {bindSocketButtonEvents} from "./router/buttons";
+import {sessionApiRouter} from "./router/api/session-api-router";
 
 
 const app = express();
@@ -81,6 +82,7 @@ app.use('/m/dashboard', mentorDashboardRouter);
 app.use('/api/user', userRouter);
 app.use('/api/mentee', menteeRouter);
 app.use('/api/mentor', mentorRouter);
+app.use('/api/session', sessionApiRouter);
 app.use('/signupMentee', signupMenteeRouter);
 app.use('/signupMentor', signupMentorRouter);
 app.use('/mailSent', mailSentRouter);

@@ -2,10 +2,11 @@ import express from 'express';
 import path from 'path';
 import User from "../../domain/user";
 import {checkAuth} from "../api/authentification";
+import {checkSession} from "../api/session-check";
 
 export const mentorDashboardRouter = express.Router()
 
-mentorDashboardRouter.get('/', checkAuth, (req, res) => {
+mentorDashboardRouter.get('/', checkAuth, checkSession, (req, res) => {
     User.findById(req.session.userId, (err, user) => {
         res.render(path.resolve('public/views/dashboardMentor.ejs'),
             {

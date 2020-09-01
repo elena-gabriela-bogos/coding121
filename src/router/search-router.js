@@ -3,11 +3,12 @@ import express from 'express';
 import path from 'path';
 import {dbConn} from "../../config/db.config";
 import {checkAuth} from "./api/authentification";
+import {checkSession} from "./api/session-check";
 
 
 export const searchRouter = express.Router();
 
-searchRouter.get('/', checkAuth, (req, res) => {
+searchRouter.get('/', checkAuth, checkSession, (req, res) => {
     res.render(path.resolve('public/views/search.ejs'));
 });
 
