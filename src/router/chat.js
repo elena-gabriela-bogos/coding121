@@ -59,10 +59,12 @@ export const bindSocketChatEvents = (socket, io) => {
     });
 
     socket.on("send-session-id", (data) => {
+        socket.handshake.session.busy = true;
+        socket.handshake.session.sessionId = data.id;
         io.to(data.to).emit("send-session-id", {from: socket.handshake.session.userId, id: data.id});
     });
 
     socket.on("save-session-id", (data) => {
-        socket.handshake.session.session = data.id;
+        socket.handshake.session.sessionId = data.id;
     });
 }

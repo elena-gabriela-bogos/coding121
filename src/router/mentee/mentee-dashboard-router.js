@@ -4,10 +4,11 @@ import User from "../../domain/user";
 import {checkAuth} from "../api/authentification";
 import Request from "../../domain/request";
 import RequestSkills from "../../domain/request-skills";
+import {checkSession} from "../api/session-check";
 
 export const menteeDashboardRouter = express.Router()
 
-menteeDashboardRouter.get('/', checkAuth, (req, res) => {
+menteeDashboardRouter.get('/', checkAuth, checkSession, (req, res) => {
     User.findById(req.session.userId, (err, user) => {
         res.render(path.resolve('public/views/dashboardMentee.ejs'), {
             name: user[0].name,
@@ -20,7 +21,7 @@ menteeDashboardRouter.get('/', checkAuth, (req, res) => {
     });
 });
 
-menteeDashboardRouter.get('/request', checkAuth, (req, res) => {
+menteeDashboardRouter.get('/request', checkAuth, checkSession, (req, res) => {
     User.findById(req.session.userId, (err, user) => {
         res.render(path.resolve('public/views/request.ejs'), {
             name: user[0].name,
@@ -33,7 +34,7 @@ menteeDashboardRouter.get('/request', checkAuth, (req, res) => {
     });
 });
 
-menteeDashboardRouter.post('/request', checkAuth, (req, res) => {
+menteeDashboardRouter.post('/request', checkAuth, checkSession, (req, res) => {
     const {description, skills} = req.body;
     if (description && skills && skills.length > 0) {
         Request.create(new Request({description, "idMentee": req.session.userId}), (err, request) => {
@@ -60,7 +61,7 @@ menteeDashboardRouter.post('/request', checkAuth, (req, res) => {
     }
 });
 
-menteeDashboardRouter.get("/request/:id", checkAuth, (req, res) => {
+menteeDashboardRouter.get("/request/:id", checkAuth, checkSession, (req, res) => {
     Request.findById(req.params.id, function (err, request) {
             if (err) {
                 res.send(err);

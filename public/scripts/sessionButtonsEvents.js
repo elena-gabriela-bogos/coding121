@@ -17,8 +17,10 @@ document.getElementById("whiteboardButton").onclick = () => {
 }
 
 document.getElementById("closeSessionBtn").onclick = () => {
-    socket.emit("close-button-pressed");
-    window.location = "/login";
+    axios.put("/api/session", {}).then((response) => {
+        socket.emit("close-button-pressed");
+        window.location = "/login";
+    });
 }
 
 socket.on("code-button-pressed", (data) => {
@@ -37,6 +39,12 @@ socket.on("audio-video-button-pressed", (data) => {
 });
 
 socket.on("close-button-pressed", (data) => {
+    clearVideoAudioWindow();
+    socket.emit("mark-available");
+    window.location = "/login";
+});
+
+socket.on("user-left", (data) => {
     clearVideoAudioWindow();
     axios.put("/api/session", {}).then((response) => {
         window.location = "/login";
