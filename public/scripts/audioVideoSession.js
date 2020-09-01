@@ -117,10 +117,6 @@ const clearVideoAudioWindow = () => {
     document.getElementById("audioVideoButton").disabled = false;
 }
 
-// (navigator.getUserMedia ||
-//     navigator.webkitGetUserMedia ||
-//     navigator.mediaDevices.getUserMedia ||
-//     navigator.msGetUserMedia)
 navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(stream => {
     socket.on("offer", handleReceiveCall);
 
