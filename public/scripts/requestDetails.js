@@ -20,7 +20,9 @@ const displayMentors = (mentors) => {
             "<svg class='grid-item__icon'>" +
             "<use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>" +
             "<div class='grid-item__text'>" +
-            `<p class='paragraph'>${mentor.name}</p><button id=${mentor.id} class='login__submit' onclick='openChatWindow(${mentor.id})'>Message</button></div></div>`
+            `<p class='paragraph heading-tertiary--grey-dark'>${mentor.name}</p>
+            <p class='mentor_details' style='margin-bottom: 1rem'>${mentor.details}</p>
+            <button id=${mentor.id} class='login__submit' onclick='openChatWindow(${mentor.id})'>Message</button></div></div>`
     });
     if (newRow) {
         result += "</div>";

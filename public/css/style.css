@@ -290,7 +290,7 @@ img.responsive {
 
 .paragraph {
     font-size: 1.8rem;
-    font-weight: 300
+    font-weight: 500
 }
 
 .nav {
@@ -2566,11 +2566,10 @@ input:checked + .slide:before {
     display: block;
 }
 
-#option
-{
+#option {
     position: relative;
-  width: 100%;
-  height: 700px
+    width: 100%;
+    height: 700px
 }
 
 .whiteboard {
@@ -2581,27 +2580,65 @@ input:checked + .slide:before {
     right: 0;
     bottom: 0;
     top: 0;
-  }
-  
-  .colors {
+}
+
+.colors {
     position: relative;
-  }
-  
-  .color {
+}
+
+.color {
     display: inline-block;
     height: 48px;
     width: 48px;
-  }
-  
-  .color.black { background-color: black; }
-  .color.red { background-color: red; }
-  .color.green { background-color: green; }
-  .color.blue { background-color: blue; }
-  .color.yellow { background-color: yellow; }
-  .color.white { background-color: white;  border-style:  dotted; }
-  
+}
+
+.color.black {
+    background-color: black;
+}
+
+.color.red {
+    background-color: red;
+}
+
+.color.green {
+    background-color: green;
+}
+
+.color.blue {
+    background-color: blue;
+}
+
+.color.yellow {
+    background-color: yellow;
+}
+
+.color.white {
+    background-color: white;
+    border-style: dotted;
+}
+
 
 video {
     object-fit: fill;
+}
+
+#closeSessionBtn {
+    cursor: pointer;
+    background-color: white;
+    border: none;
+}
+
+#mentorList {
+    margin-top: 3rem;
+}
+
+.mentor_name {
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.mentor_details {
+    font-size: 1.5rem;
+    margin-top: 2rem;
 }
 

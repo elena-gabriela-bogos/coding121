@@ -16,8 +16,6 @@ sessionRouter.get('/', checkAuth, (req, res) => {
 sessionRouter.post('/', checkAuth, (req, res) => {
     console.log(req.body);
     const session = new Session(req.body);
-    Session.findByMentee(req.body.id);
-    res.render(path.resolve('public/views/menteeSessionHistory.ejs'));
 });
 
 sessionRouter.get('/session', checkAuth, (req, res) => {

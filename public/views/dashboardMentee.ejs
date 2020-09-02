@@ -1,5 +1,4 @@
-
-<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen; %>
+<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen, mentor; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +19,7 @@
 
 <body>
 
-<%- include("partials/header.ejs", {relativePath:"../", picture:picture, name:name}) %>
+<%- include("partials/header.ejs", {relativePath:"../", picture:picture, name:name, mentor:mentor, mentee:false}) %>
 
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond">

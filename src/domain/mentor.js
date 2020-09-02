@@ -51,7 +51,7 @@ export default class Mentor {
                     let map = {}
                     mentorSkills.forEach(skill => {
                         if (!(skill.id in map)) {
-                            map[skill.id] = [0, skill.name];
+                            map[skill.id] = [0, skill.name, skill.details];
                         }
                         if (skills.includes(skill.idLF.toString())) {
                             map[skill.id][0]++;
@@ -60,12 +60,34 @@ export default class Mentor {
                     let mentors = [];
                     for (const [k, v] of Object.entries(map)) {
                         if (v[0] !== 0) {
-                            mentors.push({"id":k, "name":v[1], "cmp": v[0]});
+                            mentors.push({"id": k, "name": v[1], "cmp": v[0], "details": v[2]});
                         }
                     }
                     result(null, mentors);
                 }
             }
         );
+    }
+
+    static findByValidStatus(status, result) {
+        dbConn.query("SELECT u.name, m.details, u.id from mentor m inner join user u on u.id=m.id where m.valid = ? ", status, function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    }
+
+    static updateStatus(id, status, result) {
+        dbConn.query("UPDATE mentor SET valid=? where id=?", [status, id], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
     }
 }
