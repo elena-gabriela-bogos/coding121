@@ -20,7 +20,7 @@ const openChatWindow = (id) => {
             document.getElementById("chat").style.display = "block";
             setChatPartnerProfile(response.data[0]);
             socket.emit("chat-opened", {chattingWith: response.data[0].id});
-
+console.log('hereeeeeeeeeeeee');
             const myId = document.getElementById("myId").innerHTML;
             getPreviousMessages(id, myId, updateHistoryWindow);
         })
