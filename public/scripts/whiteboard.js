@@ -65,13 +65,15 @@ function draw(){
       y0: y0 / h,
       x1: x1 / w,
       y1: y1 / h,
-      color: color
+      color: color,
+      to: document.getElementById("partnerId").innerHTML,
+      from: document.getElementById("myId").innerHTML
     });
   }
 
   function onMouseDown(e){
     drawing = true;
-    var rect = canvas.getBoundingClientRect();
+    
     current.x = e.clientX||e.touches[0].clientX;
     current.y = e.clientY||e.touches[0].clientY;
   }
