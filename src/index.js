@@ -17,6 +17,8 @@ import {signupMenteeRouter} from "./auth/signupMentee-router";
 import {signupMentorRouter} from "./auth/signupMentor-router";
 import {mailSentRouter} from "./auth/mailSent";
 import {searchRouter} from "./router/search-router";
+import {mentorSearchRouter} from "./router/mentor-search-router";
+
 import {suggestedRequestRouter} from "./router/suggested-request-router";
 
 import {sessionRouter} from "./router/session-router";
@@ -85,6 +87,8 @@ app.use('/signupMentee', signupMenteeRouter);
 app.use('/signupMentor', signupMentorRouter);
 app.use('/mailSent', mailSentRouter);
 app.use('/search', searchRouter);
+app.use('/mentorsearch', mentorSearchRouter);
+
 app.use('/api/suggested_request', suggestedRequestRouter);
 
 app.use('/m/history', sessionRouter);

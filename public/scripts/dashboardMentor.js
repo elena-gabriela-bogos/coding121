@@ -1,7 +1,6 @@
 
 const createRequestElement = (request) => {
 
-
     let result = "<a href = " + `#` + " class='request__link'><div class=\"grid__4 request\">\n" +
         "            <div class=\"request-item__text\">\n" +
         "               <div class='u-flex request__item__text'>" +

@@ -1,0 +1,59 @@
+<% var relativePath, picture, name; %>
+<nav class="nav">
+    <!-- LOGO -->
+    <a href="/" class="nav__logo">
+        <img title="IT-Labs" src="<%= relativePath %>img/logo.png" alt="IT-Labs Logo">
+    </a>
+    <form class="search" action="/mentorsearch" method="post">
+        <div class="search__before"><span>Search</span>{</div>
+        <input class="search__input" placeholder="..." type="text" name="q" id="" autocomplete="off">
+        <div class="search__after">}</div>
+
+    </form>
+    <!-- MENU LINKS -->
+    <ul class="nav__menu">
+        <!-- ACCOUNT PREFERENCES -->
+        <li class="nav__item">
+            <div class="nav__account">
+                <div class="languages">
+                    <div class="languages__active">
+                        <svg class="languages__chevron">
+                            <use xlink:href="<%= relativePath %>img/sprite.svg#icon-chevron-down"></use>
+                        </svg>
+                        <svg class="languages__icon">
+                            <use xlink:href="<%= relativePath %>img/sprite.svg#icon-ro"></use>
+                        </svg>
+                    </div>
+
+                    <div class="languages__dropdown">
+                        <a href="#" class="languages__link">
+                            <svg class="languages__icon">
+                                <use xlink:href="<%= relativePath %>img/sprite.svg#icon-uk"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="nav__item">
+            <% if (picture == null){ %>
+                <div class="profile__icon grid-item__circle--1">
+                    <svg>
+                        <!--                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>-->
+                    </svg>
+                </div>
+            <% } %>
+            <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
+        </li>
+        <li class="nav__item">
+            <a href="#" class="nav__link"><img src="<%= relativePath %>img/icons8-menu-24.png" alt="#"></a>
+            <ul class="nav__sub-menu">
+                <li class="nav__sub-item"><a href="/" class="nav__sub-link">Dashboard</a></li>
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
+                <li class="nav__sub-item"><a href="/m/history" class="nav__sub-link">Session history</a></li>
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
+                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,67 @@
+                              <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-Labs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+</head>
+<body>
+
+<%- include("partials/mentor-header.ejs", {relativePath:""}) %>
+<% var chatOpen, chatPartner, chatHistoryOpen, id; %>
+<section class="features color-section--grey-light u-vpadding">
+    <div class="row row--respond">
+        <h2 class="heading-secondary heading-secondary--grey-dark">Find requests</h2>
+
+        <div class="grid">
+            <% var data; %>
+
+
+                <% for(var i = 0; i < data.length;i++){ %>
+                    <div class="grid__4 grid-item">
+                        <div class="grid-item__circle grid-item__circle--2">
+                            <svg class="grid-item__icon">
+                                <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                            </svg>
+                        </div>
+                        <div class="grid-item__text">
+                            <p class="paragraph">
+
+                                Id: <%= data[i].id %><br/>
+                                Name: <%= data[i].name %><br/>
+                                Description: <%= data[i].description %><br/>
+
+                                Posted: <%= Math.round(moment.duration(Date.now() - data.postedAt).asDays()) %> days ago <br/>
+                                <br/>
+                                <button id=data[i].id class='login__submit' onclick='openChatWindow("<%= data[i].id %>");'>Message</button>
+
+                            </p>
+                        </div>
+                    </div>
+
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs", {relativePath:"../"}) %>
+<script src="../scripts/bundle.js"></script>
+<script src="../scripts/dashboardMentor.js"></script>
+<%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen,mentee:false}) %>
+
+</body>
+
+</html>
