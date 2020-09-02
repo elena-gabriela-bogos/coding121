@@ -9,7 +9,7 @@ export const loginRouter = express.Router()
 
 loginRouter.get('/googleLogin', passport.authenticate('googleLogin', { scope: ['email', 'profile'] }));
 
-loginRouter.get('/callback', passport.authenticate('googleLogin', { session: false, failureRedirect: "http://localhost:3000/login/true" }), (req, res) => {
+loginRouter.get('/google_callback', passport.authenticate('googleLogin', { session: false, failureRedirect: "http://localhost:3000/login/true" }), (req, res) => {
     try{
         req.session.loggedin = true;
         req.session.username = req.user[0].mail;
