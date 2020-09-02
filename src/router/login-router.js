@@ -108,3 +108,11 @@ loginRouter.post('/', (req, res) => {
         res.render(path.resolve('public/views/login.ejs'), {"message": "Invalid email or password"});
     }
 });
+
+
+loginRouter.get('/:error',(req,res)=>{
+    res.render(path.resolve('public/views/login.ejs'),{"message":"Account not connected"});
+
+})
+
+
