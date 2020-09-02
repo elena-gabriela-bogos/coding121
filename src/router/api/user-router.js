@@ -37,6 +37,7 @@ userRouter.post('/', checkAuth, (req, res) => {
 
 userRouter.get('/:id', checkAuth, (req, res) => {
     User.findById(req.params.id, function (err, user) {
+
         if (err) {
             res.send(err);
         } else {

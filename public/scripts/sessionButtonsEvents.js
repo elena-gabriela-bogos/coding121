@@ -8,6 +8,7 @@ document.getElementById("audioVideoButton").onclick = () => {
 document.getElementById("codeButton").onclick = () => {
     socket.emit("code-button-pressed");
     clearVideoAudioWindow();
+    showCodeEditor();
 }
 
 document.getElementById("whiteboardButton").onclick = () => {

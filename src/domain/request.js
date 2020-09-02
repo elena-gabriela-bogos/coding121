@@ -72,7 +72,7 @@ export default class Request {
     };
 
     static findSuggestedRequests(idMentor,result){
-        dbConn.query("select distinct user.name,request.id,request.description,request.idmentee,request.status,request.postedAt from request inner join requestskills on request.id=requestskills.idrequest inner join mentorsskills on mentorsskills.idLF= requestskills.idLF  and mentorsskills.idMentor=? inner join user on user.id=request.idmentee  ", [ idMentor], function (err, res) {
+        dbConn.query("select  user.id,user.name,request.description,request.idmentee,request.status,request.postedAt from request inner join requestskills on request.id=requestskills.idrequest inner join mentorsskills on mentorsskills.idLF= requestskills.idLF  and mentorsskills.idMentor=? inner join user on user.id=request.idmentee  ", [ idMentor], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);

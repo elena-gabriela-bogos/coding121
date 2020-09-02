@@ -8,12 +8,15 @@ const createRequestElement = (request) => {
         `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'><a>Description:${request.description}</div>`
     result += `</div><span>${Math.round(moment.duration(Date.now() - request.postedAt).asDays())} days ago</span></div>` +
         "            </div></div></a>";
+
     result+=
         "            <div class=\"request-item__text\">\n" +
         "               <div class='u-flex request__item__text'>" +
-        `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'><a>User:${request.name}</div>`
-    result+='<button  class=\'login__submit\'>Message</button></div></div>'
+        `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'><a>User:${request.name}</div>`;
+    result += `<button id=${request.id} class=\'login__submit\' onclick="openChatWindow(${request.id})">Message</button>`;
+
     return result;
+
 }
 
 const displayRequests = (requests) => {

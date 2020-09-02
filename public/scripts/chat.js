@@ -12,7 +12,9 @@ const setChatPartnerProfile = (data) => {
 }
 
 const openChatWindow = (id) => {
+
     closeChatWindow();
+
     axios.get(`/api/user/${id}`)
         .then(function (response) {
             document.getElementById("chat").style.display = "block";
