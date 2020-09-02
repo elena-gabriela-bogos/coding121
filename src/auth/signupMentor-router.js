@@ -2,8 +2,20 @@ import express from 'express';
 import path from 'path';
 import User from "../domain/user";
 import Mentor from "../domain/mentor";
+//import {config} from 'dotenv'
+import jwt from 'jsonwebtoken'
+import Auth from "../domain/auth";
+import Mentee from "../domain/mentee";
 import {signupMenteeRouter} from "./signupMentee-router";
 
+//import passport from 'passport';
+const randomstring = require('randomstring');
+const speakeasy = require("speakeasy");
+const nodemailer = require("nodemailer");
+const fs = require("fs");
+const { promisify } = require("util");
+const readFile = promisify(fs.readFile);
+var ejs = require("ejs");
 
 export const signupMentorRouter = express.Router()
 
@@ -22,47 +34,31 @@ signupMentorRouter.get('/', (req, res) => {
 });
 
 signupMentorRouter.post("/", async (req, res) => {
-    const {name, username, password, repassword} = req.body;
-    if(name && username && password && repassword && password === repassword) {
-        let testAccount = await nodemailer.createTestAccount();
+    const {name, username, password, repassword,phone} = req.body;
+    if (name && username && password && repassword && phone.match(/^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/igm)) {
+        if (password === repassword) {
+            User.findByUsername(username, (err, user) => {
+                if (err) {
+                } else {
+                    if (user.length !== 0) {
+                        res.render(path.resolve('public/views/signupMentor.ejs'), {"message": "Email already used"});
 
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: "mail.it-labs.ro",
-            port: 465,
-            service: "SMTP",
-            secure: false, // use SSL
-            auth: {
-                user: "",
-                pass: "",
-            },
-        });
-
-        // send mail with defined transport object
-        let info = await transporter
-            .sendMail({
-                from: "internship@it-labs.ro", // sender address
-                to: username, // list of receivers
-                subject: "Confirmation", // Subject line
-                html: await readFile("./src/auth/emailTExt.ejs"),
-            })
-            .then(
-                res.send({
-                        status: "sent",
-                    },
-                    res.redirect("/mailSent")
-                )
-            )
-            .catch(
-                res.send({
-                        status: "error",
-                    },
-                    res.render(path.resolve('public/views/signupMentee.ejs'), {"message": "Something went wrong"}))
-            );
-        res.redirect("/mailSent");
-    }
-    else{
-        res.render(path.resolve('public/views/signupMentee.ejs'), {"message": "Invalid datas"});
+                    }
+                    else{
+                        User.create(new User({name, "mail": username, phone, password}), (err, user) => {
+                            Mentor.create(new Mentee({"id": user}), (err,mentor) => {
+                                console.log("mentee: ", mentor)
+                            });
+                            res.redirect('/verifyEmail/send/' + user +'/' + username);
+                        });
+                    }
+                }
+            });
+        } else {
+            res.render(path.resolve('public/views/signupMentor.ejs'), {"message": "Passwords do not match"});
+        }
+    } else {
+        res.render(path.resolve('public/views/signupMentor.ejs'), {"message": "Invalid datas"});
 
     }
 });

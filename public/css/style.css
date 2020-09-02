@@ -2477,6 +2477,57 @@ input:checked + .slide:before {
     font-size: 1.8rem;
 }
 
+.social-signup{
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-pack:center;
+    -webkit-justify-content:center;
+    -ms-flex-pack:center;
+    justify-content:center;
+}
+.social-signup button{
+    width:42px;
+    height:42px;
+    margin:0 6px;
+}
+
+.RightPanel__StyledForm {
+    margin-right:20px;
+}
+
+.RightPanel__StyledForm:last-child{
+    margin-right:0;
+}
+
+.RightPanel__StyledInput--google{
+    display:block;
+    width:36px;
+    height:36px;
+    margin-right:20px;
+    cursor:pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../img/social-google.png);
+    margin:0;
+}
+
+.RightPanel__StyledInput--facebook{
+    display:block;
+    width:36px;
+    height:36px;
+    margin-right:20px;
+    cursor:pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url(../img/social-facebook.png);
+}
+
+.RightPanel__StyledInput:last-child{
+
 .call_button {
     font-family: inherit;
     font-weight: 400;
