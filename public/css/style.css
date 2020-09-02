@@ -2527,6 +2527,7 @@ input:checked + .slide:before {
 }
 
 .RightPanel__StyledInput:last-child{
+}
 
 .call_button {
     font-family: inherit;
