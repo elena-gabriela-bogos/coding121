@@ -33,7 +33,7 @@ export default class MentorSkills {
     };
 
     static findAllMentorSkills(result) {
-        const sql = "SELECT u.id,u.name,lf.id as idLF FROM user u " +
+        const sql = "SELECT u.id,u.name,lf.id as idLF,m.details FROM user u " +
             "INNER JOIN mentorsskills ms ON ms.idMentor=u.id " +
             "INNER JOIN languages_frameworks lf ON ms.idLF=lf.id " +
             "INNER JOIN mentor m ON m.id=u.id " +
