@@ -52,7 +52,11 @@ export default class Mentor {
                     let map = {}
                     mentorSkills.forEach(skill => {
                         if (!(skill.id in map)) {
-                            map[skill.id] = [0, skill.name, skill.details];
+                            let picture = null;
+                            if (skill.picture) {
+                                picture = Buffer.from(skill.picture).toString('base64');
+                            }
+                            map[skill.id] = [0, skill.name, skill.details, picture];
                         }
                         if (skills.includes(skill.idLF.toString())) {
                             map[skill.id][0]++;
@@ -61,7 +65,7 @@ export default class Mentor {
                     let mentors = [];
                     for (const [k, v] of Object.entries(map)) {
                         if (v[0] !== 0) {
-                            mentors.push({"id": k, "name": v[1], "cmp": v[0], "details": v[2]});
+                            mentors.push({"id": k, "name": v[1], "cmp": v[0], "details": v[2], "picture": v[3]});
                         }
                     }
                     result(null, mentors);

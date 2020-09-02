@@ -17,9 +17,13 @@ menteeDashboardRouter.get('/', checkAuth, checkSession, checkMentee, (req, res) 
             isMentor = true;
         }
         User.findById(req.session.userId, (err, user) => {
+            let picture = null;
+            if (user[0].picture){
+                picture = Buffer.from(user[0].picture).toString('base64');
+            }
             res.render(path.resolve('public/views/dashboardMentee.ejs'), {
                 name: user[0].name,
-                picture: user[0].picture,
+                picture: picture,
                 id: user[0].id,
                 chatOpen: req.session.chatOpen,
                 chatPartner: req.session.chattingWith,
@@ -37,9 +41,13 @@ menteeDashboardRouter.get('/request', checkAuth, checkSession, checkMentee, (req
             isMentor = true;
         }
         User.findById(req.session.userId, (err, user) => {
+            let picture = null;
+            if (user[0].picture){
+                picture = Buffer.from(user[0].picture).toString('base64');
+            }
             res.render(path.resolve('public/views/request.ejs'), {
                 name: user[0].name,
-                picture: user[0].picture,
+                picture: picture,
                 id: user[0].id,
                 chatOpen: req.session.chatOpen,
                 chatPartner: req.session.chattingWith,
@@ -69,10 +77,14 @@ menteeDashboardRouter.post('/request', checkAuth, checkSession, checkMentee, (re
                 isMentor = true;
             }
             User.findById(req.session.userId, (err, user) => {
+                let picture = null;
+                if (user[0].picture){
+                    picture = Buffer.from(user[0].picture).toString('base64');
+                }
                 res.render(path.resolve('public/views/request.ejs'), {
                     id: user[0].id,
                     name: user[0].name,
-                    picture: user[0].picture,
+                    picture: picture,
                     message: "Fill in all fields",
                     chatOpen: req.session.chatOpen,
                     chatPartner: req.session.chattingWith,
@@ -96,9 +108,13 @@ menteeDashboardRouter.get("/request/:id", checkAuth, checkSession, checkMentee, 
                 } else {
                     if (request.length !== 0 && request[0].idMentee === req.session.userId) {
                         User.findById(req.session.userId, (err, user) => {
+                            let picture = null;
+                            if (user[0].picture){
+                                picture = Buffer.from(user[0].picture).toString('base64');
+                            }
                             res.render(path.resolve('public/views/requestDetails.ejs'), {
                                 name: user[0].name,
-                                picture: user[0].picture,
+                                picture: picture,
                                 id: user[0].id,
                                 request: request[0],
                                 chatOpen: req.session.chatOpen,

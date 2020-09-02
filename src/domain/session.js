@@ -15,7 +15,6 @@ export default class Session {
                 console.log("error: ", err);
                 result(err, null);
             } else {
-                console.log(res.insertId);
                 result(null, res.insertId);
             }
         });

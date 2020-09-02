@@ -8,8 +8,8 @@
         </button>
         <div class="chat_header color-section--primary"></div>
         <div id="chatProfile" class="u-flex">
-            <div><img class="profile_icon_message background_color_icon"/><span id="profileName"
-                                                                                class="profile_name"></span></div>
+            <div><span id="profile_picture"></span><span id="profileName"
+                                                         class="profile_name"></span></div>
             <% if (mentee){ %>
                 <button id="startSessionBtn" onclick="startSessionHandler()" type="button" class="call_button"><img
                             src="<%= relativePath %>img/icons8-video-message-24.png" class="start_session_image"/><span

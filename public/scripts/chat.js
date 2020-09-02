@@ -8,6 +8,11 @@ const setChatPartnerProfile = (data) => {
     const chatProfile = document.getElementById("chatProfile");
     document.getElementById("profileName").innerHTML = data.name;
     document.getElementById("userChatId").innerHTML = data.id;
+    if (data.picture) {
+        document.getElementById("profile_picture").innerHTML = '<img class="profile_icon_message " src="data:image/png;base64,' + data.picture + '"/>';
+    } else {
+        document.getElementById('profile_picture').innerHTML = '<img class="profile_icon_message background_color_icon"/>';
+    }
     otherUser = {id: data.id, name: data.name};
 }
 
@@ -42,11 +47,16 @@ function closeChatWindow() {
 
 const formatProfile = (profile) => {
     const date = Math.round(moment.duration(Date.now() - profile[1]["date"]).asDays());
-    return `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">
-                    <img class="profile_icon_chat background_color_icon"/>
-                    <span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
+    let result = `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">`;
+    if (profile[1]["picture"]) {
+        result += `<img class="profile_icon_chat" src="data:image/png;base64,${profile[1]["picture"]}"/>`;
+    } else {
+        result += '<img class="profile_icon_chat background_color_icon"/>';
+    }
+    result += `<span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
                     <div class="message_date" style="font-size: 1rem">${date} days ago</div></span>                  
-                  </div>`;
+               </div>`;
+    return result;
 }
 
 const displayProfiles = (profiles) => {

@@ -11,7 +11,8 @@ document.getElementById("sendMessageBtn").onclick = () => {
     addMyMessage({content: document.getElementById("messageText").value, deliveredTime: Date.now()});
     document.getElementById("messageText").value = "";
 };
-getPreviousMessages(myId, partnerId, () => {
+
+getPreviousMessages(partnerId, myId, () => {
 
 });
 
@@ -27,3 +28,14 @@ socket.on("new_message", (data) => {
 socket.on("start-session-request", (data) => {
     socket.emit("user-busy", {to: data.from});
 });
+
+const profilePicture = document.getElementById("profile_picture");
+axios.get(`/api/user/${partnerId}`)
+    .then((response) => {
+        const picture = response.data[0].picture;
+        if (picture) {
+            profilePicture.innerHTML += `<img class="profile_icon_chat" src="data:image/png;base64,${picture}" style="height: 2rem;width: 2rem"/>`;
+        } else {
+            profilePicture.innerHTML += '<img class="profile_icon_chat background_color_icon" style="height: 2rem;width: 2rem"/>';
+        }
+    })

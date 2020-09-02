@@ -1,3 +1,5 @@
+let otherUserPicture, myPicture;
+
 const formatMessageDate = (time) => {
     const date = new Date(time);
     if (date.getFullYear() === new Date(Date.now()).getFullYear()) {
@@ -24,9 +26,13 @@ const updateScroll = () => {
 
 const addOtherUsersMessage = (message) => {
     const date = formatMessageDate(message.deliveredTime);
-    let result = `<div class='other_user_message_container'>
-                <img class="profile_icon_message background_color_icon"/>
-                <span class="other_user_message color-section--secondary">${message.content}
+    let result = `<div class='other_user_message_container'>`;
+    if (otherUserPicture) {
+        result += `<img class="profile_icon_message" src="data:image/png;base64,${otherUserPicture}"/>`;
+    } else {
+        result += `<img class="profile_icon_message background_color_icon"/>`;
+    }
+    result += `<span class="other_user_message color-section--secondary">${message.content}
                     <div class="message_date">${date}</div>
                 </span>
                 </div>`;
@@ -39,9 +45,13 @@ const addMyMessage = (message) => {
     let result = `<div class='my_message_container'>        
                 <span class="my_message">${message.content}
                     <div class="message_date">${date}</div>
-                </span>
-                <img class="profile_icon_message background_color_icon2"/>
-                </div>`;
+                </span>`;
+    if (myPicture) {
+        result += `<img class="profile_icon_message" src="data:image/png;base64,${myPicture}"/>`;
+    } else {
+        result += `<img class="profile_icon_message background_color_icon2"/>`;
+    }
+    result += `</div>`;
     document.getElementById("messagesContainer").innerHTML += result;
     updateScroll();
 }
@@ -58,13 +68,21 @@ const displayPreviousMessages = (messages) => {
 }
 
 const getPreviousMessages = (id, myId, seenHandler) => {
-    axios.get(`/api/message?user=${id}&user=${myId}`)
+    axios.get(`/api/user/${id}`)
         .then((response) => {
-            displayPreviousMessages(response.data);
-
-            axios.post(`/api/message?user=${id}&user=${myId}`)
+            otherUserPicture = response.data[0].picture;
+            axios.get(`/api/user/${myId}`)
                 .then((response) => {
-                    seenHandler();
+                    myPicture = response.data[0].picture;
+                    axios.get(`/api/message?user=${id}&user=${myId}`)
+                        .then((response) => {
+                            displayPreviousMessages(response.data);
+
+                            axios.post(`/api/message?user=${id}&user=${myId}`)
+                                .then((response) => {
+                                    seenHandler();
+                                })
+                        })
                 })
         })
         .catch((error) => {

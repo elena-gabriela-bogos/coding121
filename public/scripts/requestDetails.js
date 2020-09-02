@@ -15,11 +15,13 @@ const displayMentors = (mentors) => {
         result += "<div class='grid'>";
     }
     mentors.forEach(mentor => {
-        result += "<div class='grid__4 grid-item mentor'>" +
-            "<div class='grid-item__circle grid-item__circle--1'>" +
-            "<svg class='grid-item__icon'>" +
-            "<use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>" +
-            "<div class='grid-item__text'>" +
+        result += "<div class='grid__4 grid-item mentor'>";
+        if (mentor.picture) {
+            result += `<div class='grid-item__circle'><img class="grid-item__circle" src="data:image/png;base64,${mentor.picture}"/></div>`;
+        } else {
+            result += "<div class='grid-item__circle grid-item__circle--1'><svg class='grid-item__icon'><use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>";
+        }
+        result += "<div class='grid-item__text'>" +
             `<p class='paragraph heading-tertiary--grey-dark'>${mentor.name}</p>
             <p class='mentor_details' style='margin-bottom: 1rem'>${mentor.details}</p>
             <button id=${mentor.id} class='login__submit' onclick='openChatWindow(${mentor.id})'>Message</button></div></div>`

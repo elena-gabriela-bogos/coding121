@@ -15,10 +15,14 @@ mentorDashboardRouter.get('/', checkAuth, checkSession, checkMentor, (req, res) 
             isMentee = true;
         }
         User.findById(req.session.userId, (err, user) => {
+            let picture = null;
+            if (user[0].picture){
+                picture = Buffer.from(user[0].picture).toString('base64');
+            }
             res.render(path.resolve('public/views/dashboardMentor.ejs'),
                 {
                     name: user[0].name,
-                    picture: user[0].picture,
+                    picture: picture,
                     id: user[0].id,
                     chatOpen: req.session.chatOpen,
                     chatPartner: req.session.chattingWith,
