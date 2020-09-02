@@ -34,7 +34,7 @@ socialAuthRouter.get('/callback/u', passport.authenticate('googleSignUpMentee', 
     //console.log("google auth mere");
 })
 
-socialAuthRouter.get('/callback/m', passport.authenticate('googleSignUpMentor', { session: false, failureRedirect: "http://localhost:3000/signupMentee/true" }), (req, res) => {
+socialAuthRouter.get('/callback/m', passport.authenticate('googleSignUpMentor', { session: false, failureRedirect: "http://localhost:3000/signupMentor/true" }), (req, res) => {
 
     try{
         res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
@@ -44,4 +44,25 @@ socialAuthRouter.get('/callback/m', passport.authenticate('googleSignUpMentor', 
     }
     //res.redirect('/phoneConfirmation/' + req.user.id);
     //console.log("google auth mere");
+})
+
+socialAuthRouter.get('/facebookSignup/u', passport.authenticate('facebookSignUpMentee', { scope: ['email', 'public_profile'] }));
+
+socialAuthRouter.get('/facebook_callback/u', passport.authenticate('facebookSignUpMentee', { session: false, failureRedirect: "http://localhost:3000/signupMentee/true" }), (req, res) => {
+    try{
+        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
+    }catch (err){
+        console.log(err)
+    }
+})
+
+socialAuthRouter.get('/facebookSignup/m', passport.authenticate('facebookSignUpMentor', { scope: ['email', 'public_profile'] }));
+
+
+socialAuthRouter.get('/facebook_callback/m', passport.authenticate('facebookSignUpMentor', { session: false, failureRedirect: "http://localhost:3000/signupMentor/true" }), (req, res) => {
+    try{
+        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
+    }catch (err){
+        console.log(err)
+    }
 })

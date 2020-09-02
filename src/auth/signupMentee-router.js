@@ -78,7 +78,7 @@ signupMenteeRouter.post("/", async (req, res) => {
 });
 
 signupMenteeRouter.get('/:error',(req,res)=>{
-    res.render(path.resolve('public/views/signupMentee.ejs'),{"message":"Google email already used"});
+    res.render(path.resolve('public/views/signupMentee.ejs'),{"message":"Email already used"});
 
 })
 
