@@ -45,7 +45,7 @@ io.on('connection', function (socket) {
 
     bindSocketChatEvents(socket, io);
   
-    socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+    socket.on('drawing', (data) => io.to(data.to).emit('drawing', data));
 
 
     bindSocketAudioVideoEvents(socket, io);
