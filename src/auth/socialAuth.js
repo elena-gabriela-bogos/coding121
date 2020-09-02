@@ -14,7 +14,7 @@ socialAuthRouter.get('/googleSignup/u', passport.authenticate('googleSignUpMente
 socialAuthRouter.get('/googleSignup/m',passport.authenticate('googleSignUpMentor',{scope: ['email','profile'] }));
 
 // Google Callback Route
-socialAuthRouter.get('/callback/u', passport.authenticate('googleSignUpMentee', { session: false, failureRedirect: "http://localhost:3000/signupMentee/true" }), (req, res) => {
+socialAuthRouter.get('/google_callback/u', passport.authenticate('googleSignUpMentee', { session: false, failureRedirect: "http://localhost:3000/signupMentee/true" }), (req, res) => {
     // sign a JWT with user id
     // const token = jwt.sign({ id: req.user.gid }, JWT_SECRET, { expiresIn: '12h' })
     //
@@ -34,7 +34,7 @@ socialAuthRouter.get('/callback/u', passport.authenticate('googleSignUpMentee', 
     //console.log("google auth mere");
 })
 
-socialAuthRouter.get('/callback/m', passport.authenticate('googleSignUpMentor', { session: false, failureRedirect: "http://localhost:3000/signupMentor/true" }), (req, res) => {
+socialAuthRouter.get('/google_callback/m', passport.authenticate('googleSignUpMentor', { session: false, failureRedirect: "http://localhost:3000/signupMentor/true" }), (req, res) => {
 
     try{
         res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
