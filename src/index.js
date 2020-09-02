@@ -7,7 +7,6 @@ import cors from 'cors';
 import session from 'express-session';
 import {config} from 'dotenv';
 import './passport'
-import helmet from 'helmet';
 import {userRouter} from "./router/api/user-router";
 import {welcomePageRouter} from "./router/welcome-router";
 import {menteeRouter} from "./router/api/mentee_router";
