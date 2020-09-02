@@ -3,6 +3,7 @@ import path from 'path';
 import User from "../domain/user";
 import Mentor from "../domain/mentor";
 import passport from "passport";
+import Admin from "../domain/admin";
 
 export const loginRouter = express.Router()
 
@@ -52,13 +53,19 @@ loginRouter.get('/facebook_callback', passport.authenticate('facebookLogin', { s
 
 loginRouter.get('/', (req, res) => {
     if (req.session.loggedin) {
-        Mentor.findById(req.session.userId, (err, mentor) => {
-            if (mentor.length === 1) {
-                res.redirect("/m/dashboard");
+        Admin.findById(req.session.userId, (err, admin) => {
+            if (admin.length !== 0) {
+                res.redirect("/admin");
             } else {
-                res.redirect("/u/dashboard");
+                Mentor.findById(req.session.userId, (err, mentor) => {
+                    if (mentor.length === 1) {
+                        res.redirect("/m/dashboard");
+                    } else {
+                        res.redirect("/u/dashboard");
+                    }
+                });
             }
-        });
+        })
     } else {
         res.render(path.resolve('public/views/login.ejs'));
     }
@@ -77,13 +84,20 @@ loginRouter.post('/', (req, res) => {
                         req.session.username = username;
                         req.session.userId = userId;
                         req.session.name = user[0].name;
-                        Mentor.findById(userId, (err, mentor) => {
-                            if (mentor.length === 1) {
-                                `res.redirect("/m/dashboard");`
+
+                        Admin.findById(req.session.userId, (err, admin) => {
+                            if (admin.length !== 0) {
+                                res.redirect("/admin");
                             } else {
-                                res.redirect("/u/dashboard");
+                                Mentor.findById(req.session.userId, (err, mentor) => {
+                                    if (mentor.length === 1) {
+                                        res.redirect("/m/dashboard");
+                                    } else {
+                                        res.redirect("/u/dashboard");
+                                    }
+                                });
                             }
-                        });
+                        })
                     } else {
                         res.render(path.resolve('public/views/login.ejs'), {"message": "Invalid email or password"});
                     }

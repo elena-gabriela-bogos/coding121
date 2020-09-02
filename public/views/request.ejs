@@ -1,4 +1,4 @@
-<% var id, picture, name, message, chatOpen, chatPartner, chatHistory; %>
+<% var id, picture, name, message, chatOpen, chatPartner, chatHistory, mentor; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,12 +11,15 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
 
-<%- include("partials/header.ejs", {relativePath:"../../", picture:picture, name:name}) %>
+<%- include("partials/header.ejs", {relativePath:"../../", picture:picture, name:name, mentor:mentor, mentee:false}) %>
 
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond center-align">
@@ -47,6 +50,6 @@
 <script src="../../scripts/bundle.js"></script>
 <script src="../../scripts/request.js"></script>
 
-<%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen}) %>
+<%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen,mentee:true}) %>
 </body>
 </html>

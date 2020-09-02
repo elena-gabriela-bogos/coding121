@@ -1,74 +1,20 @@
+var otherUser, myInfo, waitingAlert, confirmStartSession, session;
+
 document.getElementById("chatHistoryContainer").style.display = "none";
+
 // MANAGE CHAT WINDOW
-
-const formatMessageDate = (time) => {
-    const date = new Date(time);
-    if (date.getFullYear() === new Date(Date.now()).getFullYear()) {
-        return date.toLocaleString("en-GB", {
-            month: 'short',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
-    return date.toLocaleString("en-GB", {
-        year: '2-digit',
-        month: 'short',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-}
-
-const updateScroll = () => {
-    let messageList = document.getElementById("messagesContainer");
-    messageList.scrollTop = messageList.scrollHeight;
-}
-
-const addOtherUsersMessage = (message) => {
-    const date = formatMessageDate(message.deliveredTime);
-    let result = `<div class='other_user_message_container'>
-                <img class="profile_icon_message background_color_icon"/>
-                <span class="other_user_message color-section--secondary">${message.content}
-                    <div class="message_date">${date}</div>
-                </span>
-                </div>`;
-    document.getElementById("messagesContainer").innerHTML += result;
-    updateScroll();
-}
-
-const addMyMessage = (message) => {
-    const date = formatMessageDate(message.deliveredTime);
-    let result = `<div class='my_message_container'>        
-                <span class="my_message">${message.content}
-                    <div class="message_date">${date}</div>
-                </span>
-                <img class="profile_icon_message background_color_icon2"/>
-                </div>`;
-    document.getElementById("messagesContainer").innerHTML += result;
-    updateScroll();
-}
-
-const displayPreviousMessages = (messages) => {
-    const myId = document.getElementById("myId").innerHTML;
-    messages.forEach(message => {
-        if (message.user_id1 == myId) {
-            addMyMessage(message);
-        } else {
-            addOtherUsersMessage(message);
-        }
-    })
-}
 
 const setChatPartnerProfile = (data) => {
     const chatProfile = document.getElementById("chatProfile");
-    chatProfile.innerHTML = '<img class="profile_icon_message background_color_icon"/>';
-    chatProfile.innerHTML += `<span class="profile_name">${data.name}</span>`;
+    document.getElementById("profileName").innerHTML = data.name;
     document.getElementById("userChatId").innerHTML = data.id;
+    otherUser = {id: data.id, name: data.name};
 }
 
 const openChatWindow = (id) => {
+
     closeChatWindow();
+
     axios.get(`/api/user/${id}`)
         .then(function (response) {
             document.getElementById("chat").style.display = "block";
@@ -76,18 +22,7 @@ const openChatWindow = (id) => {
             socket.emit("chat-opened", {chattingWith: response.data[0].id});
 
             const myId = document.getElementById("myId").innerHTML;
-            axios.get(`/api/message?user=${id}&user=${myId}`)
-                .then((response) => {
-                    displayPreviousMessages(response.data);
-
-                    axios.post(`/api/message?user=${id}&user=${myId}`)
-                        .then((response) => {
-                            updateHistoryWindow();
-                        })
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+            getPreviousMessages(id, myId, updateHistoryWindow);
         })
         .catch(function (error) {
             console.log(error);
@@ -195,6 +130,24 @@ document.getElementById("chatHistoryVisible").onclick = () => {
     }
 }
 
+const startSessionHandler = () => {
+    event.preventDefault();
+    const data = {
+        to: document.getElementById("userChatId").innerHTML,
+        from: document.getElementById("myId").innerHTML,
+        fromName: myInfo.name
+    };
+    socket.emit("start-session-request", data);
+    waitingAlert = $.alert({
+        content: `Waiting for ${otherUser.name} to reply...`,
+        buttons: {
+            Cancel: function () {
+                socket.emit("session-request-cancelled", data);
+            }
+        }
+    });
+}
+
 
 // CREATE SOCKET
 
@@ -214,6 +167,114 @@ socket.on("new_message", (data) => {
         });
 });
 
+socket.on("offline-user", (data) => {
+    $.alert({
+        title: "Info",
+        content: "User is offline at the moment",
+        buttons: {
+            Cancel: function () {
+                waitingAlert.close();
+            }
+        }
+    });
+});
+
+socket.on("user-busy", (data) => {
+    $.alert({
+        title: "Info",
+        content: "User is busy at the moment",
+        buttons: {
+            Cancel: function () {
+                waitingAlert.close();
+            }
+        }
+    });
+});
+
+const redirectToSession = (partner) => {
+    axios.post(`/session/session`, {partner})
+        .then((response) => {
+            window.location = "/session/session";
+        })
+}
+
+socket.on("start-session-request", (data) => {
+    axios.get(`/api/user/status`)
+        .then((response) => {
+            if (response.data.userStatus === "busy") {
+                socket.emit("user-busy", {to: data.from});
+            } else {
+                confirmStartSession = $.confirm({
+                    title: 'Confirm!',
+                    content: `Start session with ${data.fromName}?`,
+                    buttons: {
+                        confirm: function () {
+                            socket.emit("start-session-confirm", {to: data.from, from: data.to});
+                        },
+                        cancel: function () {
+                            socket.emit("start-session-refused", {to: data.from});
+                        }
+                    }
+                });
+            }
+        });
+});
+
+socket.on("start-session-confirm", (data) => {
+    waitingAlert.close();
+    axios.post("/api/session", {
+        mentee: document.getElementById("myId").innerHTML,
+        mentor: data.from,
+        startingAt: Date.now()
+    })
+        .then((response) => {
+            socket.emit("send-session-id", {to: data.from, id: response.data})
+            redirectToSession(data.from);
+        })
+});
+
+socket.on("send-session-id", (data) => {
+    socket.emit("save-session-id", {id: data.id});
+    redirectToSession(data.from);
+})
+
+socket.on("start-session-refused", (data) => {
+    waitingAlert.close();
+    $.alert({
+        title: "Info",
+        content: "User refused",
+        buttons: {
+            Ok: function () {
+
+            }
+        }
+    });
+});
+
+socket.on("cancel-session-request", (data) => {
+    confirmStartSession.close();
+    $.alert({
+        title: "Info",
+        content: "User cancelled",
+        buttons: {
+            Ok: function () {
+
+            }
+        }
+    });
+});
+
+
 getConversationsWithUnreadMessages((data) => {
     document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
 });
+
+const id = document.getElementById("myId").innerHTML;
+axios.get(`/api/user/${id}`)
+    .then(function (response) {
+        myInfo = response.data[0];
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+

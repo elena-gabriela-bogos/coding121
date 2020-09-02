@@ -22,6 +22,7 @@ import {mailSentRouter} from "./auth/mailSent";
 import {phoneRouter} from "./auth/2fa";
 import {verifyEmail} from "./auth/verifyEmail";
 import {searchRouter} from "./router/search-router";
+import {suggestedRequestRouter} from "./router/suggested-request-router";
 import {sessionRouter} from "./router/session-router";
 import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
 
@@ -31,19 +32,31 @@ import socketIO from "socket.io";
 import sharedsession from "express-socket.io-session";
 import {bindSocketChatEvents} from "./router/chat";
 import {messageRouter} from "./router/api/message_router";
+import {bindSocketAudioVideoEvents} from "./router/audio-video";
+import {bindSocketButtonEvents} from "./router/buttons";
+import {sessionApiRouter} from "./router/api/session-api-router";
+import {adminDashboardRouter} from "./router/admin-dashboard-router";
+
 config();
-
-
 const app = express();
 const server = http.createServer(app);
 const port = 3000;
 
 const io = socketIO(server);
+
 io.on('connection', function (socket) {
     const s = socket.handshake.session;
     socket.join(s.userId);
+    socket.userId = s.userId;
 
     bindSocketChatEvents(socket, io);
+  
+    socket.on('drawing', (data) => io.to(data.to).emit('drawing', data));
+
+
+    bindSocketAudioVideoEvents(socket, io);
+    bindSocketButtonEvents(socket, io);
+
 });
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -78,11 +91,18 @@ app.use('/mailSent',mailSentRouter);
 app.use('/phoneConfirmation',phoneRouter);
 app.use('/verifyEmail',verifyEmail);
 app.use('/search', searchRouter);
+app.use('/api/session', sessionApiRouter);
+app.use('/search', searchRouter);
+app.use('/api/suggested_request', suggestedRequestRouter);
+
 app.use('/m/history', sessionRouter);
 app.use('/api/request', requestApiRouter);
 app.use('/api/skills', languagesFrameworksRouter);
 app.use('/api/message', messageRouter);
 app.use('/socialAuth',socialAuthRouter);
+
+app.use('/session', sessionRouter);
+app.use('/admin', adminDashboardRouter);
 
 app.use(express.static(path.join(__dirname,'../public')));
 server.listen(port,()=>{
