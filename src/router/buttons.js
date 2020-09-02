@@ -10,4 +10,17 @@ export const bindSocketButtonEvents = (socket, io) => {
     socket.on("whiteboard-button-pressed", () => {
         io.to(socket.handshake.session.partnerId).emit("whiteboard-button-pressed");
     });
+
+    socket.on("close-button-pressed", () => {
+        io.to(socket.handshake.session.partnerId).emit("close-button-pressed");
+        socket.handshake.session.partnerId = null;
+        socket.handshake.session.busy = false;
+        socket.handshake.session.sessionId = null;
+    });
+
+    socket.on("mark-available", () => {
+        socket.handshake.session.partnerId = null;
+        socket.handshake.session.busy = false;
+        socket.handshake.session.sessionId = null;
+    });
 }

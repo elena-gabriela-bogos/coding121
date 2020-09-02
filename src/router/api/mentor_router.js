@@ -5,7 +5,7 @@ import {checkAuth} from "./authentification";
 export const mentorRouter = express.Router()
 
 mentorRouter.get('/', checkAuth, (req, res) => {
-    if (!req.query.skill) {
+    if (!req.query.skill && !req.query.validStatus) {
         Mentor.findAll((err, mentor) => {
             if (err) {
                 res.send(err);
@@ -14,7 +14,7 @@ mentorRouter.get('/', checkAuth, (req, res) => {
                 res.send(mentor);
             }
         });
-    } else {
+    } else if (req.query.skill) {
         let skills = req.query.skill;
         if (!(req.query.skill instanceof Array)) {
             skills = [skills];
@@ -31,6 +31,15 @@ mentorRouter.get('/', checkAuth, (req, res) => {
                 res.send(mentors);
             }
         });
+    } else {
+        let status = req.query.validStatus;
+        Mentor.findByValidStatus(status, (err, mentors) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(mentors);
+            }
+        })
     }
 });
 
@@ -48,6 +57,16 @@ mentorRouter.post('/', checkAuth, (req, res) => {
 
 mentorRouter.get('/:id', checkAuth, (req, res) => {
     Mentor.findById(req.params.id, function (err, mentor) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(mentor);
+        }
+    });
+});
+
+mentorRouter.post('/:id', checkAuth, (req, res) => {
+    Mentor.updateStatus(req.params.id, req.body.status, function (err, mentor) {
         if (err) {
             res.send(err);
         } else {

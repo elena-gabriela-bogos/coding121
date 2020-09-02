@@ -1,4 +1,4 @@
-<% var relativePath, picture, name; %>
+<% var relativePath, picture, name, mentor, mentee; %>
 <nav class="nav">
     <!-- LOGO -->
     <a href="/" class="nav__logo">
@@ -51,6 +51,12 @@
                 <li class="nav__sub-item"><a href="/" class="nav__sub-link">Dashboard</a></li>
                 <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
                 <li class="nav__sub-item"><a href="/m/history" class="nav__sub-link">Session history</a></li>
+                <% if (mentor){ %>
+                    <li class="nav__sub-item"><a href="/m/dashboard" class="nav__sub-link">Mentor mode</a></li>
+                <% } %>
+                <% if (mentee){ %>
+                    <li class="nav__sub-item"><a href="/u/dashboard" class="nav__sub-link">Mentee mode</a></li>
+                <% } %>
                 <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
                 <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
             </ul>

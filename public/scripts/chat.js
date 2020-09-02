@@ -1,4 +1,4 @@
-var otherUser, myInfo, waitingAlert, confirmStartSession;
+var otherUser, myInfo, waitingAlert, confirmStartSession, session;
 
 document.getElementById("chatHistoryContainer").style.display = "none";
 
@@ -12,7 +12,9 @@ const setChatPartnerProfile = (data) => {
 }
 
 const openChatWindow = (id) => {
+
     closeChatWindow();
+
     axios.get(`/api/user/${id}`)
         .then(function (response) {
             document.getElementById("chat").style.display = "block";
@@ -208,7 +210,6 @@ socket.on("start-session-request", (data) => {
                     buttons: {
                         confirm: function () {
                             socket.emit("start-session-confirm", {to: data.from, from: data.to});
-                            redirectToSession(data.from);
                         },
                         cancel: function () {
                             socket.emit("start-session-refused", {to: data.from});
@@ -221,8 +222,21 @@ socket.on("start-session-request", (data) => {
 
 socket.on("start-session-confirm", (data) => {
     waitingAlert.close();
-    redirectToSession(data.from);
+    axios.post("/api/session", {
+        mentee: document.getElementById("myId").innerHTML,
+        mentor: data.from,
+        startingAt: Date.now()
+    })
+        .then((response) => {
+            socket.emit("send-session-id", {to: data.from, id: response.data})
+            redirectToSession(data.from);
+        })
 });
+
+socket.on("send-session-id", (data) => {
+    socket.emit("save-session-id", {id: data.id});
+    redirectToSession(data.from);
+})
 
 socket.on("start-session-refused", (data) => {
     waitingAlert.close();
