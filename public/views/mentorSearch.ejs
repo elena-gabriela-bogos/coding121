@@ -1,4 +1,4 @@
-                              <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
 
 </head>
 <body>
@@ -29,28 +30,30 @@
         <div class="grid">
             <% var data; %>
 
-
-                <% for(var i = 0; i < data.length;i++){ %>
-                    <div class="grid__4 grid-item">
-                        <div class="grid-item__circle grid-item__circle--2">
-                            <svg class="grid-item__icon">
-                                <use xlink:href="img/sprite.svg#icon-embed2"></use>
-                            </svg>
-                        </div>
-                        <div class="grid-item__text">
-                            <p class="paragraph">
-
-                                Id: <%= data[i].id %><br/>
-                                Name: <%= data[i].name %><br/>
-                                Description: <%= data[i].description %><br/>
-
-                                Posted: <%= Math.round(moment.duration(Date.now() - data.postedAt).asDays()) %> days ago <br/>
-                                <br/>
-                                <button id=data[i].id class='login__submit' onclick='openChatWindow("<%= data[i].id %>");'>Message</button>
-
-                            </p>
-                        </div>
+            <% for(var i = 0; i < data.length;i++){ %>
+                <div class="grid__4 grid-item">
+                    <div class="grid-item__circle grid-item__circle--2">
+                        <svg class="grid-item__icon">
+                            <use xlink:href="img/sprite.svg#icon-embed2"></use>
+                        </svg>
                     </div>
+                    <div class="grid-item__text">
+                        <p class="paragraph">
+
+                            Id: <%= data[i].id %><br/>
+                            Name: <%= data[i].name %><br/>
+                            Description: <%= data[i].description %><br/>
+
+                            Posted: <%=  data[i].postedAt %> days ago
+                            <br/>
+                            <br/>
+                            <button id=data[i].id class='login__submit' onclick='openChatWindow("<%= data[i].id %>");'>
+                                Message
+                            </button>
+
+                        </p>
+                    </div>
+                </div>
 
             <% } %>
         </div>
