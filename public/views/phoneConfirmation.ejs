@@ -18,11 +18,11 @@
 
 <section class="u-vpadding">
     <div class="login-container">
-        <form id="login__form" action="/2fa" method="post">
+        <form id="login__form" action="/phoneConfirmation/validate-secret" method="post">
             <div class="login__input__container">
-                <label for="phone" class="login__label">Phone  number</label>
+                <label for="token" class="login__label">Token received on your phone</label>
                 <div>
-                    <input type="text" id="phone" name="phone" class="login__input color-section--grey-light">
+                    <input type="text" id="token" name="token" class="login__input color-section--grey-light" required>
                 </div>
             </div>
             <div class="login__input__container">

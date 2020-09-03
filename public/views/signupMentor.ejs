@@ -18,6 +18,14 @@
 
 <section class="u-vpadding">
     <div class="login-container">
+        <div class="social-signup">
+            <form method="get" action="/socialAuth/facebookSignup/m" class="RightPanel__StyledForm">
+                <input type="image" name="facebook" class="RightPanel__StyledInput--facebook">
+            </form>
+            <form method="get" action="/socialAuth/googleSignup/m" class="RightPanel__StyledForm">
+                <input type="image" name="google" class="RightPanel__StyledInput--google">
+            </form>
+        </div>
             <form id="login__form" action="/signupMentor" method="post">
                 <div class="login__input__container">
                             <label for="name" class="login__label">Name</label>
@@ -41,6 +49,12 @@
                     <label for="repassword" class="login__label">Repeat password</label>
                     <div>
                         <input type="text" id="repassword" name="repassword" class="login__input color-section--grey-light">
+                    </div>
+                </div>
+                <div class="login__input__container">
+                    <label for="phone" class="login__label">Phone</label>
+                    <div>
+                        <input type="tel" id="phone" name="phone" class="login__input color-section--grey-light" required>
                     </div>
                 </div>
             <div class="login__input__container">

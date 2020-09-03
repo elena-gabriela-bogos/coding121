@@ -1,4 +1,4 @@
-var otherUser, myInfo, waitingAlert, confirmStartSession;
+var otherUser, myInfo, waitingAlert, confirmStartSession, session;
 
 document.getElementById("chatHistoryContainer").style.display = "none";
 
@@ -8,7 +8,12 @@ const setChatPartnerProfile = (data) => {
     const chatProfile = document.getElementById("chatProfile");
     document.getElementById("profileName").innerHTML = data.name;
     document.getElementById("userChatId").innerHTML = data.id;
-    otherUser = {id: data.id, name: data.name};
+    if (data.picture) {
+        document.getElementById("profile_picture").innerHTML = `<img class="profile_icon_message" src="${data.picture}"/>`;
+    } else {
+        document.getElementById('profile_picture').innerHTML = '<img class="profile_icon_message background_color_icon"/>';
+    }
+    otherUser = {id: data.id, name: data.name, picture: data.picture};
 }
 
 const openChatWindow = (id) => {
@@ -42,18 +47,37 @@ function closeChatWindow() {
 
 const formatProfile = (profile) => {
     const date = Math.round(moment.duration(Date.now() - profile[1]["date"]).asDays());
-    return `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">
-                    <img class="profile_icon_chat background_color_icon"/>
-                    <span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
+    let result = `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">`;
+    if (profile[1]["picture"]) {
+        result += `<img class="profile_icon_chat" src="${profile[1]["picture"]}"/>`;
+    } else {
+        result += '<img class="profile_icon_chat background_color_icon"/>';
+    }
+    result += `<span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
                     <div class="message_date" style="font-size: 1rem">${date} days ago</div></span>                  
-                  </div>`;
+               </div>`;
+    return result;
+}
+
+const getProfile = (profile) => {
+    return axios.get(`/api/user/${profile[0]}`)
+        .then((response) => {
+            profile[1]["picture"] = response.data[0].picture;
+            return formatProfile(profile);
+        })
 }
 
 const displayProfiles = (profiles) => {
+    let promises = [];
     profiles.forEach(profile => {
-        const result = formatProfile(profile);
-        document.getElementById("chatHistoryContainer").innerHTML += result;
+        promises.push(getProfile(profile));
     });
+    Promise.all(promises).then((result) => {
+        result.forEach(profile => {
+            document.getElementById("chatHistoryContainer").innerHTML += profile;
+        })
+    });
+
 }
 
 const openChatHistory = () => {
@@ -63,7 +87,6 @@ const openChatHistory = () => {
         .then(function (response) {
             chatHistoryProfiles.style.display = "block";
             displayProfiles(response.data);
-
             getConversationsWithUnreadMessages((data) => {
                 document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
                 data.forEach(c => {
@@ -210,7 +233,6 @@ socket.on("start-session-request", (data) => {
                     buttons: {
                         confirm: function () {
                             socket.emit("start-session-confirm", {to: data.from, from: data.to});
-                            redirectToSession(data.from);
                         },
                         cancel: function () {
                             socket.emit("start-session-refused", {to: data.from});
@@ -223,8 +245,21 @@ socket.on("start-session-request", (data) => {
 
 socket.on("start-session-confirm", (data) => {
     waitingAlert.close();
-    redirectToSession(data.from);
+    axios.post("/api/session", {
+        mentee: document.getElementById("myId").innerHTML,
+        mentor: data.from,
+        startingAt: Date.now()
+    })
+        .then((response) => {
+            socket.emit("send-session-id", {to: data.from, id: response.data})
+            redirectToSession(data.from);
+        })
 });
+
+socket.on("send-session-id", (data) => {
+    socket.emit("save-session-id", {id: data.id});
+    redirectToSession(data.from);
+})
 
 socket.on("start-session-refused", (data) => {
     waitingAlert.close();

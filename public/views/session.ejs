@@ -41,6 +41,12 @@
     <a href="#" class="nav__logo">
         <img title="IT-Labs" src="../img/logo.png" alt="IT-Labs Logo">
     </a>
+    <ul class="nav__menu">
+        <li class="nav__item">
+            <button id="closeSessionBtn"><img src="../img/icons8-close-window-26.png"/>
+            </button>
+        </li>
+    </ul>
 </nav>
 <div class="container_sess">
 
@@ -58,8 +64,8 @@
         <form action="#" class="form-container u-flex-column" style="width: 100%; height: 61rem">
             <div class="chat_header color-section--primary"></div>
             <div id="chatProfile" class="u-flex">
-                <div><img class="profile_icon_message background_color_icon"/><span id="profileName"
-                                                                                    class="profile_name"><%= partnerName %></span>
+                <div><span id="profile_picture"></span><span id="profileName"
+                                                             class="profile_name"><%= partnerName %></span>
                 </div>
             </div>
             <div id="messagesContainer" class="u-flex-column"></div>
