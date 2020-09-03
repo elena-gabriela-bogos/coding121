@@ -1,3 +1,4 @@
+<% var en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -18,10 +20,13 @@
     <div class="row">
         <div class="grid">
             <div class="grid__6">
-                <h1 class="heading-primary heading-primary--main">Find a developer for
+                <h1 class="heading-primary heading-primary--main ro">Gaseste un programator pentru a primi ajutor
+                    live</h1>
+                <h1 class="heading-primary heading-primary--main en">Find a developer for
                     live mentorship</h1>
                 <div class="nav__log-in">
-                    <a href="/login" class="nav__log-in-btn">Get help now</a>
+                    <a href="/login" class="nav__log-in-btn ro">Gaseste pe cineva acum</a>
+                    <a href="/login" class="nav__log-in-btn en">Get help now</a>
                 </div>
             </div>
             <div class="grid__6">
@@ -33,15 +38,17 @@
 
 <section class="u-vpadding color-section--primary">
     <div class="row">
-        <h2 class="heading-secondary heading-secondary--grey-dark" style="color: #fff;">Cum functioneaza?</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro" style="color: #fff;">Cum functioneaza?</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark en" style="color: #fff;">How it works?</h2>
     </div>
 
     <div class="timeline">
         <div class="timeline__item">
             <div class="timeline__container">
                 <div class="timeline__text-box">
-                    <h3 class="heading-tertiary">Pasul 1</h3>
-                    <p class="paragraph">Pentru a beneficia de mentorat online pentru un anumit limbaj de programare,
+                    <h3 class="heading-tertiary ro">Pasul 1</h3>
+                    <h3 class="heading-tertiary en">Step 1</h3>
+                    <p class="paragraph ro">Pentru a beneficia de mentorat online pentru un anumit limbaj de programare,
                         mai intai trebuie
                         sa iti faci un cont de student, alegand butonul de "sign up" din meniul din partea superioara a
                         paginii.
@@ -49,16 +56,29 @@
                         mentor" din acelasi meniu.
 
                     </p>
+                    <p class="paragraph en">
+                        In order to benefit from online mentoring for a certain programming language, you must first
+                        create a student account, choosing the "sign up" button from the menu at the top of the page. If
+                        you have more experience and want to become a mentor, choose the "become a mentor" option from
+                        the same menu.
+                    </p>
                 </div>
             </div>
         </div>
         <div class="timeline__item">
             <div class="timeline__container">
                 <div class="timeline__text-box">
-                    <h3 class="heading-tertiary">Pasul 2</h3>
-                    <p class="paragraph">Dupa ce studentul contacteaza mentorul dorit, ales in functie de interesele lor
+                    <h3 class="heading-tertiary ro">Pasul 2</h3>
+                    <h3 class="heading-tertiary en">Step 2</h3>
+                    <p class="paragraph ro">Dupa ce studentul contacteaza mentorul dorit, ales in functie de interesele
+                        lor
                         comune, cei doi stabilesc de comun acord o viitoare sesiune online.
                         Acum incepe adevarata experienta ITLabs!
+                    </p>
+                    <p class="paragraph en">
+                        After the student contacts the desired mentor, chosen according to their interests
+                        jointly, the two agree on a future online session.
+                        Now the real ITLabs experience begins!
                     </p>
                 </div>
 
@@ -67,15 +87,23 @@
         <div class="timeline__item">
             <div class="timeline__container">
                 <div class="timeline__text-box">
-                    <h3 class="heading-tertiary">Pasul 3</h3>
-                    <p class="paragraph">
+                    <h3 class="heading-tertiary ro">Pasul 3</h3>
+                    <h3 class="heading-tertiary en">Step 3</h3>
+                    <p class="paragraph ro">
                         In cadrul sesiunilor de mentorat online aveti ocazia de a comunica atat in scris, cat si audio
                         si video. Mai mult decat atat,
                         veti avea la dispozitie un spatiu comun pentru scrierea de cod, dar si o tabla comuna unde
                         puteti desena.
                         Speram sa te simti in largul tau alaturi de noi. Spor la munca!
                     </p>
-
+                    <p class="paragraph en">
+                        During the online mentoring sessions you have the opportunity to communicate both in writing and
+                        audio
+                        and video. More than that,
+                        you will have at your disposal a common space for writing code, but also a common board where
+                        you can draw.
+                        We hope you feel at ease with us. Good luck with your work!
+                    </p>
                 </div>
             </div>
         </div>
@@ -87,7 +115,8 @@
 
 <section class="u-vpadding echipa">
     <div class="row">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Intalneste echipa de dezvoltare a platformei</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro">Intalneste echipa de dezvoltare a platformei</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark en">Meet the team</h2>
     </div>
     <div class="row">
         <div class="profiles">
@@ -96,15 +125,22 @@
                 <div class="profiles__image profiles__image--elena">
                     <div class="profiles__overlay">
                         <div class="profiles__name">Elena Gabriela Bogos</div>
-                        <div class="profiles__title">studenta</div>
+                        <div class="profiles__title ro">studenta</div>
+                        <div class="profiles__title en">student</div>
                     </div>
                 </div>
                 <div class="profiles__container">
-                    <div class="profiles__description">
+                    <div class="profiles__description ro">
                         Elena este studenta la Universitatea Tehnica din Iasi, Facultatea de Automatica si Calculatoare.
                         Ii place sa ia parte la proiecte cu utilitate reala si considera ca estetica si continutul
                         site-ului sau aplicatiei sunt la fel de importante ca functionalitatea acestora.
                         Elena iubeste soarele si in timpul liber confectioneaza haine si accesorii.
+                    </div>
+                    <div class="profiles__description en">
+                        Elena is a student at the Technical University of Iasi, Faculty of Automation and Computers.
+                        She likes to take part in projects with real utility and considers aesthetics and content
+                        The site or application are as important as their functionality.
+                        Elena loves the sun and in her free time she makes clothes and accessories.
                     </div>
                     <div class="profiles__media">
                         <a href="https://www.facebook.com/elenagabrielab/" class="profiles__link" target="_blank">
@@ -122,7 +158,8 @@
                 <div class="profiles__image profiles__image--gabi">
                     <div class="profiles__overlay">
                         <div class="profiles__name">Gabriel Dragut</div>
-                        <div class="profiles__title">student</div>
+                        <div class="profiles__title ro">student</div>
+                        <div class="profiles__title en">student</div>
                     </div>
                 </div>
                 <div class="profiles__container">
@@ -143,15 +180,22 @@
                 <div class="profiles__image profiles__image--maria">
                     <div class="profiles__overlay">
                         <div class="profiles__name">Maria Lazar</div>
-                        <div class="profiles__title"> studenta</div>
+                        <div class="profiles__title ro"> studenta</div>
+                        <div class="profiles__title en"> student</div>
                     </div>
                 </div>
                 <div class="profiles__container">
-                    <div class="profiles__description">
+                    <div class="profiles__description ro">
                         Maria este studenta la Universitatea Babes-Bolyai din Cluj-Napoca, Facultatea de Matematica si
                         Informatica. Ii place sa invete tehnologii noi si sa isi perfectioneze continuu abilitatile de
                         programare.
                         Maria iubeste sporturile, sa calatoreasca si sa-si petreaca timpul cu prietenii.
+                    </div>
+                    <div class="profiles__description en">
+                        Maria is a student at Babes-Bolyai University in Cluj-Napoca, Faculty of Mathematics and
+                        Informatics. She enjoys learning new technologies and continually perfecting his skills
+                        programming.
+                        Maria loves sports, traveling and spending time with friends.
                     </div>
                     <div class="profiles__media">
                         <a href="https://www.facebook.com/lazar.maria.39" class="profiles__link" target="_blank">
@@ -168,7 +212,8 @@
                 <div class="profiles__image profiles__image--silvia">
                     <div class="profiles__overlay">
                         <div class="profiles__name">Silvia Suciu</div>
-                        <div class="profiles__title"> studenta</div>
+                        <div class="profiles__title ro"> studenta</div>
+                        <div class="profiles__title en"> student</div>
                     </div>
                 </div>
                 <div class="profiles__container">
@@ -190,9 +235,19 @@
         </div>
     </div>
 </section>
-
 <%- include("views/partials/footer.ejs", {relativePath:""}) %>
 
 <script src="scripts/bundle.js"></script>
+<script type="application/javascript" src="scripts/language.js"></script>
+
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 </html>

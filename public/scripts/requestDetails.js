@@ -18,8 +18,12 @@ const getMentor = (mentor) => {
             }
             result += "<div class='grid-item__text'>" +
                 `<p class='paragraph heading-tertiary--grey-dark'>${mentor.name}</p>
-            <p class='mentor_details' style='margin-bottom: 1rem'>${mentor.details}</p>
-            <button class='login__submit' onclick='openChatWindow(${mentor.id})'>Message</button></div></div>`
+            <p class='mentor_details' style='margin-bottom: 1rem'>${mentor.details}</p>`;
+            let message = "<span class='en'>Message</span><span class='ro' style='display: none'>Trimite mesaj</span>";
+            if (document.getElementById("activeLanguage").children[1].id === "ro") {
+                message = "<span class='en' style='display: none'>Message</span><span class='ro'>Trimite mesaj</span>";
+            }
+            result += `<button class='login__submit' onclick='openChatWindow(${mentor.id})'>${message}</button></div></div>`
             return result;
         });
 }

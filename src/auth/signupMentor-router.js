@@ -29,7 +29,7 @@ signupMentorRouter.get('/', (req, res) => {
             }
         });
     } else {
-        res.render(path.resolve('public/views/signupMentor.ejs'));
+        res.render(path.resolve('public/views/signupMentor.ejs'), {en: req.session.lang});
     }
 });
 

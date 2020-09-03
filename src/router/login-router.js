@@ -67,7 +67,7 @@ loginRouter.get('/', (req, res) => {
             }
         })
     } else {
-        res.render(path.resolve('public/views/login.ejs'));
+        res.render(path.resolve('public/views/login.ejs'), {en: req.session.lang});
     }
 });
 

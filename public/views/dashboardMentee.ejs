@@ -1,4 +1,4 @@
-<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen, mentor; %>
+<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen, mentor, en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +23,8 @@
 
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Get started</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark en">Get started</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro">Incepe acum</h2>
         <div class="request__button">
             <a href="/u/dashboard/request" class="course no-decoration heading-secondary--grey-dark">
                 <img src="../img/course.jpg" alt="" class="course__img">
@@ -31,18 +32,23 @@
                     <svg class="course__icon">
                         <use xlink:href="../img/sprite.svg#icon-stopwatch"></use>
                     </svg>
-                    <div class="course__time">1:1 mentorship session</div>
+                    <div class="course__time en">1:1 mentorship session</div>
+                    <div class="course__time ro">1:1 sesiune de mentorat</div>
                 </div>
-                <div class="course__title">Get live help</div>
+                <div class="course__title en">Get live help</div>
+                <div class="course__title ro">Primeste ajutor live</div>
             </a>
         </div>
-        <h2 class="heading-secondary heading-secondary--grey-dark">My requests</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark en">My requests</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro">Cererile mele</h2>
         <ul class="nav__menu">
             <li class="nav__item">
-                <a href="#" id="openRequests" class="nav__link">Open</a>
+                <a href="#" id="openRequests" class="nav__link"><span class="en">Open</span><span
+                            class="ro">Deschise</span></a>
             </li>
             <li class="nav__item">
-                <a href="#" id="closedRequests" class="nav__link">Closed</a>
+                <a href="#" id="closedRequests" class="nav__link"><span class="en">Closed</span><span
+                            class="ro">Inchise</span></a>
             </li>
         </ul>
         <div id="requestList"></div>
@@ -56,6 +62,17 @@
 
 <%- include("partials/chat.ejs", {relativePath:"../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen, mentee:true}) %>
 
+<script src="../scripts/language.js" type="application/javascript"></script>
+
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 
 </html>

@@ -1,6 +1,5 @@
 import express from 'express';
 import path from 'path';
-import User from "../domain/user";
 import Mentor from "../domain/mentor";
 
 export const welcomePageRouter = express.Router()
@@ -15,7 +14,7 @@ welcomePageRouter.get('/', (req, res) => {
             }
         });
     } else {
-        res.render(path.resolve('public/index.ejs'));
+        res.render(path.resolve('public/index.ejs'), {en: req.session.lang});
     }
 });
 
@@ -24,7 +23,7 @@ welcomePageRouter.get('/gdpr', (req, res) => {
     if (req.session.loggedin) {
         loggedIn = true;
     }
-    res.render(path.resolve('public/views/gdpr.ejs'), {loggedIn});
+    res.render(path.resolve('public/views/gdpr.ejs'), {loggedIn, en: req.session.lang});
 });
 
 
@@ -33,5 +32,5 @@ welcomePageRouter.get('/cookie-policy', (req, res) => {
     if (req.session.loggedin) {
         loggedIn = true;
     }
-    res.render(path.resolve('public/views/cookie-policy.ejs'), {loggedIn});
+    res.render(path.resolve('public/views/cookie-policy.ejs'), {loggedIn, en: req.session.lang});
 });

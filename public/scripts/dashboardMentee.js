@@ -12,7 +12,11 @@ const createRequestElement = (request) => {
         "               <div class='u-flex request__item__text'>" +
         `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'>${request.description}</div>`
     result += formatTechnologies(request.technologies);
-    result += `</div><span>${Math.round(moment.duration(Date.now() - request.postedAt).asDays())} days ago</span></div>` +
+    let daysText = "<span class='en'> days ago</span><span class='ro' style='display: none'> zile in urma</span>";
+    if (document.getElementById("activeLanguage").children[1].id === "ro") {
+        daysText = "<span class='en' style='display: none'> days ago</span><span class='ro'> zile in urma</span>";
+    }
+    result += `</div><span>${Math.round(moment.duration(Date.now() - request.postedAt).asDays())}${daysText}</span></div>` +
         "            </div></div></a>";
     return result;
 }

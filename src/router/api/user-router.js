@@ -12,6 +12,11 @@ userRouter.get('/status', checkAuth, (req, res) => {
     }
 });
 
+userRouter.post('/language', (req, res) => {
+    req.session.lang = req.body.lang;
+    res.send();
+});
+
 userRouter.get('/', checkAuth, (req, res) => {
     User.findAll((err, user) => {
         if (err) {
