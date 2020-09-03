@@ -16,20 +16,33 @@ mentorDashboardRouter.get('/', checkAuth, checkSession, checkMentor, (req, res) 
         }
         User.findById(req.session.userId, (err, user) => {
             let picture = null;
-            if (user[0].picture){
-                picture = Buffer.from(user[0].picture).toString('base64');
+            if (user[0].picture) {
+                renderBasedOnPicture(req, res, user, isMentee, 'public/views/dashboardMentor.ejs');
+            } else {
+                res.render(path.resolve('public/views/dashboardMentor.ejs'),
+                    {
+                        name: user[0].name,
+                        picture: picture,
+                        id: user[0].id,
+                        chatOpen: req.session.chatOpen,
+                        chatPartner: req.session.chattingWith,
+                        chatHistoryOpen: req.session.chatHistoryOpen,
+                        mentee: isMentee
+                    });
             }
-            res.render(path.resolve('public/views/dashboardMentor.ejs'),
-                {
-                    name: user[0].name,
-                    picture: picture,
-                    id: user[0].id,
-                    chatOpen: req.session.chatOpen,
-                    chatPartner: req.session.chattingWith,
-                    chatHistoryOpen: req.session.chatHistoryOpen,
-                    mentee: isMentee
-                });
         });
     });
 });
 
+const renderBasedOnPicture = (req, res, user, isMentee, ejsPath) => {
+    let picture = user[0].picture;
+    res.render(path.resolve(ejsPath), {
+        name: user[0].name,
+        picture: picture,
+        id: user[0].id,
+        chatOpen: req.session.chatOpen,
+        chatPartner: req.session.chattingWith,
+        chatHistoryOpen: req.session.chatHistoryOpen,
+        mentee: isMentee
+    });
+}

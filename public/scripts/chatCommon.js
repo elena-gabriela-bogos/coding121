@@ -28,7 +28,7 @@ const addOtherUsersMessage = (message) => {
     const date = formatMessageDate(message.deliveredTime);
     let result = `<div class='other_user_message_container'>`;
     if (otherUserPicture) {
-        result += `<img class="profile_icon_message" src="data:image/png;base64,${otherUserPicture}"/>`;
+        result += `<img class="profile_icon_message" src="${otherUserPicture}"/>`;
     } else {
         result += `<img class="profile_icon_message background_color_icon"/>`;
     }
@@ -47,7 +47,7 @@ const addMyMessage = (message) => {
                     <div class="message_date">${date}</div>
                 </span>`;
     if (myPicture) {
-        result += `<img class="profile_icon_message" src="data:image/png;base64,${myPicture}"/>`;
+        result += `<img class="profile_icon_message" src="${myPicture}"/>`;
     } else {
         result += `<img class="profile_icon_message background_color_icon2"/>`;
     }

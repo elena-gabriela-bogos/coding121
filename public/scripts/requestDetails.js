@@ -7,6 +7,23 @@ const displaySkills = (skills) => {
     document.getElementById("skillsList").innerHTML = result;
 }
 
+const getMentor = (mentor) => {
+    return axios.get(`/api/user/${mentor.id}`)
+        .then((response) => {
+            let result = `<div id=${mentor.id} class='grid__4 grid-item mentor'>`;
+            if (response.data[0].picture) {
+                result += `<div class='grid-item__circle'><img class="grid-item__circle" src="${response.data[0].picture}"/></div>`;
+            } else {
+                result += "<div class='grid-item__circle grid-item__circle--1'><svg class='grid-item__icon'><use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>";
+            }
+            result += "<div class='grid-item__text'>" +
+                `<p class='paragraph heading-tertiary--grey-dark'>${mentor.name}</p>
+            <p class='mentor_details' style='margin-bottom: 1rem'>${mentor.details}</p>
+            <button class='login__submit' onclick='openChatWindow(${mentor.id})'>Message</button></div></div>`
+            return result;
+        });
+}
+
 const displayMentors = (mentors) => {
     let result = "";
     let newRow = false;
@@ -14,22 +31,19 @@ const displayMentors = (mentors) => {
         newRow = true;
         result += "<div class='grid'>";
     }
+    let promises = [];
     mentors.forEach(mentor => {
-        result += "<div class='grid__4 grid-item mentor'>";
-        if (mentor.picture) {
-            result += `<div class='grid-item__circle'><img class="grid-item__circle" src="data:image/png;base64,${mentor.picture}"/></div>`;
-        } else {
-            result += "<div class='grid-item__circle grid-item__circle--1'><svg class='grid-item__icon'><use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>";
-        }
-        result += "<div class='grid-item__text'>" +
-            `<p class='paragraph heading-tertiary--grey-dark'>${mentor.name}</p>
-            <p class='mentor_details' style='margin-bottom: 1rem'>${mentor.details}</p>
-            <button id=${mentor.id} class='login__submit' onclick='openChatWindow(${mentor.id})'>Message</button></div></div>`
+        promises.push(getMentor(mentor));
     });
-    if (newRow) {
-        result += "</div>";
-    }
-    document.getElementById("mentorList").innerHTML = result;
+    Promise.all(promises).then((results) => {
+        results.forEach(mentor => {
+            result += mentor;
+        })
+        if (newRow) {
+            result += "</div>";
+        }
+        document.getElementById("mentorList").innerHTML = result;
+    })
 }
 
 const getRequestSkills = (id) => {

@@ -9,11 +9,11 @@ const setChatPartnerProfile = (data) => {
     document.getElementById("profileName").innerHTML = data.name;
     document.getElementById("userChatId").innerHTML = data.id;
     if (data.picture) {
-        document.getElementById("profile_picture").innerHTML = '<img class="profile_icon_message " src="data:image/png;base64,' + data.picture + '"/>';
+        document.getElementById("profile_picture").innerHTML = `<img class="profile_icon_message" src="${data.picture}"/>`;
     } else {
         document.getElementById('profile_picture').innerHTML = '<img class="profile_icon_message background_color_icon"/>';
     }
-    otherUser = {id: data.id, name: data.name};
+    otherUser = {id: data.id, name: data.name, picture: data.picture};
 }
 
 const openChatWindow = (id) => {
@@ -49,7 +49,7 @@ const formatProfile = (profile) => {
     const date = Math.round(moment.duration(Date.now() - profile[1]["date"]).asDays());
     let result = `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">`;
     if (profile[1]["picture"]) {
-        result += `<img class="profile_icon_chat" src="data:image/png;base64,${profile[1]["picture"]}"/>`;
+        result += `<img class="profile_icon_chat" src="${profile[1]["picture"]}"/>`;
     } else {
         result += '<img class="profile_icon_chat background_color_icon"/>';
     }
@@ -59,11 +59,25 @@ const formatProfile = (profile) => {
     return result;
 }
 
+const getProfile = (profile) => {
+    return axios.get(`/api/user/${profile[0]}`)
+        .then((response) => {
+            profile[1]["picture"] = response.data[0].picture;
+            return formatProfile(profile);
+        })
+}
+
 const displayProfiles = (profiles) => {
+    let promises = [];
     profiles.forEach(profile => {
-        const result = formatProfile(profile);
-        document.getElementById("chatHistoryContainer").innerHTML += result;
+        promises.push(getProfile(profile));
     });
+    Promise.all(promises).then((result) => {
+        result.forEach(profile => {
+            document.getElementById("chatHistoryContainer").innerHTML += profile;
+        })
+    });
+
 }
 
 const openChatHistory = () => {
@@ -73,7 +87,6 @@ const openChatHistory = () => {
         .then(function (response) {
             chatHistoryProfiles.style.display = "block";
             displayProfiles(response.data);
-
             getConversationsWithUnreadMessages((data) => {
                 document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
                 data.forEach(c => {

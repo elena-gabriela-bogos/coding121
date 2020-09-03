@@ -1,7 +1,6 @@
 import express from 'express';
 import User from "../../domain/user";
 import {checkAuth} from "./authentification";
-import path from "path";
 
 export const userRouter = express.Router()
 
@@ -38,13 +37,9 @@ userRouter.post('/', checkAuth, (req, res) => {
 
 userRouter.get('/:id', checkAuth, (req, res) => {
     User.findById(req.params.id, function (err, user) {
-
         if (err) {
             res.send(err);
         } else {
-            if (user[0].picture) {
-                user[0].picture = Buffer.from(user[0].picture).toString('base64');
-            }
             res.json(user);
         }
     });

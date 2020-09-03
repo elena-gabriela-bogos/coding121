@@ -77,7 +77,21 @@ export default class User {
                 console.log("error: ", err);
                 result(err, null);
             } else {
-                result(null, res);
+                let user = res;
+                if (user[0].picture) {
+                    if (user[0].gid || user[0].fid) {
+                        User.findPicture(user[0].id, (err, userPicture) => {
+                            user[0].picture = userPicture[0].picture;
+                            user[0].picture = user[0].picture.replace(/["']/g, "");
+                            result(null, user);
+                        });
+                    } else {
+                        user[0].picture = "data:image/png;base64," + Buffer.from(user[0].picture).toString('base64');
+                        result(null, user);
+                    }
+                } else {
+                    result(null, res);
+                }
             }
         });
     };
@@ -95,6 +109,17 @@ export default class User {
 
     static findByUsernameAndPassword(username, password, result) {
         dbConn.query("SELECT * FROM user WHERE mail=? AND password=?", [username, password], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
+
+    static findPicture(id, result) {
+        dbConn.query("SELECT CONVERT(picture USING utf8) as picture FROM user where id = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);

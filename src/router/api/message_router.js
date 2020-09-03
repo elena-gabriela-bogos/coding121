@@ -58,10 +58,7 @@ messageRouter.get('/history', checkAuth, (req, res) => {
                 }
                 if (!(userId in recentUsers)) {
                     let picture = null;
-                    if (message.picture){
-                        picture = Buffer.from(message.picture).toString('base64');
-                    }
-                    recentUsers[userId] = {name: message.name, date: message.deliveredTime, picture: picture};
+                    recentUsers[userId] = {name: message.name, date: message.deliveredTime};
                 }
             });
             recentUsers = Object.entries(recentUsers);
