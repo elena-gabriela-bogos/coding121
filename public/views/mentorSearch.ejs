@@ -1,3 +1,4 @@
+<% var en, picture, name; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +26,8 @@
 <% var chatOpen, chatPartner, chatHistoryOpen, id; %>
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Find requests</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark en">Find requests</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro">Cauta cereri</h2>
 
         <div class="grid">
             <% var data; %>
@@ -41,14 +43,14 @@
                         <p class="paragraph">
 
                             Id: <%= data[i].id %><br/>
-                            Name: <%= data[i].name %><br/>
-                            Description: <%= data[i].description %><br/>
+                            <span class="en">Name</span><span class="ro">Nume</span>: <%= data[i].name %><br/>
+                            <span class="en">Description</span><span class="ro">Descriere</span>: <%= data[i].description %><br/>
 
-                            Posted: <%=  data[i].postedAt %> days ago
+                            Posted: <%= data[i].postedAt %><span class="en"> days ago</span><span class="ro"> zile in urma</span>
                             <br/>
                             <br/>
                             <button id=data[i].id class='login__submit' onclick='openChatWindow("<%= data[i].id %>");'>
-                                Message
+                                <span class="en">Message</span><span class="ro">Trimite mesaj</span>
                             </button>
 
                         </p>
@@ -64,7 +66,16 @@
 <script src="../scripts/bundle.js"></script>
 <script src="../scripts/dashboardMentor.js"></script>
 <%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen,mentee:false}) %>
-
+<script src="../scripts/language.js" type="application/javascript"></script>
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 
 </html>

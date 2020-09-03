@@ -1,4 +1,4 @@
-<% var relativePath, picture, name; %>
+<% var relativePath, picture, name, mentee; %>
 <nav class="nav">
     <!-- LOGO -->
     <a href="/" class="nav__logo">
@@ -16,18 +16,18 @@
         <li class="nav__item">
             <div class="nav__account">
                 <div class="languages">
-                    <div class="languages__active">
+                    <div id="activeLanguage" class="languages__active">
                         <svg class="languages__chevron">
                             <use xlink:href="<%= relativePath %>img/sprite.svg#icon-chevron-down"></use>
                         </svg>
-                        <svg class="languages__icon">
+                        <svg id="ro" class="languages__icon">
                             <use xlink:href="<%= relativePath %>img/sprite.svg#icon-ro"></use>
                         </svg>
                     </div>
 
                     <div class="languages__dropdown">
-                        <a href="#" class="languages__link">
-                            <svg class="languages__icon">
+                        <a id="otherLanguage" href="#" class="languages__link">
+                            <svg id="en" class="languages__icon">
                                 <use xlink:href="<%= relativePath %>img/sprite.svg#icon-uk"></use>
                             </svg>
                         </a>
@@ -42,6 +42,8 @@
                         <!--                        <use xlink:href="../img/sprite.svg#icon-embed2"></use>-->
                     </svg>
                 </div>
+            <% } else{ %>
+                <img class="profile__icon" src="<%= picture %>"/>
             <% } %>
             <a href="#" id="my__profile__link" class="nav__link"><%= name %></a>
         </li>
@@ -49,10 +51,22 @@
             <a href="#" class="nav__link"><img src="<%= relativePath %>img/icons8-menu-24.png" alt="#"></a>
             <ul class="nav__sub-menu">
                 <li class="nav__sub-item"><a href="/" class="nav__sub-link">Dashboard</a></li>
-                <li class="nav__sub-item"><a href="#" class="nav__sub-link">How it works</a></li>
-                <li class="nav__sub-item"><a href="/m/history" class="nav__sub-link">Session history</a></li>
-                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
-                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
+                <li class="nav__sub-item"><a href="#" class="nav__sub-link ro">Cum functioneaza</a><a href="#"
+                                                                                                      class="nav__sub-link en">How
+                        it works</a></li>
+                <li class="nav__sub-item"><a href="/m/history" class="nav__sub-link ro">Istoric sesiuni</a><a
+                            href="/m/history"
+                            class="nav__sub-link en">Session
+                        history</a></li>
+                <% if (mentee){ %>
+                    <li class="nav__sub-item"><a href="/u/dashboard" class="nav__sub-link ro">Mod student</a><a
+                                href="/u/dashboard" class="nav__sub-link en">Mentee mode</a></li>
+                <% } %>
+                <!--                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>-->
+                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link ro">Deconecteaza-te</a><a
+                            href="/logout"
+                            class="nav__sub-link en">Log
+                        out</a></li>
             </ul>
         </li>
     </ul>
