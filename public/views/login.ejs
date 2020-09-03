@@ -1,4 +1,4 @@
-<% var message; %>
+<% var message, en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -34,13 +35,15 @@
                 </div>
             </div>
             <div class="login__input__container">
-                <label for="password" class="login__label">Password</label>
+                <label for="password" class="login__label en">Password</label>
+                <label for="password" class="login__label ro">Parola</label>
                 <div>
                     <input type="password" id="password" name="password" class="login__input color-section--grey-light">
                 </div>
             </div>
             <div class="login__input__container">
-                <button id="loginButton" class="login__submit">Login</button>
+                <button id="loginButton" class="login__submit"><span class="en">Login</span><span
+                            class="ro">Conectare</span></button>
             </div>
             <div id="loginMessage" class="login__input__container"><%= message %></div>
         </form>
@@ -51,6 +54,17 @@
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
 <script src="../scripts/bundle.js"></script>
-</body>
 
+<script type="application/javascript" src="../scripts/language.js"></script>
+
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
+</body>
 </html>

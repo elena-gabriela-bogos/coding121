@@ -1,4 +1,4 @@
-<% var id, picture, name, request, chatOpen, chatPartner, chatHistoryOpen, mentor; %>
+<% var id, picture, name, request, chatOpen, chatPartner, chatHistoryOpen, mentor, en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,9 +60,13 @@
 <section class="features color-section--grey-light u-vpadding-bottom">
     <div class="row row--respond">
         <div class="h3-margin">
-            <h3 class="heading-tertiary heading-secondary--grey-dark h3-margin">Recommended mentors</h3>
-            <p>These mentors are recommended by us based on your request. View their profile and chat with them to get
+            <h3 class="heading-tertiary heading-secondary--grey-dark h3-margin en">Recommended mentors</h3>
+            <h3 class="heading-tertiary heading-secondary--grey-dark h3-margin ro">Mentori recomandati</h3>
+            <p class="en">These mentors are recommended by us based on your request. View their profile and chat with
+                them to get
                 started.</p>
+            <p class="ro">Acești mentori sunt recomandați de noi pe baza cererii dvs. Vizualizați profilul și discutați
+                cu ei pentru a începe.</p>
         </div>
         <div id="mentorList"></div>
     </div>
@@ -75,6 +79,15 @@
 <script src="../../../scripts/requestDetails.js"></script>
 
 <%- include("partials/chat.ejs", {relativePath:"../../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen, mentee:true}) %>
-
+<script src="../../../scripts/language.js" type="application/javascript"></script>
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 </html>

@@ -28,7 +28,8 @@ menteeDashboardRouter.get('/', checkAuth, checkSession, checkMentee, (req, res) 
                     chatOpen: req.session.chatOpen,
                     chatPartner: req.session.chattingWith,
                     chatHistoryOpen: req.session.chatHistoryOpen,
-                    mentor: isMentor
+                    mentor: isMentor,
+                    en: req.session.lang
                 });
             }
         });
@@ -53,7 +54,8 @@ menteeDashboardRouter.get('/request', checkAuth, checkSession, checkMentee, (req
                     chatOpen: req.session.chatOpen,
                     chatPartner: req.session.chattingWith,
                     chatHistoryOpen: req.session.chatHistoryOpen,
-                    mentor: isMentor
+                    mentor: isMentor,
+                    en: req.session.lang
                 });
             }
         });
@@ -91,7 +93,8 @@ menteeDashboardRouter.post('/request', checkAuth, checkSession, checkMentee, (re
                         chatOpen: req.session.chatOpen,
                         chatPartner: req.session.chattingWith,
                         chatHistoryOpen: req.session.chatHistoryOpen,
-                        mentor: isMentor
+                        mentor: isMentor,
+                        en: req.session.lang
                     });
                 }
             });
@@ -123,7 +126,8 @@ menteeDashboardRouter.get("/request/:id", checkAuth, checkSession, checkMentee, 
                                     chatOpen: req.session.chatOpen,
                                     chatPartner: req.session.chattingWith,
                                     chatHistoryOpen: req.session.chatHistoryOpen,
-                                    mentor: isMentor
+                                    mentor: isMentor,
+                                    en: req.session.lang
                                 });
                             }
                         });
@@ -147,7 +151,8 @@ const renderBasedOnPicture = (req, res, user, isMentor, ejsPath, request) => {
             chatPartner: req.session.chattingWith,
             chatHistoryOpen: req.session.chatHistoryOpen,
             mentor: isMentor,
-            request: request
+            request: request,
+            en: req.session.lang
         });
     } else {
         res.render(path.resolve(ejsPath), {
@@ -157,7 +162,8 @@ const renderBasedOnPicture = (req, res, user, isMentor, ejsPath, request) => {
             chatOpen: req.session.chatOpen,
             chatPartner: req.session.chattingWith,
             chatHistoryOpen: req.session.chatHistoryOpen,
-            mentor: isMentor
+            mentor: isMentor,
+            en: req.session.lang
         });
     }
 }

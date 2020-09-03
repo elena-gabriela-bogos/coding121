@@ -1,18 +1,25 @@
-
 const createRequestElement = (request) => {
 
     let result = "<a href = " + `#` + " class='request__link'><div class=\"grid__4 request\">\n" +
         "            <div class=\"request-item__text\">\n" +
         "               <div class='u-flex request__item__text'>" +
         `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'><a>Description:${request.description}</div>`
-    result += `</div><span>${Math.round(moment.duration(Date.now() - request.postedAt).asDays())} days ago</span></div>` +
+    let daysText = "<span class='en'> days ago</span><span class='ro' style='display: none'> zile in urma</span>";
+    if (document.getElementById("activeLanguage").children[1].id === "ro") {
+        daysText = "<span class='en' style='display: none'> days ago</span><span class='ro'> zile in urma</span>";
+    }
+    result += `</div><span>${Math.round(moment.duration(Date.now() - request.postedAt).asDays())}${daysText}</span></div>` +
         "            </div></div></a>";
 
-    result+=
+    result +=
         "            <div class=\"request-item__text\">\n" +
         "               <div class='u-flex request__item__text'>" +
         `                  <div class='u-flex-column'><div class='request__description heading-secondary--grey-dark'><a>User:${request.name}</div>`;
-    result += `<button id=${request.id} class=\'login__submit\' onclick="openChatWindow(${request.id})">Message</button>`;
+    let message = "<span class='en'>Message</span><span class='ro' style='display: none'>Trimite mesaj</span>";
+    if (document.getElementById("activeLanguage").children[1].id === "ro") {
+        message = "<span class='en' style='display: none'>Message</span><span class='ro'>Trimite mesaj</span>";
+    }
+    result += `<button id=${request.id} class=\'login__submit\' onclick="openChatWindow(${request.id})">${message}</button>`;
 
     return result;
 
@@ -26,7 +33,6 @@ const displayRequests = (requests) => {
         console.log(request);
     });
 }
-
 
 
 const getMyRequests = (status) => {

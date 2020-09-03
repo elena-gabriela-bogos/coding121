@@ -27,7 +27,8 @@ mentorDashboardRouter.get('/', checkAuth, checkSession, checkMentor, (req, res) 
                         chatOpen: req.session.chatOpen,
                         chatPartner: req.session.chattingWith,
                         chatHistoryOpen: req.session.chatHistoryOpen,
-                        mentee: isMentee
+                        mentee: isMentee,
+                        en: req.session.lang
                     });
             }
         });
@@ -43,6 +44,7 @@ const renderBasedOnPicture = (req, res, user, isMentee, ejsPath) => {
         chatOpen: req.session.chatOpen,
         chatPartner: req.session.chattingWith,
         chatHistoryOpen: req.session.chatHistoryOpen,
-        mentee: isMentee
+        mentee: isMentee,
+        en: req.session.lang
     });
 }

@@ -53,8 +53,12 @@ const formatProfile = (profile) => {
     } else {
         result += '<img class="profile_icon_chat background_color_icon"/>';
     }
+    let daysText = "<span class='en'> days ago</span><span class='ro' style='display: none'> zile in urma</span>";
+    if (document.getElementById("activeLanguage").children[1].id === "ro") {
+        daysText = "<span class='en' style='display: none'> days ago</span><span class='ro'> zile in urma</span>";
+    }
     result += `<span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
-                    <div class="message_date" style="font-size: 1rem">${date} days ago</div></span>                  
+                    <div class="message_date" style="font-size: 1rem">${date}${daysText}</div></span>                  
                </div>`;
     return result;
 }

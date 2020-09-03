@@ -13,7 +13,9 @@
             <% if (mentee){ %>
                 <button id="startSessionBtn" onclick="startSessionHandler()" type="button" class="call_button"><img
                             src="<%= relativePath %>img/icons8-video-message-24.png" class="start_session_image"/><span
-                            class="start_session_text">Start session</span></button>
+                            class="start_session_text en">Start session</span><span
+                    class="start_session_text ro">Incepe sesiune</span>
+                </button>
             <% } %>
         </div>
         <p id="userChatId" style="display:none"></p>
@@ -22,7 +24,7 @@
         <div class="send_message_container">
             <textarea id="messageText" placeholder="Type message.." name="msg"></textarea>
 
-            <button id="sendMessageBtn" class="btn">Send</button>
+            <button id="sendMessageBtn" class="btn"><span class="en">Send</span><span class="ro">Trimite</span></button>
         </div>
     </form>
 </div>
