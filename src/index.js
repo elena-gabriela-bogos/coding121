@@ -21,6 +21,8 @@ import {mailSentRouter} from "./auth/mailSent";
 import {phoneRouter} from "./auth/2fa";
 import {verifyEmail} from "./auth/verifyEmail";
 import {searchRouter} from "./router/search-router";
+import {mentorSearchRouter} from "./router/mentor-search-router";
+
 import {suggestedRequestRouter} from "./router/suggested-request-router";
 import {sessionRouter} from "./router/session-router";
 import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
@@ -92,6 +94,8 @@ app.use('/verifyEmail',verifyEmail);
 app.use('/search', searchRouter);
 app.use('/api/session', sessionApiRouter);
 app.use('/search', searchRouter);
+app.use('/mentorsearch', mentorSearchRouter);
+
 app.use('/api/suggested_request', suggestedRequestRouter);
 
 app.use('/m/history', sessionRouter);

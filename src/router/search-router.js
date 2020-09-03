@@ -19,6 +19,7 @@ export const searchRouter = express.Router();
 // });
 
 
+
 searchRouter.post('/', checkAuth, checkSession, (req, res) => {
     // console.log(req.body);
     let q = req.body.q;
