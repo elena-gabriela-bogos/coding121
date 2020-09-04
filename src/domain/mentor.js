@@ -5,7 +5,7 @@ import User from "./user";
 export default class Mentor {
     constructor({id}) {
         this.id = id;
-        this.valid = false;
+        this.valid = 2;
         this.details = null;
     }
 

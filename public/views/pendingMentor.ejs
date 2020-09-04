@@ -1,0 +1,66 @@
+<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen, mentee, en; %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-Labs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
+          rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+
+<%- include("partials/mentor-header.ejs", {relativePath:"../", picture:picture, name:name,mentee:mentee}) %>
+
+
+
+<header class="header">
+    <div class="row">
+        <div class="grid">
+            <div class="grid__6">
+                <h1 class="heading-primary heading-primary--main en">Your request is under evaluation.</h1>
+                <h1 class="heading-primary heading-primary--main ro">Cererea dumneavoastra este in curs de evaluare</h1>
+                <!--                <div class="nav__log-in">-->
+                <!--                    <a href="/login" class="nav__log-in-btn">Get help now</a>-->
+                <!--                </div>-->
+            </div>
+            <div class="grid__6">
+                <img class="header__img" src="../img/underEvaluation.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</header>
+
+</section>
+
+<%- include("partials/footer.ejs", {relativePath:"../"}) %>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
+<script src="../scripts/bundle.js"></script>
+<script src="../scripts/dashboardMentor.js"></script>
+<!--<script src="../scripts/dashboardMentee.js"></script>-->
+
+<%- include("partials/chat.ejs", {relativePath:"../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen, mentee:false}) %>
+<script src="../scripts/language.js" type="application/javascript"></script>
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
+</body>
+
+</html>
