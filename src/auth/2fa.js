@@ -13,7 +13,7 @@ export const phoneRouter = express.Router();
 
 
 // phoneRouter.get("/",((req, res) => {
-//   res.render(path.resolve('public/views/phoneConfirmation.ejs'));
+//   res.render(path.resolve('public/views/phoneConfirmation.ejs'), {en:req.session.lang});
 // }));
 
 
@@ -43,7 +43,7 @@ phoneRouter.get("/:id", async(req, res) => {
               .then((json) => console.log(json))
               .catch((err) => console.log(err.message));
 
-          res.render(path.resolve('public/views/phoneConfirmation.ejs'));
+          res.render(path.resolve('public/views/phoneConfirmation.ejs'), {en:req.session.lang});
         }
       });
     }
@@ -81,7 +81,7 @@ phoneRouter.post("/validate-phone/:id", async(req, res) => {
                 .then((json) => console.log(json))
                 .catch((err) => console.log(err.message));
 
-            res.render(path.resolve('public/views/phoneConfirmation.ejs'));
+            res.render(path.resolve('public/views/phoneConfirmation.ejs'), {en:req.session.lang});
           }
         });
       }
@@ -97,7 +97,7 @@ phoneRouter.post("/validate-phone/:id", async(req, res) => {
 phoneRouter.post("/validate-secret", (req, res) => {
   Auth.findByPhoneToken(req.body.token,(err,auth)=>{
     if(err){
-      res.render(path.resolve('public/views/phoneConfirmation.ejs'),{"message" : "Token do not match"});
+      res.render(path.resolve('public/views/phoneConfirmation.ejs'),{en:req.session.lang, "message" : "Token do not match"});
     }
     else {
       console.log(auth[0]);

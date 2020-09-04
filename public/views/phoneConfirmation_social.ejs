@@ -1,4 +1,4 @@
-<% var phoneMessage,id; %>
+<% var phoneMessage, id, en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -20,13 +21,15 @@
     <div class="login-container">
         <form id="login__form" action="/phoneConfirmation/validate-phone/<%= id %>" method="post">
             <div class="login__input__container">
-                <label for="phone" class="login__label">Phone number</label>
+                <label for="phone" class="login__label en">Phone number</label>
+                <label for="phone" class="login__label ro">Numar de telefon</label>
                 <div>
                     <input type="tel" id="phone" name="phone" class="login__input color-section--grey-light" required>
                 </div>
             </div>
             <div class="login__input__container">
-                <button id="signupButton" class="login__submit">Verify phone number</button>
+                <button id="signupButton" class="login__submit"><span class="en">Verify phone number</span><span
+                            class="ro">Verifica numarul de telefon</span></button>
             </div>
             <div id="loginMessage" class="login__input__container"><%= phoneMessage %></div>
         </form>
@@ -36,6 +39,17 @@
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
 <script src="../scripts/bundle.js"></script>
+<script type="application/javascript" src="../scripts/language.js"></script>
+
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 
 </html>
