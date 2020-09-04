@@ -51,7 +51,9 @@ io.on('connection', function (socket) {
     socket.userId = s.userId;
 
     bindSocketChatEvents(socket, io);
-  
+    socket.on('message', (evt) => {
+        socket.broadcast.emit('message', evt);
+    });
     socket.on('drawing', (data) => io.to(data.to).emit('drawing', data));
 
 
