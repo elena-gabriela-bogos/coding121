@@ -9,25 +9,24 @@ function getEl(id) {
 }
 function startCoding()
 
-{
+{    const editor = getEl("codeInputPane");
 
 
-
-    const editor = getEl("codeInputPane");
-
-/*
 
     var keywords = [];
     var arrayLength = python.length;
     for (var i = 0; i < arrayLength; i++) {
         keywords.push(python[i].keyword);
     }
-*/
+
     $("#codeInputPane").on("keyup", function (e) {
         const text = editor.innerHTML;
         socket.send(text);
-
-
+        if (e.keyCode == 32) {
+            for (i = 0; i < arrayLength; i++) {
+                $('#codeInputPane').highlight(keywords[i]);
+            }
+        }
 
 
     });
