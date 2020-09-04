@@ -26,7 +26,7 @@ document.getElementById("closeSessionBtn").onclick = () => {
 
 socket.on("code-button-pressed", (data) => {
     clearVideoAudioWindow();
-    clearWhiteboardWindow();
+    showCodeEditor();
 });
 
 socket.on("whiteboard-button-pressed", (data) => {
