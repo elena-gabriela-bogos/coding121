@@ -1,13 +1,13 @@
 const createMentorToggle = (mentor, status) => {
-    let statusText = "Pending";
+    let statusText = "<span class='en'>Pending</span><span class='ro' style='display: none'>In asteptare</span>";
     if (status) {
-        statusText = "Accepted";
+        statusText = "<span class='en'>Accepted</span><span class='ro' style='display: none'>Acceptat</span>";
     }
     if (document.getElementById("activeLanguage").children[1].id === "ro"){
         if (status){
-            statusText = "Acceptat";
+            statusText = "<span class='ro'>Acceptat</span><span class='en' style='display: none'>Accepted</span>";
         }else{
-            statusText = "In asteptare";
+            statusText = "<span class='ro'>In asteptare</span><span class='en' style='display: none'>Pending</span>";
         }
     }
     let result = `<div class="u-flex" style="margin-top: 2rem">
