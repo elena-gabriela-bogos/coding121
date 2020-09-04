@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
+import {phoneRouter} from "./2fa";
 
 export const socialAuthRouter = express.Router()
 
@@ -25,7 +26,7 @@ socialAuthRouter.get('/google_callback/u', passport.authenticate('googleSignUpMe
     //     console.log(err)
     // }
     try{
-        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
+        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user, en:req.session.lang});
 
     }catch (err){
         console.log(err)
@@ -37,7 +38,7 @@ socialAuthRouter.get('/google_callback/u', passport.authenticate('googleSignUpMe
 socialAuthRouter.get('/google_callback/m', passport.authenticate('googleSignUpMentor', { session: false, failureRedirect: "http://localhost:3000/signupMentor/true" }), (req, res) => {
 
     try{
-        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
+        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user, en:req.session.lang});
 
     }catch (err){
         console.log(err)
@@ -50,7 +51,7 @@ socialAuthRouter.get('/facebookSignup/u', passport.authenticate('facebookSignUpM
 
 socialAuthRouter.get('/facebook_callback/u', passport.authenticate('facebookSignUpMentee', { session: false, failureRedirect: "http://localhost:3000/signupMentee/true" }), (req, res) => {
     try{
-        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
+        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user, en:req.session.lang});
     }catch (err){
         console.log(err)
     }
@@ -61,7 +62,7 @@ socialAuthRouter.get('/facebookSignup/m', passport.authenticate('facebookSignUpM
 
 socialAuthRouter.get('/facebook_callback/m', passport.authenticate('facebookSignUpMentor', { session: false, failureRedirect: "http://localhost:3000/signupMentor/true" }), (req, res) => {
     try{
-        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user});
+        res.render(path.resolve('public/views/phoneConfirmation_social.ejs'), {"id": req.user, en:req.session.lang});
     }catch (err){
         console.log(err)
     }
