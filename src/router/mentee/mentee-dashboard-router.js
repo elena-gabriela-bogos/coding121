@@ -17,15 +17,21 @@ menteeDashboardRouter.get('/', checkAuth, checkSession, checkMentee, (req, res) 
             isMentor = true;
         }
         User.findById(req.session.userId, (err, user) => {
-            res.render(path.resolve('public/views/dashboardMentee.ejs'), {
-                name: user[0].name,
-                picture: user[0].picture,
-                id: user[0].id,
-                chatOpen: req.session.chatOpen,
-                chatPartner: req.session.chattingWith,
-                chatHistoryOpen: req.session.chatHistoryOpen,
-                mentor: isMentor
-            });
+            let picture = null;
+            if (user[0].picture) {
+                renderBasedOnPicture(req, res, user, isMentor, 'public/views/dashboardMentee.ejs', null);
+            } else {
+                res.render(path.resolve('public/views/dashboardMentee.ejs'), {
+                    name: user[0].name,
+                    picture: picture,
+                    id: user[0].id,
+                    chatOpen: req.session.chatOpen,
+                    chatPartner: req.session.chattingWith,
+                    chatHistoryOpen: req.session.chatHistoryOpen,
+                    mentor: isMentor,
+                    en: req.session.lang
+                });
+            }
         });
     })
 });
@@ -37,15 +43,21 @@ menteeDashboardRouter.get('/request', checkAuth, checkSession, checkMentee, (req
             isMentor = true;
         }
         User.findById(req.session.userId, (err, user) => {
-            res.render(path.resolve('public/views/request.ejs'), {
-                name: user[0].name,
-                picture: user[0].picture,
-                id: user[0].id,
-                chatOpen: req.session.chatOpen,
-                chatPartner: req.session.chattingWith,
-                chatHistoryOpen: req.session.chatHistoryOpen,
-                mentor: isMentor
-            });
+            let picture = null;
+            if (user[0].picture) {
+                renderBasedOnPicture(req, res, user, isMentor, 'public/views/request.ejs', null);
+            } else {
+                res.render(path.resolve('public/views/request.ejs'), {
+                    name: user[0].name,
+                    picture: picture,
+                    id: user[0].id,
+                    chatOpen: req.session.chatOpen,
+                    chatPartner: req.session.chattingWith,
+                    chatHistoryOpen: req.session.chatHistoryOpen,
+                    mentor: isMentor,
+                    en: req.session.lang
+                });
+            }
         });
     });
 });
@@ -69,16 +81,22 @@ menteeDashboardRouter.post('/request', checkAuth, checkSession, checkMentee, (re
                 isMentor = true;
             }
             User.findById(req.session.userId, (err, user) => {
-                res.render(path.resolve('public/views/request.ejs'), {
-                    id: user[0].id,
-                    name: user[0].name,
-                    picture: user[0].picture,
-                    message: "Fill in all fields",
-                    chatOpen: req.session.chatOpen,
-                    chatPartner: req.session.chattingWith,
-                    chatHistoryOpen: req.session.chatHistoryOpen,
-                    mentor: isMentor
-                });
+                let picture = null;
+                if (user[0].picture) {
+                    renderBasedOnPicture(req, res, user, isMentor, 'public/views/request.ejs', null);
+                } else {
+                    res.render(path.resolve('public/views/request.ejs'), {
+                        id: user[0].id,
+                        name: user[0].name,
+                        picture: picture,
+                        message: "Fill in all fields",
+                        chatOpen: req.session.chatOpen,
+                        chatPartner: req.session.chattingWith,
+                        chatHistoryOpen: req.session.chatHistoryOpen,
+                        mentor: isMentor,
+                        en: req.session.lang
+                    });
+                }
             });
         });
     }
@@ -96,16 +114,22 @@ menteeDashboardRouter.get("/request/:id", checkAuth, checkSession, checkMentee, 
                 } else {
                     if (request.length !== 0 && request[0].idMentee === req.session.userId) {
                         User.findById(req.session.userId, (err, user) => {
-                            res.render(path.resolve('public/views/requestDetails.ejs'), {
-                                name: user[0].name,
-                                picture: user[0].picture,
-                                id: user[0].id,
-                                request: request[0],
-                                chatOpen: req.session.chatOpen,
-                                chatPartner: req.session.chattingWith,
-                                chatHistoryOpen: req.session.chatHistoryOpen,
-                                mentor: isMentor
-                            });
+                            let picture = null;
+                            if (user[0].picture) {
+                                renderBasedOnPicture(req, res, user, isMentor, 'public/views/requestDetails.ejs', request[0]);
+                            } else {
+                                res.render(path.resolve('public/views/requestDetails.ejs'), {
+                                    name: user[0].name,
+                                    picture: picture,
+                                    id: user[0].id,
+                                    request: request[0],
+                                    chatOpen: req.session.chatOpen,
+                                    chatPartner: req.session.chattingWith,
+                                    chatHistoryOpen: req.session.chatHistoryOpen,
+                                    mentor: isMentor,
+                                    en: req.session.lang
+                                });
+                            }
                         });
                     } else {
                         res.redirect("/u/dashboard");
@@ -115,3 +139,31 @@ menteeDashboardRouter.get("/request/:id", checkAuth, checkSession, checkMentee, 
         );
     });
 });
+
+const renderBasedOnPicture = (req, res, user, isMentor, ejsPath, request) => {
+    let picture = user[0].picture;
+    if (request) {
+        res.render(path.resolve(ejsPath), {
+            name: user[0].name,
+            picture: picture,
+            id: user[0].id,
+            chatOpen: req.session.chatOpen,
+            chatPartner: req.session.chattingWith,
+            chatHistoryOpen: req.session.chatHistoryOpen,
+            mentor: isMentor,
+            request: request,
+            en: req.session.lang
+        });
+    } else {
+        res.render(path.resolve(ejsPath), {
+            name: user[0].name,
+            picture: picture,
+            id: user[0].id,
+            chatOpen: req.session.chatOpen,
+            chatPartner: req.session.chattingWith,
+            chatHistoryOpen: req.session.chatHistoryOpen,
+            mentor: isMentor,
+            en: req.session.lang
+        });
+    }
+}

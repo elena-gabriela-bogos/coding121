@@ -14,7 +14,7 @@ mailSentRouter.get('/', (req, res) => {
             }
         });
     } else {
-        res.render(path.resolve('public/views/mailSent.ejs'));
+        res.render(path.resolve('public/views/mailSent.ejs'), {en: req.session.lang});
     }
 });
 

@@ -10,7 +10,8 @@ adminDashboardRouter.get('/', checkAuth, checkAdmin, (req, res) => {
         res.render(path.resolve('public/views/dashboardAdmin.ejs'), {
             name: user[0].name,
             picture: user[0].picture,
-            id: user[0].id
+            id: user[0].id,
+            en: req.session.lang
         });
     });
 });

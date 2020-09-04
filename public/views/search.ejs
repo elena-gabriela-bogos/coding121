@@ -1,3 +1,4 @@
+<%var en;%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
@@ -19,11 +21,12 @@
 </head>
 <body>
 
+<% var chatOpen, chatPartner, chatHistoryOpen, id, name, picture; %>
 <%- include("partials/header.ejs", {relativePath:""}) %>
-<% var chatOpen, chatPartner, chatHistoryOpen, id; %>
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Find a mentor</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark en">Find a mentor</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro">Gaseste mentori</h2>
 
         <div class="grid">
             <% if(dataByName.length != 0){ %>
@@ -35,19 +38,22 @@
                                 <use xlink:href="img/sprite.svg#icon-embed2"></use>
                             </svg>
                         </div>
+
                         <div class="grid-item__text">
                             <p class="paragraph">
 
                                 Id: <%= dataByName[i].userId %><br/>
                                 Name: <%= dataByName[i].userName %><br/>
                                 Programming languages:
-                                <% for(var j=0; j<lfByName.length-1;j++){ %>
-                                 <%= lfByName[j].lfName %>,
-                                 <% } %>
-                                 <%= lfByName[lfByName.length-1].lfName %>
+                                <% for(var j = 0; j < lfByName.length - 1;j++){ %>
+                                    <%= lfByName[j].lfName %>,
+                                <% } %>
+                                <%= lfByName[lfByName.length - 1].lfName %>
                                 Experience: <%= dataByName[i].yearsOfExperience %> years <br/>
                                 <br/>
-                                <button id=dataByName[i].userId class='login__submit' onclick='openChatWindow("<%= dataByName[i].userId %>");'>Message</button>
+                                <button id=dataByName[i].userId class='login__submit'
+                                        onclick='openChatWindow("<%= dataByName[i].userId %>");'>Message
+                                </button>
 
                             </p>
                         </div>
@@ -70,11 +76,14 @@
                                 Programming language: <%= dataByLf[i].lfName %><br/>
                                 Experience: <%= dataByLf[i].yearsOfExperience %> years
                                 <br/> <br/>
-                                <button id=dataByLf[i].userId class='login__submit' onclick='openChatWindow("<%= dataByLf[i].userId %>");'>Message</button> </p>
+                                <button id=dataByLf[i].userId class='login__submit'
+                                        onclick='openChatWindow("<%= dataByLf[i].userId %>");'>Message
+                                </button>
+                            </p>
                         </div>
                     </div>
-                           
-                    <% } %>
+
+                <% } %>
             <% } %>
         </div>
     </div>
@@ -82,9 +91,18 @@
 
 <%- include("partials/footer.ejs", {relativePath:"../"}) %>
 <script src="../scripts/bundle.js"></script>
-<script src="../scripts/dashboardMentee.js"></script>
+<!--<script src="../scripts/dashboardMentee.js"></script>-->
 <%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen,mentee:true}) %>
-
+<script src="../scripts/language.js" type="application/javascript"></script>
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 
 </html>

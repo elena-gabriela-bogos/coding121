@@ -1,4 +1,4 @@
-<% var id, name, picture; %>
+<% var id, name, picture, en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,18 +30,18 @@
         <li class="nav__item">
             <div class="nav__account">
                 <div class="languages">
-                    <div class="languages__active">
+                    <div id="activeLanguage" class="languages__active">
                         <svg class="languages__chevron">
                             <use xlink:href="../img/sprite.svg#icon-chevron-down"></use>
                         </svg>
-                        <svg class="languages__icon">
+                        <svg id="ro" class="languages__icon">
                             <use xlink:href="../img/sprite.svg#icon-ro"></use>
                         </svg>
                     </div>
 
                     <div class="languages__dropdown">
-                        <a href="#" class="languages__link">
-                            <svg class="languages__icon">
+                        <a id="otherLanguage" href="#" class="languages__link">
+                            <svg id="en" class="languages__icon">
                                 <use xlink:href="../img/sprite.svg#icon-uk"></use>
                             </svg>
                         </a>
@@ -62,8 +62,9 @@
         <li class="nav__item">
             <a href="#" class="nav__link"><img src="../img/icons8-menu-24.png" alt="#"></a>
             <ul class="nav__sub-menu">
-                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>
-                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link">Log out</a></li>
+                <!--                <li class="nav__sub-item"><a href="#" class="nav__sub-link">Settings</a></li>-->
+                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link en">Log out</a></li>
+                <li class="nav__sub-item"><a href="/logout" class="nav__sub-link ro">Deconecteaza-te</a></li>
             </ul>
         </li>
     </ul>
@@ -71,13 +72,14 @@
 
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond">
-        <h2 class="heading-secondary heading-secondary--grey-dark">Mentors</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark en">Mentors</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro">Mentori</h2>
         <ul class="nav__menu">
             <li class="nav__item">
-                <a href="#" id="pendingMentors" class="nav__link">Pending</a>
+                <a href="#" id="pendingMentors" class="nav__link"><span class="ro">In asteptare</span><span class="en">Pending</span></a>
             </li>
             <li class="nav__item">
-                <a href="#" id="acceptedMentors" class="nav__link">Accepted</a>
+                <a href="#" id="acceptedMentors" class="nav__link"><span class="ro">Acceptati</span><span class="en">Accepted</span></a>
             </li>
         </ul>
         <div id="mentorList"></div>
@@ -88,6 +90,17 @@
 
 <script src="../scripts/bundle.js"></script>
 <script src="../scripts/dashboardAdmin.js"></script>
+<script type="application/javascript" src="../scripts/language.js"></script>
+
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 
 </body>
 

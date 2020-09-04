@@ -68,7 +68,7 @@ loginRouter.get('/', (req, res) => {
             }
         })
     } else {
-        res.render(path.resolve('public/views/login.ejs'));
+        res.render(path.resolve('public/views/login.ejs'), {en: req.session.lang});
     }
 });
 
@@ -110,7 +110,9 @@ loginRouter.post('/', (req, res) => {
     }
 });
 
+
 loginRouter.get('/:error',(req,res)=>{
     res.render(path.resolve('public/views/login.ejs'),{"message":"Account not connected"});
 
 })
+

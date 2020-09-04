@@ -14,7 +14,6 @@ sessionRouter.get('/', checkAuth, (req, res) => {
 
 
 sessionRouter.post('/', checkAuth, (req, res) => {
-    console.log(req.body);
     const session = new Session(req.body);
 });
 

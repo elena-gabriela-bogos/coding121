@@ -13,7 +13,7 @@ export default class LanguagesFrameworks {
                 result(err, null);
             } else {
 
-                // console.log(res.insertId);
+                console.log("here");
 
                 result(null, res.insertId);
             }

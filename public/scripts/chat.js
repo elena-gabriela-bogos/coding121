@@ -8,7 +8,12 @@ const setChatPartnerProfile = (data) => {
     const chatProfile = document.getElementById("chatProfile");
     document.getElementById("profileName").innerHTML = data.name;
     document.getElementById("userChatId").innerHTML = data.id;
-    otherUser = {id: data.id, name: data.name};
+    if (data.picture) {
+        document.getElementById("profile_picture").innerHTML = `<img class="profile_icon_message" src="${data.picture}"/>`;
+    } else {
+        document.getElementById('profile_picture').innerHTML = '<img class="profile_icon_message background_color_icon"/>';
+    }
+    otherUser = {id: data.id, name: data.name, picture: data.picture};
 }
 
 const openChatWindow = (id) => {
@@ -20,7 +25,7 @@ const openChatWindow = (id) => {
             document.getElementById("chat").style.display = "block";
             setChatPartnerProfile(response.data[0]);
             socket.emit("chat-opened", {chattingWith: response.data[0].id});
-
+console.log('hereeeeeeeeeeeee');
             const myId = document.getElementById("myId").innerHTML;
             getPreviousMessages(id, myId, updateHistoryWindow);
         })
@@ -42,18 +47,41 @@ function closeChatWindow() {
 
 const formatProfile = (profile) => {
     const date = Math.round(moment.duration(Date.now() - profile[1]["date"]).asDays());
-    return `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">
-                    <img class="profile_icon_chat background_color_icon"/>
-                    <span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
-                    <div class="message_date" style="font-size: 1rem">${date} days ago</div></span>                  
-                  </div>`;
+    let result = `<div class="profile_chat_container" onclick="openChatWindow(${profile[0]})">`;
+    if (profile[1]["picture"]) {
+        result += `<img class="profile_icon_chat" src="${profile[1]["picture"]}"/>`;
+    } else {
+        result += '<img class="profile_icon_chat background_color_icon"/>';
+    }
+    let daysText = "<span class='en'> days ago</span><span class='ro' style='display: none'> zile in urma</span>";
+    if (document.getElementById("activeLanguage").children[1].id === "ro") {
+        daysText = "<span class='en' style='display: none'> days ago</span><span class='ro'> zile in urma</span>";
+    }
+    result += `<span id="profile${profile[0]}" class="profile_name">${profile[1]["name"]}
+                    <div class="message_date" style="font-size: 1rem">${date}${daysText}</div></span>                  
+               </div>`;
+    return result;
+}
+
+const getProfile = (profile) => {
+    return axios.get(`/api/user/${profile[0]}`)
+        .then((response) => {
+            profile[1]["picture"] = response.data[0].picture;
+            return formatProfile(profile);
+        })
 }
 
 const displayProfiles = (profiles) => {
+    let promises = [];
     profiles.forEach(profile => {
-        const result = formatProfile(profile);
-        document.getElementById("chatHistoryContainer").innerHTML += result;
+        promises.push(getProfile(profile));
     });
+    Promise.all(promises).then((result) => {
+        result.forEach(profile => {
+            document.getElementById("chatHistoryContainer").innerHTML += profile;
+        })
+    });
+
 }
 
 const openChatHistory = () => {
@@ -63,7 +91,6 @@ const openChatHistory = () => {
         .then(function (response) {
             chatHistoryProfiles.style.display = "block";
             displayProfiles(response.data);
-
             getConversationsWithUnreadMessages((data) => {
                 document.getElementById("chatHistoryVisible").innerHTML = `(${data.length}) Chat`;
                 data.forEach(c => {

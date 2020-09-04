@@ -30,17 +30,23 @@ mentorDashboardRouter.get('/', checkAuth, checkSession, checkMentor, (req, res) 
                     }
                     else {
                         User.findById(req.session.userId, (err, user) => {
-                            res.render(path.resolve('public/views/dashboardMentor.ejs'),
-                                {
-                                    name: user[0].name,
-                                    picture: user[0].picture,
-                                    id: user[0].id,
-                                    chatOpen: req.session.chatOpen,
-                                    chatPartner: req.session.chattingWith,
-                                    chatHistoryOpen: req.session.chatHistoryOpen,
-                                    mentee: isMentee
-                                });
-                        });
+            let picture = null;
+            if (user[0].picture) {
+                renderBasedOnPicture(req, res, user, isMentee, 'public/views/dashboardMentor.ejs');
+            } else {
+                res.render(path.resolve('public/views/dashboardMentor.ejs'),
+                    {
+                        name: user[0].name,
+                        picture: picture,
+                        id: user[0].id,
+                        chatOpen: req.session.chatOpen,
+                        chatPartner: req.session.chattingWith,
+                        chatHistoryOpen: req.session.chatHistoryOpen,
+                        mentee: isMentee,
+                        en: req.session.lang
+                    });
+            }
+        });
                     }
                 });
 
@@ -49,3 +55,16 @@ mentorDashboardRouter.get('/', checkAuth, checkSession, checkMentor, (req, res) 
     });
 });
 
+const renderBasedOnPicture = (req, res, user, isMentee, ejsPath) => {
+    let picture = user[0].picture;
+    res.render(path.resolve(ejsPath), {
+        name: user[0].name,
+        picture: picture,
+        id: user[0].id,
+        chatOpen: req.session.chatOpen,
+        chatPartner: req.session.chattingWith,
+        chatHistoryOpen: req.session.chatHistoryOpen,
+        mentee: isMentee,
+        en: req.session.lang
+    });
+}

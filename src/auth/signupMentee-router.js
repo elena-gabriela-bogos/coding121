@@ -42,7 +42,7 @@ signupMenteeRouter.get('/', (req, res) => {
             }
         });
     } else {
-        res.render(path.resolve('public/views/signupMentee.ejs'));
+        res.render(path.resolve('public/views/signupMentee.ejs'), {en: req.session.lang});
     }
 });
 

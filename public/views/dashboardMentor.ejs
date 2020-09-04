@@ -1,4 +1,4 @@
-<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen, mentee; %>
+<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen, mentee, en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +19,9 @@
 
 <body>
 
-<%- include("partials/header.ejs", {relativePath:"../", picture:picture, name:name, mentee:mentee, mentor:false}) %>
+
+<%- include("partials/mentor-header.ejs", {relativePath:"../", picture:picture, name:name,mentee:mentee}) %>
+
 
 
 <section class="features color-section--grey-light u-vpadding">
@@ -27,8 +29,9 @@
         <div class="row row--respond">
             <ul class="nav__menu">
                 <li class="nav__item">
-                    <a  id="openRequests" class="nav__link">
-                        recommended requests based on your skills </a>
+                    <a id="openRequests" class="nav__link">
+                        <span class="en">recommended requests based on your skills</span><span class="ro">cereri recomandate be baza aptitudinilor</span>
+                    </a>
                 </li>
                 <li class="nav__item">
                 </li>
@@ -46,11 +49,19 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
 <script src="../scripts/bundle.js"></script>
 <script src="../scripts/dashboardMentor.js"></script>
-
 <!--<script src="../scripts/dashboardMentee.js"></script>-->
 
 <%- include("partials/chat.ejs", {relativePath:"../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen, mentee:false}) %>
-
+<script src="../scripts/language.js" type="application/javascript"></script>
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 
 </html>

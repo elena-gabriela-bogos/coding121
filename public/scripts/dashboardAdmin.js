@@ -3,6 +3,13 @@ const createMentorToggle = (mentor, status) => {
     if (status) {
         statusText = "Accepted";
     }
+    if (document.getElementById("activeLanguage").children[1].id === "ro"){
+        if (status){
+            statusText = "Acceptat";
+        }else{
+            statusText = "In asteptare";
+        }
+    }
     let result = `<div class="u-flex" style="margin-top: 2rem">
                     <span style="margin-right: 2rem">Status:</span><span id="mentorStatusText" style="margin-right: 2rem;font-weight: bolder" class="heading-tertiary--grey-dark">${statusText}</span>
                     <label class="switch">`;
@@ -15,16 +22,23 @@ const createMentorToggle = (mentor, status) => {
     return result;
 }
 
-const createMentorElement = (mentor, status) => {
-    let result = `<div id=${mentor.id} class='grid__4 grid-item mentor'>` +
-        "<div class='grid-item__circle grid-item__circle--1'>" +
-        "<svg class='grid-item__icon'>" +
-        "<use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>" +
-        "<div class='grid-item__text'>" +
-        `<p class= 'mentor_name heading-tertiary--grey-dark' >${mentor.name}</p><p class='mentor_details'>${mentor.details}</p> `;
-    result += createMentorToggle(mentor, status);
-    result += `</div></div>`;
-    return result;
+const getMentor = (mentor, status) => {
+    return axios.get(`/api/user/${mentor.id}`)
+        .then((response) => {
+            console.log(mentor);
+            let result = `<div id=${mentor.id} class='grid__4 grid-item mentor'>`;
+            if (response.data[0].picture) {
+                result += `<div class='grid-item__circle'><img class="grid-item__circle" src="${response.data[0].picture}"/></div>`;
+            } else {
+                result += "<div class='grid-item__circle grid-item__circle--1'><svg class='grid-item__icon'><use xlink:href='../../../img/sprite.svg#icon-embed2'></use></svg></div>";
+            }
+            result += "<div class='grid-item__text'>" +
+                `<p class='paragraph heading-tertiary--grey-dark'>${mentor.name}</p>
+                <p class='mentor_details' style='margin-bottom: 1rem'>${mentor.details}</p>`;
+            result += createMentorToggle(mentor, status);
+            result += `</div></div>`;
+            return result;
+        });
 }
 
 const displayMentors = (mentors, status) => {
@@ -36,19 +50,26 @@ const displayMentors = (mentors, status) => {
         newRow = true;
         result += "<div class='grid'>";
     }
+    let promises = [];
     mentors.forEach(mentor => {
-        result += createMentorElement(mentor, status);
+        promises.push(getMentor(mentor, status));
     });
-    if (newRow) {
-        result += "</div>";
-    }
-    mentorList.innerHTML = result;
+    Promise.all(promises).then((results) => {
+        results.forEach(mentor => {
+            result += mentor;
+        })
+        if (newRow) {
+            result += "</div>";
+        }
+        mentorList.innerHTML = result;
+    })
 }
 
 const getMentors = (status) => {
     axios.get(`/api/mentor?validStatus=${status}`)
         .then(function (response) {
             displayMentors(response.data, status);
+            console.log(response.data);
         })
         .catch(function (error) {
             console.log(error);

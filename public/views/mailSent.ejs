@@ -1,3 +1,4 @@
+<%var en;%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,10 +19,11 @@
     <div class="row">
         <div class="grid">
             <div class="grid__6">
-                <h1 class="heading-primary heading-primary--main">Next step: Confirm your email address</h1>
-<!--                <div class="nav__log-in">-->
-<!--                    <a href="/login" class="nav__log-in-btn">Get help now</a>-->
-<!--                </div>-->
+                <h1 class="heading-primary heading-primary--main en">Next step: Confirm your email address</h1>
+                <h1 class="heading-primary heading-primary--main ro">Urmatorul pas: Confirma adresa de email</h1>
+                <!--                <div class="nav__log-in">-->
+                <!--                    <a href="/login" class="nav__log-in-btn">Get help now</a>-->
+                <!--                </div>-->
             </div>
             <div class="grid__6">
                 <img class="header__img" src="img/mailSent.jpg" alt="">
@@ -34,6 +36,17 @@
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
 <script src="scripts/bundle.js"></script>
+<script type="application/javascript" src="scripts/language.js"></script>
+<script src="../scripts/language.js" type="application/javascript"></script>
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 
 </html> `

@@ -12,6 +12,11 @@ userRouter.get('/status', checkAuth, (req, res) => {
     }
 });
 
+userRouter.post('/language', (req, res) => {
+    req.session.lang = req.body.lang;
+    res.send();
+});
+
 userRouter.get('/', checkAuth, (req, res) => {
     User.findAll((err, user) => {
         if (err) {
@@ -37,7 +42,6 @@ userRouter.post('/', checkAuth, (req, res) => {
 
 userRouter.get('/:id', checkAuth, (req, res) => {
     User.findById(req.params.id, function (err, user) {
-
         if (err) {
             res.send(err);
         } else {

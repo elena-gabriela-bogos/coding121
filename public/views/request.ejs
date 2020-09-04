@@ -1,4 +1,4 @@
-<% var id, picture, name, message, chatOpen, chatPartner, chatHistory, mentor; %>
+<% var id, picture, name, message, chatOpen, chatPartner, chatHistory, mentor, en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,22 +24,31 @@
 <section class="features color-section--grey-light u-vpadding">
     <div class="row row--respond center-align">
         <a href="/u/dashboard"><img style="margin-bottom: 2rem" src="../../img/icons8-back-26.png"></a>
-        <h2 class="heading-secondary heading-secondary--grey-dark">Post a mentorship request</h2>
-        <div style="margin-bottom: 3rem">Let our mentors know what you need help with. Once your request is posted, you
+        <h2 class="heading-secondary heading-secondary--grey-dark en">Post a mentorship request</h2>
+        <h2 class="heading-secondary heading-secondary--grey-dark ro">Posteaza o cerere de mentorat</h2>
+        <div class="en" style="margin-bottom: 3rem">Let our mentors know what you need help with. Once your request is
+            posted, you
             can check out mentors'
             profiles and
             chat with them to determine a good fit.
         </div>
+        <div class="ro" style="margin-bottom: 3rem">Anunțați mentorii noștri cu ce aveți nevoie de ajutor. Odată ce
+            solicitarea dvs. este postată, veti putea verifica profilul mentorilor
+            și sa discutați cu ei pentru a stabili o potrivire bună.
+        </div>
         <form id="requestForm" class="u-flex-column" action="/u/dashboard/request" method="post">
-            <h3 class="heading-secondary--grey-dark request__form__input">1. Tell us about what you need help
+            <h3 class="heading-secondary--grey-dark request__form__input en">1. Tell us about what you need help
                 with</h3>
+            <h3 class="heading-secondary--grey-dark request__form__input ro">1. Spune-ne cu ce te putem ajuta</h3>
             <textarea id="requestDescription" name="description"
                       class="color-section--grey-light request__form__input"></textarea>
-            <h3 class="heading-secondary--grey-dark request__form__input">2. Technologies you need help with</h3>
+            <h3 class="heading-secondary--grey-dark request__form__input en">2. Technologies you need help with</h3>
+            <h3 class="heading-secondary--grey-dark request__form__input ro">2. Tehnologiile folosite</h3>
             <select size="5" multiple id="requestSkills" name="skills[]"
                     class="color-section--grey-light request__form__input">
             </select>
-            <button id="requestButton" class="login__submit">Submit request</button>
+            <button id="requestButton" class="login__submit"><span class="en">Submit request</span><span class="ro">Posteaza cererea</span>
+            </button>
             <div style="color: red"><%= message %></div>
         </form>
     </div>
@@ -51,5 +60,15 @@
 <script src="../../scripts/request.js"></script>
 
 <%- include("partials/chat.ejs", {relativePath:"../../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen,mentee:true}) %>
+<script src="../../scripts/language.js" type="application/javascript"></script>
+<% if (en === "en"){ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "en");
+    </script>
+<% }else{ %>
+    <script>
+        toggleLanguages(document.getElementById("activeLanguage").children[1].id, "ro");
+    </script>
+<% } %>
 </body>
 </html>
