@@ -14,18 +14,38 @@ mentorDashboardRouter.get('/', checkAuth, checkSession, checkMentor, (req, res) 
         if (mentee.length > 0) {
             isMentee = true;
         }
-        User.findById(req.session.userId, (err, user) => {
-            res.render(path.resolve('public/views/dashboardMentor.ejs'),
-                {
-                    name: user[0].name,
-                    picture: user[0].picture,
-                    id: user[0].id,
-                    chatOpen: req.session.chatOpen,
-                    chatPartner: req.session.chattingWith,
-                    chatHistoryOpen: req.session.chatHistoryOpen,
-                    mentee: isMentee
+        Mentor.findById(req.session.userId,(err,mentor)=>{
+                User.findById(req.session.userId, (err, user) => {
+                    if(mentor.length >0 && mentor[0].valid === false) {
+                        res.render(path.resolve('public/views/setUpMentor.ejs'),
+                            {
+                                name: user[0].name,
+                                picture: user[0].picture,
+                                id: user[0].id,
+                                chatOpen: req.session.chatOpen,
+                                chatPartner: req.session.chattingWith,
+                                chatHistoryOpen: req.session.chatHistoryOpen,
+                                mentee: isMentee
+                            });
+                    }
+                    else {
+                        User.findById(req.session.userId, (err, user) => {
+                            res.render(path.resolve('public/views/dashboardMentor.ejs'),
+                                {
+                                    name: user[0].name,
+                                    picture: user[0].picture,
+                                    id: user[0].id,
+                                    chatOpen: req.session.chatOpen,
+                                    chatPartner: req.session.chattingWith,
+                                    chatHistoryOpen: req.session.chatHistoryOpen,
+                                    mentee: isMentee
+                                });
+                        });
+                    }
                 });
-        });
+
+        })
+
     });
 });
 

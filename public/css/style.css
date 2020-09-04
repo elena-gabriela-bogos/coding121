@@ -2526,7 +2526,9 @@ input:checked + .slide:before {
     background-image: url(../img/social-facebook.png);
 }
 
-.RightPanel__StyledInput:last-child{
+.RightPanel__StyledInput:last-child {
+
+}
 
 .call_button {
     font-family: inherit;
@@ -2687,6 +2689,10 @@ video {
     margin-top: 3rem;
 }
 
+#LFList{
+    margin-top: 3rem;
+}
+
 .mentor_name {
     font-size: 2rem;
     font-weight: bolder;
@@ -2695,5 +2701,10 @@ video {
 .mentor_details {
     font-size: 1.5rem;
     margin-top: 2rem;
+}
+
+.idk{
+    margin-top: 25px;
+    padding-top: 100px;
 }
 

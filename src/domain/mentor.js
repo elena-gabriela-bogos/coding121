@@ -21,6 +21,7 @@ export default class Mentor {
         });
     };
 
+
     static findAll(result) {
         dbConn.query("SELECT * from mentor", function (err, res) {
             if (err) {

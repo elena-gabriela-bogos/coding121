@@ -20,6 +20,17 @@ export default class LanguagesFrameworks {
         });
     };
 
+    static findByName(name, result) {
+        dbConn.query("SELECT * from languages_frameworks where name = ? ", name, function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
+
     static findAll(result) {
         dbConn.query("SELECT * from languages_frameworks", function (err, res) {
             if (err) {

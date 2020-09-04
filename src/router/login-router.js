@@ -4,12 +4,13 @@ import User from "../domain/user";
 import Mentor from "../domain/mentor";
 import passport from "passport";
 import Admin from "../domain/admin";
+import {signupMentorRouter} from "../auth/signupMentor-router";
 
 export const loginRouter = express.Router()
 
 loginRouter.get('/googleLogin', passport.authenticate('googleLogin', { scope: ['email', 'profile'] }));
 
-loginRouter.get('/callback', passport.authenticate('googleLogin', { session: false, failureRedirect: "http://localhost:3000/login/true" }), (req, res) => {
+loginRouter.get('/google_callback', passport.authenticate('googleLogin', { session: false, failureRedirect: "http://localhost:3000/login/true" }), (req, res) => {
     try{
         req.session.loggedin = true;
         req.session.username = req.user[0].mail;
@@ -108,3 +109,8 @@ loginRouter.post('/', (req, res) => {
         res.render(path.resolve('public/views/login.ejs'), {"message": "Invalid email or password"});
     }
 });
+
+loginRouter.get('/:error',(req,res)=>{
+    res.render(path.resolve('public/views/login.ejs'),{"message":"Account not connected"});
+
+})

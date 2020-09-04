@@ -62,3 +62,8 @@ signupMentorRouter.post("/", async (req, res) => {
 
     }
 });
+
+signupMentorRouter.get('/:error',(req,res)=>{
+    res.render(path.resolve('public/views/signupMentor.ejs'),{"message":"Email already used"});
+
+})
