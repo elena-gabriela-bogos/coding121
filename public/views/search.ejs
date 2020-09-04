@@ -1,4 +1,4 @@
-<%var en;%>
+<% var en; %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +77,9 @@
                                 Experience: <%= dataByLf[i].yearsOfExperience %> years
                                 <br/> <br/>
                                 <button id=dataByLf[i].userId class='login__submit'
-                                        onclick='openChatWindow("<%= dataByLf[i].userId %>");'>Message
+                                        onclick='openChatWindow("<%= dataByLf[i].userId %>");'><span
+                                            class="en">Message</span>
+                                    <span class="ro">Trimite mesaj</span>
                                 </button>
                             </p>
                         </div>
