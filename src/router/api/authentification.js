@@ -35,7 +35,15 @@ export const checkMentor = (req, res, next) => {
         if (user.length === 0) {
             res.redirect("/login");
         } else {
-            next();
+            if(user[0].valid ===2){
+                res.redirect("/setUpMentor");
+            }
+            else if(user[0].valid ===0){
+                res.redirect("/setUpMentor/pending")
+            }
+            else{
+                next();
+            }
         }
     });
 }

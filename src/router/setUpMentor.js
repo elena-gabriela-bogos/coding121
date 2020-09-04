@@ -5,12 +5,17 @@ import {dbConn} from "../../config/db.config";
 import {checkAuth} from "./api/authentification";
 import {checkSession} from "./api/session-check";
 import LanguagesFrameworks from "../domain/languages-frameworks";
+import Mentor from "../domain/mentor";
 
 
 export const setUpMentorRouter = express.Router();
 
 setUpMentorRouter.get('/', checkAuth, checkSession, (req, res) => {
     res.render(path.resolve('public/views/setUpMentor.ejs'));
+});
+
+setUpMentorRouter.get('/pending', checkAuth, checkSession, (req, res) => {
+    res.render(path.resolve('public/views/pendingMentor.ejs'));
 });
 
 
@@ -38,6 +43,9 @@ setUpMentorRouter.post('/submitSkills',checkAuth,function(req, res){
             })
 
         });
+    })
+    Mentor.updateStatus(req.session.userId,0,(err,mentor)=>{
+
     })
     res.send();
 
