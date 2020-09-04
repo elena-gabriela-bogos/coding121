@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
 
     bindSocketChatEvents(socket, io);
     socket.on('message', (evt) => {
-        socket.broadcast.emit('message', evt);
+        io.to(socket.handshake.session.partnerId).emit('message',evt);
     });
     socket.on('drawing', (data) => io.to(data.to).emit('drawing', data));
 
