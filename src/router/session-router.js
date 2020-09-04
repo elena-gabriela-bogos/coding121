@@ -7,10 +7,6 @@ import User from "../domain/user";
 
 export const sessionRouter = express.Router();
 
-sessionRouter.get('/', checkAuth, (req, res) => {
-    res.render(path.resolve('public/views/menteeSessionHistory.ejs'));
-
-});
 
 
 sessionRouter.post('/', checkAuth, (req, res) => {
