@@ -4,6 +4,7 @@ import User from "../domain/user";
 import Mentor from "../domain/mentor";
 import passport from "passport";
 import Admin from "../domain/admin";
+import {signupMentorRouter} from "../auth/signupMentor-router";
 
 export const loginRouter = express.Router()
 
@@ -114,5 +115,4 @@ loginRouter.get('/:error',(req,res)=>{
     res.render(path.resolve('public/views/login.ejs'),{"message":"Account not connected"});
 
 })
-
 

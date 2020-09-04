@@ -1,0 +1,158 @@
+<% var id, name, picture, chatOpen, chatPartner, chatHistoryOpen, mentee; %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-Labs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,800;1,900&display=swap"
+          rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script  type="text/javascript" src="../scripts/typeahead.min.js"></script>
+
+    <style type="text/css">
+        .details{
+            font-family: arial,sans-serif;
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #CCCCCC;
+            border-radius: 8px;
+            font-size: 16px;
+            height: 90px;
+            line-height: 30px;
+            outline: medium none;
+            padding: 8px 12px;
+            width: 396px;
+            resize:none;
+        }
+        .bs-example{
+            font-family: sans-serif;
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+        }
+        .typeahead, .tt-query, .tt-hint {
+            border: 2px solid #CCCCCC;
+            border-radius: 8px;
+            font-size: 15px;
+            height: 30px;
+            line-height: 30px;
+            outline: medium none;
+            padding: 8px 12px;
+            width: 396px;
+        }
+        .typeahead {
+            background-color: #FFFFFF;
+        }
+        .typeahead:focus {
+            border: 2px solid #0097CF;
+        }
+        .tt-query {
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        }
+        .tt-hint {
+            color: #999999;
+        }
+        .tt-dropdown-menu {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 12px;
+            padding: 8px 0;
+            width: 422px;
+        }
+        .tt-suggestion {
+            font-size: 24px;
+            line-height: 24px;
+            padding: 3px 20px;
+        }
+        .tt-suggestion.tt-is-under-cursor {
+            background-color: #0097CF;
+            color: #FFFFFF;
+        }
+        .tt-suggestion p {
+            margin: 0;
+        }
+        .flex {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<%- include("partials/header.ejs", {relativePath:"../", picture:picture, name:name, mentee:mentee, mentor:false}) %>
+
+
+<section class="features color-section--grey-light u-vpadding">
+    <section class="features color-section--grey-light u-vpadding">
+        <div class="row row--respond">
+<!--            <ul class="nav__menu">-->
+<!--                <li class="nav__item">-->
+<!--                    <a  id="openRequests" class="nav__link">-->
+<!--                        It's time to set up you mentor account </a>-->
+<!--                </li>-->
+<!--                <li class="nav__item">-->
+
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <div id="suggestedRequests"></div>-->
+            <div class="page-header">
+                <h1>Add something about you <small></small></h1>
+            </div>
+            <div class="signup__input__container">
+                <div>
+                    <textarea type="text" id="details" name="details" class="details" rows="10" cols="50"></textarea>
+                </div>
+            </div>
+            <div class="page-header">
+                <h1>Add new expertise <small>(ex: Java,Python,Spring..)</small></h1>
+            </div>
+            <div class="bs-example">
+
+                <div class="flex">
+                    <input id="search" type="text" name="typeahead" class="typeahead tt-query" autocomplete="off" spellcheck="false" placeholder="...">
+
+                    <div class="login__input__container">
+                        <button onclick="add_LF()" class="login__submit" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div id="LFList"></div>
+            <div class="login__input__container idk">
+                <button onclick="submitLF(<%= id%>)" class="login__submit" >Submit</button>
+            </div>
+        </div>
+
+
+    </section>
+
+</section>
+
+<%- include("partials/footer.ejs", {relativePath:"../"}) %>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script> -->
+<script type="text/javascript" src="../scripts/search.js"></script>
+<script src="../scripts/bundle.js"></script>
+<!--<script src="../scripts/dashboardMentor.js"></script>-->
+
+<!--<script src="../scripts/dashboardMentee.js"></script>-->
+
+<%- include("partials/chat.ejs", {relativePath:"../", chatOpen:chatOpen, chatPartner:chatPartner, chatHistoryOpen:chatHistoryOpen, mentee:false}) %>
+
+</body>
+
+</html>

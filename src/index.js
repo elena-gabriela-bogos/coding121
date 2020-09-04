@@ -6,6 +6,7 @@ import {menteeDashboardRouter} from "./router/mentee/mentee-dashboard-router";
 import cors from 'cors';
 import session from 'express-session';
 import {config} from 'dotenv';
+config();
 import './passport'
 import {userRouter} from "./router/api/user-router";
 import {welcomePageRouter} from "./router/welcome-router";
@@ -26,7 +27,7 @@ import {mentorSearchRouter} from "./router/mentor-search-router";
 import {suggestedRequestRouter} from "./router/suggested-request-router";
 import {sessionRouter} from "./router/session-router";
 import {languagesFrameworksRouter} from "./router/api/languages-frameworks-router";
-
+import {setUpMentorRouter} from "./router/setUpMentor";
 
 import http from "http";
 import socketIO from "socket.io";
@@ -38,7 +39,7 @@ import {bindSocketButtonEvents} from "./router/buttons";
 import {sessionApiRouter} from "./router/api/session-api-router";
 import {adminDashboardRouter} from "./router/admin-dashboard-router";
 
-config();
+
 const app = express();
 const server = http.createServer(app);
 const port = 3000;
@@ -105,6 +106,7 @@ app.use('/api/request', requestApiRouter);
 app.use('/api/skills', languagesFrameworksRouter);
 app.use('/api/message', messageRouter);
 app.use('/socialAuth',socialAuthRouter);
+app.use('/setUpMentor',setUpMentorRouter);
 
 app.use('/session', sessionRouter);
 app.use('/admin', adminDashboardRouter);

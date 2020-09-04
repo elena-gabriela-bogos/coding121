@@ -11,8 +11,8 @@ import Mentor from "./domain/mentor";
 
 
 // get confidential credentials fron environment file
-const { JWT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL } = process.env
-console.log(GOOGLE_CLIENT_ID);
+const { JWT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, CLIENT_REDIRECT_URL,FACEBOOK_CLIENT_ID,FACEBOOK_CLIENT_SECRET } = process.env
+console.log(JWT_SECRET,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,CLIENT_REDIRECT_URL,FACEBOOK_CLIENT_ID,FACEBOOK_CLIENT_SECRET);
 // load Google Auth Strategy into the app
 passport.use(
     "googleSignUpMentee",new GoogleStrategy(
@@ -356,7 +356,7 @@ passport.use("facebookLogin",new FacebookStrategy(
                             "phone": user[0].phone,
                             "password": user[0].password,
                             "picture": profile?.photos[0]?.value,
-                            "gid": profile.id,
+                            "gid": user[0].gid,
                             "fid": user[0].fid
                         }), (err, res) => {
                             return done(null, user)
